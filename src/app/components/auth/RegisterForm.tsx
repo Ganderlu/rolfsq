@@ -3,18 +3,21 @@ export default function RegisterPersonalInfoPage() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-[#050B18] via-[#07162A] to-[#050B18] flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-[420px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl p-6 sm:p-8">
-
         {/* Logo */}
         <div className="flex justify-center mb-4">
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-r from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold">P</div>
-            <span className="text-white font-semibold tracking-wide">PRIME MAX <span className="text-white/70">CAPITAL</span></span>
+            <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold">
+              R
+            </div>
+            <span className="text-white font-semibold tracking-wide">
+              ROLFSQ <span className="text-white/70">INVEST</span>
+            </span>
           </div>
         </div>
 
         {/* Header */}
         <h1 className="text-center text-2xl font-semibold text-white mb-1">
-          Join <span className="text-cyan-400">Prime Max Capital</span>
+          Join <span className="text-cyan-400">Rolfsq</span>
         </h1>
         <p className="text-center text-sm text-white/60 mb-5">
           Start your professional trading journey
@@ -23,7 +26,9 @@ export default function RegisterPersonalInfoPage() {
         {/* Community badge */}
         <div className="flex justify-center mb-6">
           <div className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs text-cyan-300">
-            👥 1M+ Traders<br /><span className="text-white/50">Community</span>
+            👥 1M+ Traders
+            <br />
+            <span className="text-white/50">Community</span>
           </div>
         </div>
 
@@ -36,9 +41,13 @@ export default function RegisterPersonalInfoPage() {
 
         {/* Section header */}
         <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-3 mb-5 flex gap-3 items-center">
-          <div className="h-9 w-9 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">👤</div>
+          <div className="h-9 w-9 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+            👤
+          </div>
           <div>
-            <p className="text-sm font-medium text-white">Personal Information</p>
+            <p className="text-sm font-medium text-white">
+              Personal Information
+            </p>
             <p className="text-xs text-white/60">Create your trading profile</p>
           </div>
         </div>
@@ -46,19 +55,39 @@ export default function RegisterPersonalInfoPage() {
         {/* Form */}
         <form action={saveStep1} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input name="username" label="Trading Username" placeholder="Choose username" />
-            <Input name="fullName" label="Full Name" placeholder="Enter full name" />
+            <Input
+              name="username"
+              label="Trading Username"
+              placeholder="Choose username"
+            />
+            <Input
+              name="fullName"
+              label="Full Name"
+              placeholder="Enter full name"
+            />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input name="email" label="Email Address" placeholder="your.email@example.com" type="email" />
-            <Input name="phone" label="Phone Number" placeholder="+1 (555) 123-4567" />
+            <Input
+              name="email"
+              label="Email Address"
+              placeholder="your.email@example.com"
+              type="email"
+            />
+            <Input
+              name="phone"
+              label="Phone Number"
+              placeholder="+1 (555) 123-4567"
+            />
           </div>
 
           {/* Footer */}
           <div className="flex items-center justify-between pt-4">
             <span className="text-xs text-white/50">Step 1 of 3</span>
-            <button type="submit" className="rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2 text-sm font-semibold text-white hover:opacity-90">
+            <button
+              type="submit"
+              className="rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2 text-sm font-semibold text-white hover:opacity-90"
+            >
               Continue →
             </button>
           </div>
@@ -66,7 +95,8 @@ export default function RegisterPersonalInfoPage() {
 
         {/* Sign in */}
         <p className="text-center text-xs text-white/50 mt-5">
-          Already have an account? <span className="text-indigo-400">Sign in here</span>
+          Already have an account?{" "}
+          <span className="text-indigo-400">Sign in here</span>
         </p>
 
         {/* Security footer */}
@@ -77,17 +107,30 @@ export default function RegisterPersonalInfoPage() {
         </div>
 
         <p className="text-center text-[10px] text-white/30 mt-4">
-          © 2026 Prime Max Capital. All rights reserved. Licensed and regulated trading platform.
+          © 2026 Rolfsq Invest. All rights reserved. Licensed and regulated
+          trading platform.
         </p>
       </div>
     </div>
   );
 }
 
-function Step({ number, label, sub, active }: { number: number; label: string; sub: string; active?: boolean }) {
+function Step({
+  number,
+  label,
+  sub,
+  active,
+}: {
+  number: number;
+  label: string;
+  sub: string;
+  active?: boolean;
+}) {
   return (
     <div className="flex flex-col items-center text-center gap-1">
-      <div className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-semibold ${active ? "bg-blue-500 text-white" : "bg-white/10 text-white/50"}`}>
+      <div
+        className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-semibold ${active ? "bg-blue-500 text-white" : "bg-white/10 text-white/50"}`}
+      >
         {number}
       </div>
       <span className="text-[11px] text-white">{label}</span>
@@ -135,7 +178,6 @@ function Input({
     </div>
   );
 }
-
 
 // "use client";
 
