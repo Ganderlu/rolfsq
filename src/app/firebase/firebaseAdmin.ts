@@ -7,19 +7,21 @@ const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
 const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
 
 if (!projectId || !clientEmail || !privateKey) {
-  throw new Error("🔥 Firebase Admin env vars are missing");
+  console.warn("🔥 Firebase Admin env vars are missing");
 }
 
 const adminApp =
-  getApps().length === 0
-    ? initializeApp({
-        credential: cert({
-          projectId,
-          clientEmail,
-          privateKey,
-        }),
-      })
-    : getApps()[0];
+  projectId && clientEmail && privateKey
+    ? (getApps().length === 0
+        ? initializeApp({
+            credential: cert({
+              projectId,
+              clientEmail,
+              privateKey,
+            }),
+          })
+        : getApps()[0])
+    : null;
 
-export const adminAuth = getAuth(adminApp);
-export const adminDb = getFirestore(adminApp);
+export const adminAuth = adminApp ? getAuth(adminApp) : ({} as any);
+export const adminDb = adminApp ? getFirestore(adminApp) : ({} as any);
