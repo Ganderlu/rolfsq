@@ -2,6 +2,8 @@ import UsersClient from "./UsersClient";
 import { adminDb } from "../../lib/firebaseAdmin";
 import { QueryDocumentSnapshot } from "firebase-admin/firestore";
 
+export const dynamic = "force-dynamic";
+
 export default async function ManageUsersPage() {
   const snapshot = await adminDb
     .collection("users")
