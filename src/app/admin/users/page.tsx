@@ -1,5 +1,6 @@
 import UsersClient from "./UsersClient";
 import { adminDb } from "../../lib/firebaseAdmin";
+import { QueryDocumentSnapshot } from "firebase-admin/firestore";
 
 export default async function ManageUsersPage() {
   const snapshot = await adminDb
@@ -8,7 +9,7 @@ export default async function ManageUsersPage() {
     .limit(10)
     .get();
 
-  const users = snapshot.docs.map((doc) => {
+  const users = snapshot.docs.map((doc: QueryDocumentSnapshot) => {
     const data = doc.data();
     return {
       id: doc.id,
