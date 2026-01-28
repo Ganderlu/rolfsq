@@ -39,8 +39,8 @@ export default function WithdrawPage() {
       {/* GATEWAY GRID */}
       <Grid container spacing={2}>
         {gateways.map((name) => (
-          <Grid item xs={12} sm={6} lg={4} key={name}>
-            <GatewayCard title="USDT (TRC20)" balance={usdtBalance}/>
+          <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={name}>
+            <GatewayCard title={name} balance={usdtBalance}/>
           </Grid>
         ))}
       </Grid>

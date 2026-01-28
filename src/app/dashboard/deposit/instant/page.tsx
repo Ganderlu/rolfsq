@@ -101,7 +101,7 @@ export default function DepositPage() {
       {/* Main Content */}
       <Grid container spacing={3} justifyContent="center">
         {/* Deposit Form */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card
             sx={{
               background: "#0c1324",
@@ -202,7 +202,7 @@ export default function DepositPage() {
         </Grid>
 
         {/* Right Side */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           {/* Payment Methods */}
           <Card
             sx={{

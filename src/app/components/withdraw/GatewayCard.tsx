@@ -5,7 +5,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import WithdrawModal from "./WithdrawModal";
 import { useState } from "react";
 
-export default function GatewayCard({ balance }: { balance: number }) {
+export default function GatewayCard({ title, balance }: { title: string; balance: number }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -17,7 +17,7 @@ export default function GatewayCard({ balance }: { balance: number }) {
           borderRadius: 2,
         }}
       >
-        <Typography fontWeight={600}>USDT (TRC20)</Typography>
+        <Typography fontWeight={600}>{title}</Typography>
 
         <Typography mt={1} fontSize={14}>
           Balance: ${balance}

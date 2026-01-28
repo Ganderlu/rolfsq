@@ -28,7 +28,7 @@ export default function FeatureCards() {
         {features.map((f, i) => {
           const Icon = f.icon;
           return (
-            <Grid item xs={12} md={4} key={i}>
+            <Grid size={{ xs: 12, md: 4 }} key={i}>
               <Paper
                 elevation={0}
                 sx={{

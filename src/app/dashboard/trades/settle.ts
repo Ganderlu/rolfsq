@@ -1,10 +1,14 @@
 "use server";
 
+import { adminDb } from "../../lib/firebaseAdmin";
+import { FieldValue } from "firebase-admin/firestore";
+
 export async function settleTrade(tradeId: string, closePrice: number) {
   const tradeRef = adminDb.doc(`trades/${tradeId}`);
   const tradeSnap = await tradeRef.get();
   const trade = tradeSnap.data();
 
+  if (!trade) return;
   if (trade.status !== "open") return;
 
   const won =
@@ -14,14 +18,11 @@ export async function settleTrade(tradeId: string, closePrice: number) {
   const profit = won ? trade.amount * trade.payout : 0;
 
   const userRef = adminDb.doc(`users/${trade.uid}`);
-  const balanceField =
-    trade.mode === "demo" ? "balanceDemo" : "balanceLive";
+  const balanceField = trade.mode === "demo" ? "balanceDemo" : "balanceLive";
 
   if (won) {
     await userRef.update({
-      [balanceField]: adminDb.FieldValue.increment(
-        trade.amount + profit
-      ),
+      [balanceField]: FieldValue.increment(trade.amount + profit),
     });
   }
 

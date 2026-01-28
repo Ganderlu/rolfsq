@@ -1,17 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  collection,
-  getCountFromServer,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "@/app/firebase/firebaseClient";
 import AdminCharts from "./../../components/AdminCharts";
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -26,29 +20,7 @@ export default function AdminDashboard() {
   const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
-  const unsubDeposits = onSnapshot(collection(db, "deposits"), (snap) => {
-    const map: any = {};
-
-    snap.forEach((doc) => {
-      const d = doc.data();
-      if (!d.createdAt) return;
-
-      const date = d.createdAt.toDate().toLocaleDateString();
-      map[date] = map[date] || { date, deposits: 0, withdrawals: 0 };
-
-      if (d.status === "approved") {
-        map[date].deposits += Number(d.amount || 0);
-      }
-    });
-
-    setChartData((prev) =>
-      Object.values({ ...Object.fromEntries(prev.map((p: any) => [p.date, p])), ...map })
-    );
-  });
-
-  const unsubWithdrawals = onSnapshot(
-    collection(db, "withdrawals"),
-    (snap) => {
+    const unsubDeposits = onSnapshot(collection(db, "deposits"), (snap) => {
       const map: any = {};
 
       snap.forEach((doc) => {
@@ -59,128 +31,108 @@ export default function AdminDashboard() {
         map[date] = map[date] || { date, deposits: 0, withdrawals: 0 };
 
         if (d.status === "approved") {
-          map[date].withdrawals += Number(d.amount || 0);
+          map[date].deposits += Number(d.amount || 0);
         }
       });
 
       setChartData((prev) =>
-        Object.values({ ...Object.fromEntries(prev.map((p: any) => [p.date, p])), ...map })
+        Object.values({
+          ...Object.fromEntries(prev.map((p: any) => [p.date, p])),
+          ...map,
+        }),
       );
-    }
-  );
-
-  return () => {
-    unsubDeposits();
-    unsubWithdrawals();
-  };
-}, []);
-
-useEffect(() => {
-  const unsubUsers = onSnapshot(collection(db, "users"), (snap) => {
-    let balance = 0;
-    snap.forEach((d) => {
-      balance += Number(d.data().usdtBalance || 0);
     });
 
-    setStats((s) => ({
-      ...s,
-      users: snap.size,
-      totalBalance: balance,
-    }));
-  });
+    const unsubWithdrawals = onSnapshot(
+      collection(db, "withdrawals"),
+      (snap) => {
+        const map: any = {};
 
-  const unsubDeposits = onSnapshot(collection(db, "deposits"), (snap) => {
-    let total = 0;
-    let pending = 0;
+        snap.forEach((doc) => {
+          const d = doc.data();
+          if (!d.createdAt) return;
 
-    snap.forEach((d) => {
-      total++;
-      if (d.data().status === "pending") pending++;
-    });
+          const date = d.createdAt.toDate().toLocaleDateString();
+          map[date] = map[date] || { date, deposits: 0, withdrawals: 0 };
 
-    setStats((s) => ({
-      ...s,
-      deposits: total,
-      pendingDeposits: pending,
-    }));
-  });
+          if (d.status === "approved") {
+            map[date].withdrawals += Number(d.amount || 0);
+          }
+        });
 
-  const unsubWithdrawals = onSnapshot(
-    collection(db, "withdrawals"),
-    (snap) => {
-      let total = 0;
-      let pending = 0;
-      let approved = 0;
+        setChartData((prev) =>
+          Object.values({
+            ...Object.fromEntries(prev.map((p: any) => [p.date, p])),
+            ...map,
+          }),
+        );
+      },
+    );
 
+    return () => {
+      unsubDeposits();
+      unsubWithdrawals();
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubUsers = onSnapshot(collection(db, "users"), (snap) => {
+      let balance = 0;
       snap.forEach((d) => {
-        total++;
-        if (d.data().status === "pending") pending++;
-        if (d.data().status === "approved") approved++;
+        balance += Number(d.data().usdtBalance || 0);
       });
 
       setStats((s) => ({
         ...s,
-        withdrawals: total,
-        pendingWithdrawals: pending,
-        approvedWithdrawals: approved,
+        users: snap.size,
+        totalBalance: balance,
       }));
-    }
-  );
+    });
 
-  return () => {
-    unsubUsers();
-    unsubDeposits();
-    unsubWithdrawals();
-  };
-}, []);
+    const unsubDeposits = onSnapshot(collection(db, "deposits"), (snap) => {
+      let total = 0;
+      let pending = 0;
 
+      snap.forEach((d) => {
+        total++;
+        if (d.data().status === "pending") pending++;
+      });
 
+      setStats((s) => ({
+        ...s,
+        deposits: total,
+        pendingDeposits: pending,
+      }));
+    });
 
+    const unsubWithdrawals = onSnapshot(
+      collection(db, "withdrawals"),
+      (snap) => {
+        let total = 0;
+        let pending = 0;
+        let approved = 0;
 
-  // useEffect(() => {
-  //   const loadStats = async () => {
-  //     // USERS
-  //     const usersSnap = await getDocs(collection(db, "users"));
-  //     let balanceSum = 0;
+        snap.forEach((d) => {
+          total++;
+          if (d.data().status === "pending") pending++;
+          if (d.data().status === "approved") approved++;
+        });
 
-  //     usersSnap.forEach((doc) => {
-  //       balanceSum += Number(doc.data().usdtBalance || 0);
-  //     });
+        setStats((s) => ({
+          ...s,
+          withdrawals: total,
+          pendingWithdrawals: pending,
+          approvedWithdrawals: approved,
+        }));
+      },
+    );
 
-  //     // COUNTS
-  //     const depositsCount = await getCountFromServer(
-  //       collection(db, "deposits"),
-  //     );
-
-  //     const pendingDepositsCount = await getCountFromServer(
-  //       query(collection(db, "deposits"), where("status", "==", "pending")),
-  //     );
-
-  //     const withdrawalsCount = await getCountFromServer(
-  //       collection(db, "withdrawals"),
-  //     );
-
-  //     const pendingWithdrawalsCount = await getCountFromServer(
-  //       query(collection(db, "withdrawals"), where("status", "==", "pending")),
-  //     );
-
-  //     const approvedWithdrawalsCount = await getCountFromServer(
-  //       query(collection(db, "withdrawals"), where("status", "==", "approved")),
-  //     );
-
-  //     setStats({
-  //       users: usersSnap.size,
-  //       deposits: depositsCount.data().count,
-  //       pendingDeposits: pendingDepositsCount.data().count,
-  //       withdrawals: withdrawalsCount.data().count,
-  //       pendingWithdrawals: pendingWithdrawalsCount.data().count,
-  //       approvedWithdrawals: approvedWithdrawalsCount.data().count,
-  //       totalBalance: balanceSum,
-  //     });
-  //   };
-
-  //   loadStats();
-  // }, []);
+    return () => {
+      unsubUsers();
+      unsubDeposits();
+      unsubWithdrawals();
+    };
+  }, []);
 
   return (
     <Box p={3}>
@@ -216,7 +168,7 @@ useEffect(() => {
 
 function StatCard({ title, value }: { title: string; value: any }) {
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
       <Paper sx={{ p: 2, borderRadius: 2 }}>
         <Typography variant="body2" color="text.secondary">
           {title}

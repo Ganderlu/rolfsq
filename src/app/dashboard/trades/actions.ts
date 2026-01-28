@@ -18,8 +18,9 @@ export async function placeTrade({
   const userSnap = await userRef.get();
   const user = userSnap.data();
 
-  const balanceField =
-    user.mode === "demo" ? "balanceDemo" : "balanceLive";
+  if (!user) throw new Error("User not found");
+
+  const balanceField = user.mode === "demo" ? "balanceDemo" : "balanceLive";
 
   if (user[balanceField] < amount) {
     throw new Error("Insufficient balance");

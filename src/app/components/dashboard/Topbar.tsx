@@ -44,7 +44,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
           color="#f1f5f9"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-          Dashboard
+          Welcome Back!
         </Typography>
       </Stack>
 

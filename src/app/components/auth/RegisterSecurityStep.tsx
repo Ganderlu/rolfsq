@@ -1,8 +1,9 @@
 "use client";
 
 import { ShieldCheck, MapPin, User } from "lucide-react";
+import { ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
-import { completeRegistration} from "../../../app/register/actions";
+import { completeRegistration } from "../../../app/register/actions";
 
 export default function RegisterSecurityStep() {
   const searchParams = useSearchParams();
@@ -23,12 +24,8 @@ export default function RegisterSecurityStep() {
 
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-xl font-semibold text-white">
-            Join Prime Max Capital
-          </h1>
-          <p className="text-sm text-white/60">
-            Secure your trading account
-          </p>
+          <h1 className="text-xl font-semibold text-white">Join ROLFSQ</h1>
+          <p className="text-sm text-white/60">Secure your trading account</p>
         </div>
 
         {/* Steps */}
@@ -62,9 +59,7 @@ export default function RegisterSecurityStep() {
             <input type="checkbox" name="terms" required />
             <span>
               I agree to the{" "}
-              <span className="text-indigo-400">
-                Terms and Conditions
-              </span>
+              <span className="text-indigo-400">Terms and Conditions</span>
             </span>
           </label>
         </div>
@@ -90,7 +85,15 @@ export default function RegisterSecurityStep() {
   );
 }
 
-function Lead({ icon, label, active }) {
+function Lead({
+  icon,
+  label,
+  active,
+}: {
+  icon: ReactNode;
+  label: string;
+  active?: boolean;
+}) {
   return (
     <div className="flex flex-col items-center gap-1">
       <div
@@ -104,5 +107,3 @@ function Lead({ icon, label, active }) {
     </div>
   );
 }
-
-

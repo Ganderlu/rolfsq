@@ -26,8 +26,7 @@ export default function DepositConfirmationPage() {
       px={{ xs: 2, md: 6 }}
       py={6}
       sx={{
-        background:
-          "radial-gradient(circle at top, #111a2e 0%, #070b16 65%)",
+        background: "radial-gradient(circle at top, #111a2e 0%, #070b16 65%)",
         color: "#fff",
       }}
     >
@@ -67,8 +66,7 @@ export default function DepositConfirmationPage() {
         sx={{
           maxWidth: 700,
           mx: "auto",
-          background:
-            "linear-gradient(135deg, #0c1324, #101a38)",
+          background: "linear-gradient(135deg, #0c1324, #101a38)",
           border: "1px solid #1f2a44",
           borderRadius: 4,
           p: { xs: 3, md: 4 },
@@ -76,9 +74,7 @@ export default function DepositConfirmationPage() {
         }}
       >
         {/* Success Icon */}
-        <CheckCircleIcon
-          sx={{ fontSize: 80, color: "#22c55e", mb: 2 }}
-        />
+        <CheckCircleIcon sx={{ fontSize: 80, color: "#22c55e", mb: 2 }} />
 
         <Typography fontSize={22} fontWeight={700} mb={1}>
           Payment Proof Submitted
@@ -104,38 +100,32 @@ export default function DepositConfirmationPage() {
           </Typography>
 
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Typography fontSize={13} color="gray">
                 Payment Method
               </Typography>
               <Typography fontWeight={600}>USDT</Typography>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Typography fontSize={13} color="gray">
                 Amount
               </Typography>
               <Typography fontWeight={600}>100.00 USD</Typography>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Typography fontSize={13} color="gray">
                 Status
               </Typography>
-              <Chip
-                label="Pending Confirmation"
-                color="warning"
-                size="small"
-              />
+              <Chip label="Pending Confirmation" color="warning" size="small" />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Typography fontSize={13} color="gray">
                 Reference ID
               </Typography>
-              <Typography fontWeight={600}>
-                DEP-982374
-              </Typography>
+              <Typography fontWeight={600}>DEP-982374</Typography>
             </Grid>
           </Grid>
         </Card>
@@ -148,7 +138,7 @@ export default function DepositConfirmationPage() {
 
         {/* Actions */}
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Button
               fullWidth
               size="large"
@@ -159,7 +149,7 @@ export default function DepositConfirmationPage() {
             </Button>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Button
               fullWidth
               size="large"
@@ -168,39 +158,26 @@ export default function DepositConfirmationPage() {
                 color: "#fff",
                 "&:hover": { background: "#1d4ed8" },
               }}
-              onClick={() =>
-                router.push("/dashboard/deposit")
-              }
+              onClick={() => router.push("/dashboard/deposit")}
             >
               Make Another Deposit
             </Button>
           </Grid>
         </Grid>
 
-        <Typography
-          fontSize={11}
-          color="gray"
-          mt={3}
-          textAlign="center"
-        >
+        <Typography fontSize={11} color="gray" mt={3} textAlign="center">
           Deposits are protected with 256-bit SSL encryption
         </Typography>
       </Card>
 
       {/* Trust Section */}
-      <Grid
-        container
-        spacing={2}
-        maxWidth={700}
-        mx="auto"
-        mt={4}
-      >
+      <Grid container spacing={2} maxWidth={700} mx="auto" mt={4}>
         {[
           "24/7 Customer Support",
           "Fast Confirmation",
           "Enterprise-Level Security",
         ].map((item) => (
-          <Grid item xs={12} md={4} key={item}>
+          <Grid size={{ xs: 12, md: 4 }} key={item}>
             <Card
               sx={{
                 background: "#0c1324",
@@ -209,9 +186,7 @@ export default function DepositConfirmationPage() {
                 textAlign: "center",
               }}
             >
-              <Typography fontWeight={600}>
-                {item}
-              </Typography>
+              <Typography fontWeight={600}>{item}</Typography>
               <Typography fontSize={12} color="gray">
                 Your funds are always protected
               </Typography>

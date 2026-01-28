@@ -5,6 +5,7 @@ import {
   doc,
   onSnapshot,
   runTransaction,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "@/app/firebase/firebaseClient";
 import { useEffect, useState } from "react";

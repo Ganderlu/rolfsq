@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import {
   Box,
   Button,
@@ -22,7 +22,7 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -66,12 +66,7 @@ export default function AdminLoginPage() {
           border: "1px solid #1c1c1c",
         }}
       >
-        <Typography
-          variant="h5"
-          fontWeight={700}
-          textAlign="center"
-          mb={1}
-        >
+        <Typography variant="h5" fontWeight={700} textAlign="center" mb={1}>
           Admin Login
         </Typography>
 
