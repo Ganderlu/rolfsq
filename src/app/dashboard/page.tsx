@@ -6,6 +6,10 @@ import { db, auth } from "../firebase/firebaseClient";
 import { useRouter } from "next/navigation";
 import NotificationBell from "@/app/components/notifications/NotificationBell";
 import CryptoTicker from "@/app/components/widgets/CryptoTicker";
+import SelectAsset from "../components/SelectAsset";
+import TradingViewChart from "../components/TradingViewChart";
+import PlaceOrder from "../components/PlaceOrder";
+import ActiveTrades from "../components/ActiveTrades";
 import Link from "next/link";
 
 export default function Dashboard() {
@@ -145,6 +149,26 @@ export default function Dashboard() {
         <MiniCard label="Active Trades" value={stats.activeTrades} />
         <MiniCard label="Total P&L" value={`$${stats.netPnL}`} highlight />
       </div>
+
+      <section className="w-full bg-black min-h-screen p-4 md:p-6">
+      <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr_320px] gap-6">
+        
+        {/* Left */}
+        <SelectAsset />
+
+        {/* Center */}
+        <div className="bg-black border border-white/10 rounded-2xl p-4">
+          <h3 className="text-white font-semibold mb-3">Chart</h3>
+          <TradingViewChart />
+        </div>
+
+        {/* Right */}
+        <div className="space-y-6">
+          <PlaceOrder />
+          <ActiveTrades />
+        </div>
+      </div>
+    </section>
     </div>
   );
 }
