@@ -11,7 +11,11 @@ export default function Hero() {
     <Box
       sx={{
         minHeight: "90vh",
-        background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+        backgroundImage:
+          "linear-gradient(to right, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 100%), url('/images/fforex.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         color: "#fff",
         display: "flex",
         alignItems: "center",
