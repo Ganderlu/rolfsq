@@ -43,7 +43,7 @@ export default function LoginPage() {
 
         {/* Header */}
         <h1 className="text-center text-2xl font-semibold text-white mb-1">
-          Welcome Back
+          Welcome Back!
         </h1>
         <p className="text-center text-sm text-white/60 mb-8">
           Sign in to access your portfolio
