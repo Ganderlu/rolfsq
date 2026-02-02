@@ -24,12 +24,12 @@ export default function GatewayCard({ title }: { title: string }) {
           variant="contained"
           endIcon={<OpenInNewIcon />}
           sx={{
-            backgroundColor: "#ff7a00",
-            color: "#FFF",
+            bgcolor: "primary.main",
+            color: "primary.contrastText",
             fontWeight: 600,
             px: 3,
             borderRadius: "20px",
-            "&:hover": { backgroundColor: "#ff8f26" },
+            "&:hover": { bgcolor: "primary.dark" },
           }}
         >
           Deposit Now

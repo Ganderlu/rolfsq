@@ -62,15 +62,15 @@ const plans = [
 
 export default function PlansSection() {
   return (
-    <section className="w-full bg-black px-4 py-20">
+    <section className="w-full bg-background px-4 py-20 border-t border-border">
       <div className="max-w-7xl mx-auto text-center mb-16">
-        <h2 className="text-white text-2xl md:text-3xl font-semibold mb-3">
+        <h2 className="text-foreground text-2xl md:text-3xl font-semibold mb-3">
           The Right Plan for every Business
         </h2>
-        <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
-          Discover flexible and transparent pricing options designed to meet
-          the diverse needs of businesses, whether you’re a startup, small
-          business, or enterprise.
+        <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
+          Discover flexible and transparent pricing options designed to meet the
+          diverse needs of businesses, whether you’re a startup, small business,
+          or enterprise.
         </p>
       </div>
 
@@ -78,23 +78,23 @@ export default function PlansSection() {
         {plans.map((plan, i) => (
           <div
             key={i}
-            className="bg-gradient-to-b from-purple-900/40 to-black border border-purple-500/20 rounded-2xl p-6 flex flex-col"
+            className="bg-card border border-border rounded-2xl p-6 flex flex-col hover:border-primary transition-colors duration-300"
           >
-            <h3 className="text-white text-lg font-semibold mb-2">
+            <h3 className="text-foreground text-lg font-semibold mb-2">
               {plan.name}
             </h3>
 
-            <p className="text-purple-400 font-semibold text-sm mb-1">
+            <p className="text-primary font-semibold text-sm mb-1">
               {plan.rate}
             </p>
 
-            <p className="text-white text-sm mb-4">{plan.price}</p>
+            <p className="text-foreground text-sm mb-4">{plan.price}</p>
 
-            <button className="bg-purple-600 hover:bg-purple-700 transition text-white text-sm font-semibold py-2 rounded-lg mb-2">
+            <button className="bg-primary hover:bg-primary/90 transition text-primary-foreground text-sm font-semibold py-2 rounded-lg mb-2">
               Apply for this plan
             </button>
 
-            <p className="text-gray-400 text-xs text-center mb-4">
+            <p className="text-muted-foreground text-xs text-center mb-4">
               *No Credit Card required
             </p>
 

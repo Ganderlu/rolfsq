@@ -1,13 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 export default function CryptoTicker() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { resolvedTheme } = useTheme();
+
   useEffect(() => {
-    if (document.getElementById("tradingview-ticker")) return;
+    if (!containerRef.current) return;
+
+    // Clear previous widget
+    containerRef.current.innerHTML = "";
 
     const script = document.createElement("script");
-    script.id = "tradingview-ticker";
     script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
     script.async = true;
     script.innerHTML = JSON.stringify({
@@ -18,14 +24,14 @@ export default function CryptoTicker() {
         { proName: "BITSTAMP:ETHUSD", title: "Ethereum" },
       ],
       showSymbolLogo: true,
-      colorTheme: "dark",
+      colorTheme: resolvedTheme === "light" ? "light" : "dark",
       isTransparent: true,
       displayMode: "adaptive",
       locale: "en",
     });
 
-    document.getElementById("ticker-container")?.appendChild(script);
-  }, []);
+    containerRef.current.appendChild(script);
+  }, [resolvedTheme]);
 
-  return <div id="ticker-container" className="mb-6" />;
+  return <div ref={containerRef} className="mb-6 w-full" />;
 }

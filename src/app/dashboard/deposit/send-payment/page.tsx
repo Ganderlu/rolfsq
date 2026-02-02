@@ -70,8 +70,8 @@ export default function SendPaymentPage() {
       px={{ xs: 2, md: 6 }}
       py={6}
       sx={{
-        background: "radial-gradient(circle at top, #111a2e 0%, #070b16 60%)",
-        color: "#fff",
+        bgcolor: "background.default",
+        color: "text.primary",
       }}
     >
       <Card
@@ -79,27 +79,36 @@ export default function SendPaymentPage() {
           maxWidth: 520,
           mx: "auto",
           p: 4,
-          background: "#0c1324",
+          bgcolor: "background.paper",
           borderRadius: 3,
-          border: "1px solid #1f2a44",
+          border: 1,
+          borderColor: "divider",
         }}
       >
         <Typography fontWeight={700} fontSize={22} mb={2}>
           Send Payment
         </Typography>
 
-        <Typography fontSize={14} color="gray">Coin</Typography>
+        <Typography fontSize={14} color="text.secondary">
+          Coin
+        </Typography>
         <Typography mb={2}>{payment.name}</Typography>
 
-        <Typography fontSize={14} color="gray">Network</Typography>
+        <Typography fontSize={14} color="text.secondary">
+          Network
+        </Typography>
         <Typography mb={2}>{network}</Typography>
 
-        <Typography fontSize={14} color="gray">Wallet Address</Typography>
+        <Typography fontSize={14} color="text.secondary">
+          Wallet Address
+        </Typography>
         <Typography mb={2} sx={{ wordBreak: "break-all" }}>
           {address}
         </Typography>
 
-        <Typography fontSize={14} color="gray">Amount</Typography>
+        <Typography fontSize={14} color="text.secondary">
+          Amount
+        </Typography>
         <Typography mb={3}>${amount}</Typography>
 
         <Button
@@ -107,9 +116,10 @@ export default function SendPaymentPage() {
           size="large"
           disabled={loading}
           sx={{
-            background: "linear-gradient(90deg, #2563eb, #3b82f6)",
-            color: "#fff",
+            bgcolor: "primary.main",
+            color: "primary.contrastText",
             fontWeight: 600,
+            "&:hover": { bgcolor: "primary.dark" },
           }}
           onClick={handleSubmitPayment}
         >
@@ -119,7 +129,6 @@ export default function SendPaymentPage() {
     </Box>
   );
 }
-
 
 // "use client";
 

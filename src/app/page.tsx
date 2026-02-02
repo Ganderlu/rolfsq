@@ -11,12 +11,14 @@ import CreditCard from "./components/CreditCard";
 import MissionSection from "./components/MissionSection";
 import PlansSection from "./components/PlansSection";
 import PrinciplesSection from "./components/PrinciplesSection";
+import TradingHero from "./components/TradingHero";
 import ServicesSection from "./components/ServicesSection";
+import FAQSection from "./components/FAQSection";
 import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <Box sx={{ bgcolor: "#0f172a" }}>
+    <Box sx={{ bgcolor: "var(--background)" }}>
       <Navbar />
       <Hero />
       <CryptoStats />
@@ -30,6 +32,8 @@ export default function Home() {
       <CreditCard />
       <MissionSection />
       <PlansSection />
+      <TradingHero />
+      <FAQSection />
       <Footer/>
     </Box>
   );

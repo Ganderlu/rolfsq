@@ -2,9 +2,9 @@ import { Paper, Typography } from "@mui/material";
 
 export default function WideStatCard({ title, value, subtitle }: any) {
   return (
-    <Paper sx={{ p: 3, borderRadius: 2 }}>
-      <Typography fontSize={13}>{title}</Typography>
-      <Typography fontSize={22} fontWeight={700}>
+    <Paper sx={{ p: 3, borderRadius: 2, bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+      <Typography fontSize={13} color="text.secondary">{title}</Typography>
+      <Typography fontSize={22} fontWeight={700} color="text.primary">
         {value}
       </Typography>
       {subtitle && (

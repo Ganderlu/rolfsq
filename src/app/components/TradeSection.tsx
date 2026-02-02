@@ -1,24 +1,88 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Container,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Paper, Typography } from "@mui/material";
 
 const rows = [
-  { product: "ADAUSD", spread: "0.00102", price: "0.99", d: "+1.03%", w: "-0.79%", up: true },
-  { product: "AUDJPY", spread: "0.011", price: "96.79", d: "-0.25%", w: "-0.06%", up: false },
-  { product: "AUDUSD", spread: "0.0001", price: "0.62", d: "+0.11%", w: "+0.03%", up: true },
-  { product: "BTCUSD", spread: "16.1", price: "104729.70", d: "+0.16%", w: "+0.46%", up: true },
-  { product: "EURJPY", spread: "0.018", price: "161.71", d: "-0.40%", w: "-0.03%", up: false },
-  { product: "GBPJPY", spread: "0.019", price: "193.15", d: "-0.25%", w: "-0.09%", up: false },
-  { product: "GBPUSD", spread: "0.0001", price: "1.25", d: "+0.13%", w: "+0.02%", up: true },
-  { product: "USDHKD", spread: "0.0003", price: "7.79", d: "0.00%", w: "0.00%", up: true },
-  { product: "USDJPY", spread: "0.008", price: "155.12", d: "-0.38%", w: "-0.11%", up: false },
-  { product: "XAUUSD", spread: "0.46", price: "2771.58", d: "+0.34%", w: "+0.54%", up: true },
+  {
+    product: "ADAUSD",
+    spread: "0.00102",
+    price: "0.99",
+    d: "+1.03%",
+    w: "-0.79%",
+    up: true,
+  },
+  {
+    product: "AUDJPY",
+    spread: "0.011",
+    price: "96.79",
+    d: "-0.25%",
+    w: "-0.06%",
+    up: false,
+  },
+  {
+    product: "AUDUSD",
+    spread: "0.0001",
+    price: "0.62",
+    d: "+0.11%",
+    w: "+0.03%",
+    up: true,
+  },
+  {
+    product: "BTCUSD",
+    spread: "16.1",
+    price: "104729.70",
+    d: "+0.16%",
+    w: "+0.46%",
+    up: true,
+  },
+  {
+    product: "EURJPY",
+    spread: "0.018",
+    price: "161.71",
+    d: "-0.40%",
+    w: "-0.03%",
+    up: false,
+  },
+  {
+    product: "GBPJPY",
+    spread: "0.019",
+    price: "193.15",
+    d: "-0.25%",
+    w: "-0.09%",
+    up: false,
+  },
+  {
+    product: "GBPUSD",
+    spread: "0.0001",
+    price: "1.25",
+    d: "+0.13%",
+    w: "+0.02%",
+    up: true,
+  },
+  {
+    product: "USDHKD",
+    spread: "0.0003",
+    price: "7.79",
+    d: "0.00%",
+    w: "0.00%",
+    up: true,
+  },
+  {
+    product: "USDJPY",
+    spread: "0.008",
+    price: "155.12",
+    d: "-0.38%",
+    w: "-0.11%",
+    up: false,
+  },
+  {
+    product: "XAUUSD",
+    spread: "0.46",
+    price: "2771.58",
+    d: "+0.34%",
+    w: "+0.54%",
+    up: true,
+  },
 ];
 
 export default function TradeSection() {
@@ -39,9 +103,9 @@ export default function TradeSection() {
             </Typography>
             <Typography color="text.secondary">
               Choose between forex, gold, cannabis, and real estate — with
-              account types and strategies to suit any investment style. At
-              OFL (Prime Max Capital), we provide the tools and flexibility to
-              build your ideal portfolio.
+              account types and strategies to suit any investment style. At OFL
+              (Prime Max Capital), we provide the tools and flexibility to build
+              your ideal portfolio.
             </Typography>
           </Box>
 
@@ -68,9 +132,10 @@ export default function TradeSection() {
               maxWidth: 900,
               p: 3,
               borderRadius: 3,
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              color: "#fff",
+              bgcolor: "var(--card)",
+              border: "1px solid",
+              borderColor: "var(--border)",
+              color: "var(--card-foreground)",
               overflowX: "auto",
             }}
           >
@@ -79,7 +144,7 @@ export default function TradeSection() {
               display="grid"
               gridTemplateColumns="repeat(7, minmax(120px, 1fr))"
               fontSize={13}
-              color="text.secondary"
+              color="var(--muted-foreground)"
               mb={2}
             >
               <div>Product</div>
@@ -120,8 +185,8 @@ export default function TradeSection() {
               mt={2}
               display="block"
             >
-              Pricing is indicative. Past performance is not a reliable indicator
-              of future results.
+              Pricing is indicative. Past performance is not a reliable
+              indicator of future results.
             </Typography>
           </Paper>
         </Box>

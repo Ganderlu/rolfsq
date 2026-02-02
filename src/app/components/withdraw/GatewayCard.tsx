@@ -13,7 +13,7 @@ export default function GatewayCard({ title, balance }: { title: string; balance
       <Paper
         sx={{
           p: 3,
-          background: "#111",
+          bgcolor: "background.paper",
           borderRadius: 2,
         }}
       >

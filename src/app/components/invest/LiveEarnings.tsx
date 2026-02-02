@@ -30,8 +30,8 @@ export default function LiveEarnings({ investment }: { investment: any }) {
 
   return (
     <div className="text-sm">
-      <span className="text-neutral-400">Live Earnings:</span>{" "}
-      <span className="text-green-500 font-semibold">
+      <span className="text-muted-foreground">Live Earnings:</span>{" "}
+      <span className="text-emerald-500 font-semibold">
         ${earned.toLocaleString()}
       </span>
     </div>

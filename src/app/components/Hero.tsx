@@ -12,11 +12,11 @@ export default function Hero() {
       sx={{
         minHeight: "90vh",
         backgroundImage:
-          "linear-gradient(to right, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 100%), url('/images/fforex.jpg')",
+          "linear-gradient(to right, var(--background) 0%, color-mix(in srgb, var(--background), transparent 20%) 100%), url('/images/fforex.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        color: "#fff",
+        color: "var(--foreground)",
         display: "flex",
         alignItems: "center",
         position: "relative",
@@ -33,8 +33,9 @@ export default function Hero() {
           height: 500,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(0,0,0,0) 70%)",
+            "radial-gradient(circle, var(--primary) 0%, rgba(0,0,0,0) 70%)",
           filter: "blur(50px)",
+          opacity: 0.2,
         }}
       />
 
@@ -53,13 +54,17 @@ export default function Hero() {
                 px: 2,
                 py: 1,
                 borderRadius: 10,
-                bgcolor: "rgba(59,130,246,0.1)",
-                border: "1px solid rgba(59,130,246,0.2)",
+                bgcolor: "rgba(37, 99, 235, 0.1)", // Primary with opacity
+                border: "1px solid",
+                borderColor: "var(--primary)",
                 width: "fit-content",
               }}
             >
-              <ShieldCheck size={16} color="#3b82f6" />
-              <Typography variant="caption" color="#60a5fa" fontWeight={600}>
+              <ShieldCheck size={16} className="text-primary" />
+              <Typography
+                variant="caption"
+                sx={{ color: "var(--primary)", fontWeight: 600 }}
+              >
                 SECURE & REGULATED PLATFORM
               </Typography>
             </Box>
@@ -70,21 +75,21 @@ export default function Hero() {
               sx={{
                 fontSize: { xs: "2.5rem", md: "4.5rem" },
                 lineHeight: 1.1,
-                background: "linear-gradient(to right, #fff, #94a3b8)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                color: "transparent",
+                color: "var(--foreground)",
               }}
             >
               Invest Smarter in <br />
-              <span style={{ color: "#3b82f6" }}>Digital Assets</span>
+              <span style={{ color: "var(--primary)" }}>Digital Assets</span>
             </Typography>
 
             <Typography
               variant="h6"
-              color="rgba(255,255,255,0.7)"
-              maxWidth={600}
-              sx={{ fontSize: { xs: "1rem", md: "1.25rem" }, lineHeight: 1.6 }}
+              sx={{
+                color: "var(--muted-foreground)",
+                maxWidth: 600,
+                fontSize: { xs: "1rem", md: "1.25rem" },
+                lineHeight: 1.6,
+              }}
             >
               Rolfsq provides a secure, transparent, and efficient way to grow
               your portfolio. Join thousands of investors earning passive income

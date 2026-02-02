@@ -56,8 +56,8 @@ export default function DepositPage() {
       px={{ xs: 2, md: 6 }}
       py={6}
       sx={{
-        background: "radial-gradient(circle at top, #111a2e 0%, #070b16 60%)",
-        color: "#fff",
+        bgcolor: "background.default",
+        color: "text.primary",
       }}
     >
       {/* Header */}
@@ -87,9 +87,9 @@ export default function DepositPage() {
               variant="outlined"
               onClick={() => setAmount(String(amt))}
               sx={{
-                color: "#fff",
-                borderColor: "#1f2a44",
-                "&:hover": { borderColor: "#3b82f6" },
+                color: "text.primary",
+                borderColor: "divider",
+                "&:hover": { borderColor: "primary.main" },
               }}
             >
               ${amt.toLocaleString()}
@@ -104,9 +104,10 @@ export default function DepositPage() {
         <Grid size={{ xs: 12, md: 6 }}>
           <Card
             sx={{
-              background: "#0c1324",
+              bgcolor: "background.paper",
               borderRadius: 3,
-              border: "1px solid #1f2a44",
+              border: 1,
+              borderColor: "divider",
               p: 3,
             }}
           >
@@ -163,7 +164,7 @@ export default function DepositPage() {
               onChange={(e) => setAmount(e.target.value)}
               placeholder="$ 0.00"
               sx={{
-                background: "#131b2e",
+                bgcolor: "action.hover",
                 borderRadius: 1,
               }}
             />

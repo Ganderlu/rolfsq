@@ -68,35 +68,43 @@ export default function AdminWithdrawals() {
   };
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>User</TableCell>
-          <TableCell>Amount</TableCell>
-          <TableCell>Status</TableCell>
-          <TableCell>Action</TableCell>
-        </TableRow>
-      </TableHead>
+    <Box p={{ xs: 2, md: 4 }}>
+      <Typography fontSize={22} fontWeight={700} mb={3} color="text.primary">
+        Withdrawal Requests
+      </Typography>
 
-      <TableBody>
-        {withdrawals.map((w) => (
-          <TableRow key={w.id}>
-            <TableCell>{w.userId}</TableCell>
-            <TableCell>${w.amount}</TableCell>
-            <TableCell>{w.status}</TableCell>
-            <TableCell>
-              {w.status === "pending" && (
-                <>
-                  <Button onClick={() => approveWithdraw(w)}>Approve</Button>
-                  <Button color="error" onClick={() => rejectWithdraw(w.id)}>
-                    Reject
-                  </Button>
-                </>
-              )}
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+      <Paper sx={{ overflowX: "auto", bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ color: "text.secondary" }}>User</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>Amount</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>Status</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>Action</TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {withdrawals.map((w) => (
+              <TableRow key={w.id}>
+                <TableCell sx={{ color: "text.primary" }}>{w.userId}</TableCell>
+                <TableCell sx={{ color: "text.primary" }}>${w.amount}</TableCell>
+                <TableCell sx={{ color: "text.primary" }}>{w.status}</TableCell>
+                <TableCell>
+                  {w.status === "pending" && (
+                    <>
+                      <Button onClick={() => approveWithdraw(w)}>Approve</Button>
+                      <Button color="error" onClick={() => rejectWithdraw(w.id)}>
+                        Reject
+                      </Button>
+                    </>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    </Box>
   );
 }

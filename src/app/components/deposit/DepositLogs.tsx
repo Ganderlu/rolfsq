@@ -22,17 +22,8 @@ export default function DepositLogs() {
       </Typography>
 
       {/* FILTERS */}
-      <Box
-        display="flex"
-        gap={2}
-        flexWrap="wrap"
-        mb={3}
-      >
-        <TextField
-          placeholder="Trx ID"
-          size="small"
-          sx={{ minWidth: 200 }}
-        />
+      <Box display="flex" gap={2} flexWrap="wrap" mb={3}>
+        <TextField placeholder="Trx ID" size="small" sx={{ minWidth: 200 }} />
 
         <TextField
           select
@@ -45,22 +36,18 @@ export default function DepositLogs() {
           <MenuItem value="FAILED">FAILED</MenuItem>
         </TextField>
 
-        <TextField
-          type="date"
-          size="small"
-          sx={{ minWidth: 180 }}
-        />
+        <TextField type="date" size="small" sx={{ minWidth: 180 }} />
 
         <Button
           variant="contained"
           startIcon={<SearchIcon />}
           sx={{
-            backgroundColor: "#ff7a00",
-            color: "#fff",
+            bgcolor: "primary.main",
+            color: "primary.contrastText",
             fontWeight: 600,
             px: 4,
             borderRadius: "20px",
-            "&:hover": { backgroundColor: "#ff8f26" },
+            "&:hover": { bgcolor: "primary.dark" },
           }}
         >
           Search
@@ -85,7 +72,7 @@ export default function DepositLogs() {
                 "Wallet",
                 "Status",
               ].map((head) => (
-                <TableCell key={head} sx={{ color: "#aaa" }}>
+                <TableCell key={head} sx={{ color: "text.secondary" }}>
                   {head}
                 </TableCell>
               ))}

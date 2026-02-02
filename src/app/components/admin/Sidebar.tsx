@@ -20,9 +20,11 @@ export default function Sidebar({ open, onClose }: any) {
     <>
       <Box
         width={260}
-        bgcolor="#0b0f1a"
-        color="#fff"
+        bgcolor="background.paper"
+        color="text.primary"
         display={{ xs: "none", md: "block" }}
+        borderRight={1}
+        borderColor="divider"
       >
         <Box p={3} fontWeight={700}>
           PRIME MAX CAPITAL
@@ -35,8 +37,8 @@ export default function Sidebar({ open, onClose }: any) {
               component={Link}
               href={item.href}
               sx={{
-                color: "#fff",
-                "&:hover": { backgroundColor: "#1a1f2e" },
+                color: "text.primary",
+                "&:hover": { backgroundColor: "action.hover" },
               }}
             >
               {item.label}
@@ -47,7 +49,7 @@ export default function Sidebar({ open, onClose }: any) {
 
       {/* Mobile Drawer */}
       <Drawer open={open} onClose={onClose}>
-        <Box width={260} bgcolor="#0b0f1a" color="#fff" height="100%">
+        <Box width={260} bgcolor="background.paper" color="text.primary" height="100%">
           <List>
             {menu.map((item) => (
               <ListItemButton
@@ -56,8 +58,8 @@ export default function Sidebar({ open, onClose }: any) {
                 href={item.href}
                 onClick={onClose}
                 sx={{
-                  color: "#fff",
-                  "&:hover": { backgroundColor: "#1a1f2e" },
+                  color: "text.primary",
+                  "&:hover": { backgroundColor: "action.hover" },
                 }}
               >
                 {item.label}

@@ -24,7 +24,7 @@ export default function RegisterLocationStep() {
 
   if (!rid) {
     return (
-      <Typography color="red" textAlign="center">
+      <Typography color="error" textAlign="center">
         Invalid registration session
       </Typography>
     );
@@ -37,41 +37,43 @@ export default function RegisterLocationStep() {
       alignItems="center"
       justifyContent="center"
       sx={{
-        background: "radial-gradient(circle at top, #0f172a, #020617)",
+        bgcolor: "var(--background)",
       }}
     >
       <Container maxWidth="sm">
         <Card
           sx={{
-            bgcolor: "#020617",
+            bgcolor: "var(--card)",
             borderRadius: 4,
-            border: "1px solid #1e293b",
+            border: "1px solid",
+            borderColor: "var(--border)",
+            color: "var(--card-foreground)",
           }}
         >
           <CardContent sx={{ p: { xs: 3, md: 5 } }}>
             <Typography
               textAlign="center"
               fontWeight={700}
-              fontSize={22}
-              color="#c026d3"
+              variant="h5"
+              sx={{ color: "var(--primary)" }}
               mb={1}
             >
-              PRIME MAX CAPITAL
+              ROLFSQ
             </Typography>
 
             <Typography
               textAlign="center"
-              fontSize={22}
+              variant="h6"
               fontWeight={600}
-              color="white"
+              sx={{ color: "var(--foreground)" }}
             >
-              Join Prime Max Capital
+              Join Rolfsq Invest
             </Typography>
 
             <Typography
               textAlign="center"
-              color="#94a3b8"
-              fontSize={14}
+              sx={{ color: "var(--muted-foreground)" }}
+              variant="body2"
               mb={3}
             >
               Start your professional trading journey
@@ -79,13 +81,11 @@ export default function RegisterLocationStep() {
 
             {/* Stepper */}
             <Stepper activeStep={1} alternativeLabel sx={{ mb: 4 }}>
-              {["Personal Info", "Location", "Security"].map(
-                (label, index) => (
-                  <Step key={label} completed={index === 0}>
-                    <StepLabel>{label}</StepLabel>
-                  </Step>
-                )
-              )}
+              {["Personal Info", "Location", "Security"].map((label, index) => (
+                <Step key={label} completed={index === 0}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
             </Stepper>
 
             {/* ✅ FORM CONNECTED TO FIREBASE */}
@@ -93,49 +93,82 @@ export default function RegisterLocationStep() {
               {/* REQUIRED */}
               <input type="hidden" name="rid" value={rid} />
 
-              <Typography fontSize={13} fontWeight={600} color="white" mb={1}>
-                Country *
+              <Typography
+                fontSize={14}
+                fontWeight={600}
+                sx={{ color: "var(--foreground)" }}
+                mb={1}
+              >
+                Select Country
               </Typography>
-
               <Select
                 fullWidth
-                name="country" // ✅ REQUIRED
+                displayEmpty
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                displayEmpty
-                sx={{ mb: 3 }}
+                name="country"
+                required
+                sx={{
+                  bgcolor: "var(--background)",
+                  color: "var(--foreground)",
+                  borderRadius: 2,
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--input)",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--primary)",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--ring)",
+                  },
+                  mb: 3,
+                }}
               >
-                <MenuItem disabled value="">
-                  Select your country
+                <MenuItem value="" disabled>
+                  <span className="text-muted-foreground">
+                    Select your country
+                  </span>
                 </MenuItem>
-                <MenuItem value="NG">Nigeria</MenuItem>
                 <MenuItem value="US">United States</MenuItem>
                 <MenuItem value="UK">United Kingdom</MenuItem>
                 <MenuItem value="CA">Canada</MenuItem>
+                <MenuItem value="AU">Australia</MenuItem>
+                <MenuItem value="NG">Nigeria</MenuItem>
+                <MenuItem value="ZA">South Africa</MenuItem>
               </Select>
 
-              <Box display="flex" justifyContent="space-between" gap={2}>
+              {/* Actions */}
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
                 <Button
-                  variant="text"
-                  sx={{ color: "#94a3b8" }}
-                  href="/register"
+                  href={`/register?rid=${rid}`}
+                  sx={{
+                    color: "var(--muted-foreground)",
+                    textTransform: "none",
+                    "&:hover": { color: "var(--foreground)" },
+                  }}
                 >
                   ← Previous Step
                 </Button>
 
                 <Button
-                  type="submit" // ✅ triggers saveStep2
+                  type="submit"
                   variant="contained"
-                  disabled={!country}
                   sx={{
-                    px: 4,
-                    py: 1.2,
+                    bgcolor: "var(--primary)",
+                    color: "var(--primary-foreground)",
                     fontWeight: 600,
-                    background:
-                      "linear-gradient(90deg, #4f46e5, #6366f1)",
+                    borderRadius: 2,
+                    px: 4,
+                    py: 1,
+                    textTransform: "none",
+                    "&:hover": { bgcolor: "var(--primary)", opacity: 0.9 },
                   }}
                 >
-                  Continue →
+                  Next Step
                 </Button>
               </Box>
             </form>

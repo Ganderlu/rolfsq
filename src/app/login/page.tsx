@@ -30,48 +30,48 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#050B18] via-[#07162A] to-[#050B18] flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-[420px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl p-6 sm:p-8">
+    <div className="min-h-screen w-full bg-background flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-[420px] rounded-2xl border border-border bg-card shadow-2xl p-6 sm:p-8">
         
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <div className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold">R</div>
-            <span className="text-white font-semibold tracking-wide">ROLFSQ <span className="text-white/70">INVEST</span></span>
+            <span className="text-foreground font-semibold tracking-wide">ROLFSQ <span className="text-muted-foreground">INVEST</span></span>
           </div>
         </div>
 
         {/* Header */}
-        <h1 className="text-center text-2xl font-semibold text-white mb-1">
+        <h1 className="text-center text-2xl font-semibold text-foreground mb-1">
           Welcome Back!
         </h1>
-        <p className="text-center text-sm text-white/60 mb-8">
+        <p className="text-center text-sm text-muted-foreground mb-8">
           Sign in to access your portfolio
         </p>
 
         {error && (
-          <div className="mb-4 rounded-lg bg-red-500/10 border border-red-500/20 p-3 text-sm text-red-400 text-center">
+          <div className="mb-4 rounded-lg bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive text-center">
             {error}
           </div>
         )}
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-1">
-            <label className="text-xs text-white">Email Address</label>
+            <label className="text-xs text-foreground">Email Address</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Enter your email"
             />
           </div>
 
           <div className="space-y-1">
             <div className="flex justify-between">
-              <label className="text-xs text-white">Password</label>
-              <Link href="/forgot-password" className="text-xs text-blue-400 hover:text-blue-300">
+              <label className="text-xs text-foreground">Password</label>
+              <Link href="/forgot-password" className="text-xs text-primary hover:text-primary/80">
                 Forgot password?
               </Link>
             </div>
@@ -80,7 +80,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Enter your password"
             />
           </div>
@@ -88,24 +88,18 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50 mt-6 transition-all"
+            className="w-full rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-50 mt-6 transition-all"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
-        <p className="text-center text-xs text-white/50 mt-6">
+        <p className="text-center text-xs text-muted-foreground mt-6">
           Don't have an account?{" "}
-          <Link href="/register" className="text-blue-400 hover:text-blue-300 transition-colors">
+          <Link href="/register" className="text-primary hover:text-primary/80 transition-colors">
             Create account
           </Link>
         </p>
-
-        {/* Security footer */}
-        <div className="flex justify-center gap-4 text-[10px] text-white/40 mt-8">
-          <span>🔒 SSL Secured</span>
-          <span>🛡 256-bit Encryption</span>
-        </div>
       </div>
     </div>
   );

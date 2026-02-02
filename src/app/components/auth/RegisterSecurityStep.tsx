@@ -14,18 +14,18 @@ export default function RegisterSecurityStep() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#050B18] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <form
         action={completeRegistration}
-        className="w-full max-w-[420px] rounded-2xl bg-white/5 border border-white/10 p-6 space-y-4"
+        className="w-full max-w-[420px] rounded-2xl bg-card border border-border p-6 space-y-4"
       >
         {/* REQUIRED */}
         <input type="hidden" name="rid" value={rid} />
 
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-xl font-semibold text-white">Join ROLFSQ</h1>
-          <p className="text-sm text-white/60">Secure your trading account</p>
+          <h1 className="text-xl font-semibold text-foreground">Join ROLFSQ</h1>
+          <p className="text-sm text-muted-foreground">Secure your trading account</p>
         </div>
 
         {/* Steps */}
@@ -40,7 +40,7 @@ export default function RegisterSecurityStep() {
           type="password"
           name="password"
           placeholder="Create strong password"
-          className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white"
+          className="w-full rounded-lg bg-background border border-input px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all"
           required
         />
 
@@ -49,33 +49,33 @@ export default function RegisterSecurityStep() {
           type="password"
           name="confirmPassword"
           placeholder="Confirm your password"
-          className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white"
+          className="w-full rounded-lg bg-background border border-input px-3 py-3 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all"
           required
         />
 
         {/* Terms */}
-        <div className="rounded-xl border border-indigo-500/30 bg-indigo-500/10 p-4">
-          <label className="flex gap-2 text-xs text-white/80">
-            <input type="checkbox" name="terms" required />
+        <div className="rounded-xl border border-primary/30 bg-primary/10 p-4">
+          <label className="flex gap-2 text-sm text-foreground/90 cursor-pointer">
+            <input type="checkbox" name="terms" required className="mt-1" />
             <span>
               I agree to the{" "}
-              <span className="text-indigo-400">Terms and Conditions</span>
+              <span className="text-primary hover:underline">Terms and Conditions</span>
             </span>
           </label>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pt-2">
           <a
             href={`/register/location?rid=${rid}`}
-            className="text-xs text-white/60 hover:text-white"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             ← Previous Step
           </a>
 
           <button
             type="submit"
-            className="rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-sm font-semibold px-4 py-2"
+            className="rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold px-6 py-2.5 transition-colors shadow-lg shadow-primary/20"
           >
             Create Trading Account
           </button>
@@ -98,12 +98,14 @@ function Lead({
     <div className="flex flex-col items-center gap-1">
       <div
         className={`h-8 w-8 rounded-full flex items-center justify-center ${
-          active ? "bg-emerald-500 text-black" : "bg-white/10 text-white/60"
+          active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
         }`}
       >
         {icon}
       </div>
-      <span className="text-[10px] text-white/60">{label}</span>
+      <span className={`text-[10px] ${active ? "text-foreground" : "text-muted-foreground"}`}>
+        {label}
+      </span>
     </div>
   );
 }

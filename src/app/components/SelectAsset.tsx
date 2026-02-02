@@ -14,30 +14,30 @@ const assets = [
 export default function SelectAsset() {
    
   return (
-    <div className="bg-black border border-white/10 rounded-2xl p-4 h-full">
-      <h3 className="text-white font-semibold mb-1">Select Asset</h3>
-      <p className="text-xs text-gray-400 mb-4">33 Available</p>
+    <div className="bg-card border border-border rounded-2xl p-4 h-full">
+      <h3 className="text-foreground font-semibold mb-1">Select Asset</h3>
+      <p className="text-xs text-muted-foreground mb-4">33 Available</p>
 
       <input
         placeholder="Search symbols..."
-        className="w-full bg-neutral-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white mb-4"
+        className="w-full bg-background border border-input rounded-lg px-3 py-2 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary mb-4"
       />
 
       <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
         {assets.map((asset, i) => (
           <div
             key={i}
-            className={`p-4 rounded-xl border cursor-pointer ${
+            className={`p-4 rounded-xl border cursor-pointer transition-all ${
               i === 0
-                ? "border-blue-500 bg-white/5"
-                : "border-white/10 hover:border-white/20"
+                ? "border-primary bg-primary/10"
+                : "border-border hover:border-primary/50"
             }`}
           >
-            <div className="flex justify-between text-white font-semibold">
+            <div className="flex justify-between text-foreground font-semibold">
               <span>{asset.symbol}</span>
               <span className="text-sm">{asset.payout}</span>
             </div>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               Payout: {asset.payout} • $10 – $5000
             </p>
           </div>

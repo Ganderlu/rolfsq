@@ -11,8 +11,8 @@ import { Paper, Typography } from "@mui/material";
 
 export default function DepositWithdrawalChart({ data }: any) {
   return (
-    <Paper sx={{ p: 3 }}>
-      <Typography fontWeight={600} mb={2}>
+    <Paper sx={{ p: 3, bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+      <Typography fontWeight={600} mb={2} color="text.primary">
         Deposit & Withdrawal Statistics
       </Typography>
 

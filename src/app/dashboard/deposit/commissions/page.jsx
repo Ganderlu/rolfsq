@@ -23,7 +23,7 @@ export default function TransactionsPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, color: "white" }}>
+    <Box sx={{ p: { xs: 2, md: 4 }, color: "text.primary" }}>
       <Typography variant="h6" sx={{ mb: 2 }}>
         Referral Deposit Commission Rewards
       </Typography>
@@ -33,8 +33,9 @@ export default function TransactionsPage() {
         sx={{
           p: 2,
           mb: 3,
-          background: "rgba(255,255,255,0.02)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          bgcolor: "background.paper",
+          border: 1,
+          borderColor: "divider",
         }}
       >
         <Stack
@@ -46,29 +47,7 @@ export default function TransactionsPage() {
             fullWidth
             placeholder="Trx ID"
             size="small"
-            InputProps={{ sx: { color: "white" } }}
           />
-
-          {/* <TextField
-            select
-            size="small"
-            fullWidth={isMobile}
-            defaultValue="PRIMARY"
-          >
-            <MenuItem value="PRIMARY">PRIMARY</MenuItem>
-            <MenuItem value="DEMO">DEMO</MenuItem>
-          </TextField> */}
-
-          {/* <TextField
-            select
-            size="small"
-            fullWidth={isMobile}
-            defaultValue="ALL"
-          >
-            <MenuItem value="ALL">ALL</MenuItem>
-            <MenuItem value="DEPOSIT">DEPOSIT</MenuItem>
-            <MenuItem value="WITHDRAW">WITHDRAW</MenuItem>
-          </TextField> */}
 
           <TextField type="date" size="small" fullWidth={isMobile} />
 
@@ -76,9 +55,11 @@ export default function TransactionsPage() {
             variant="contained"
             startIcon={<SearchIcon />}
             sx={{
-              background: "#ff8a00",
+              bgcolor: "primary.main",
+              color: "primary.contrastText",
               px: 4,
               width: isMobile ? "100%" : "auto",
+              "&:hover": { bgcolor: "primary.dark" },
             }}
           >
             Search
@@ -89,8 +70,9 @@ export default function TransactionsPage() {
       {/* Table */}
       <Paper
         sx={{
-          background: "rgba(255,255,255,0.02)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          bgcolor: "background.paper",
+          border: 1,
+          borderColor: "divider",
           overflowX: "auto",
         }}
       >

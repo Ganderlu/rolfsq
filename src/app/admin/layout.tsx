@@ -13,7 +13,7 @@ export default function AdminLayout({
   const [open, setOpen] = useState(false);
 
   return (
-    <Box display="flex" minHeight="100vh" bgcolor="#f4f6f8">
+    <Box display="flex" minHeight="100vh" bgcolor="background.default">
       <Sidebar open={open} onClose={() => setOpen(false)} />
 
       <Box flex={1}>

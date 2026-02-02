@@ -26,8 +26,8 @@ export default function DepositConfirmationPage() {
       px={{ xs: 2, md: 6 }}
       py={6}
       sx={{
-        background: "radial-gradient(circle at top, #111a2e 0%, #070b16 65%)",
-        color: "#fff",
+        bgcolor: "background.default",
+        color: "text.primary",
       }}
     >
       {/* Header */}
@@ -37,15 +37,17 @@ export default function DepositConfirmationPage() {
           label="Secure Payment Confirmation"
           sx={{
             mb: 2,
-            background: "#0c1f3f",
-            color: "#60a5fa",
+            bgcolor: "background.paper",
+            color: "primary.main",
+            border: 1,
+            borderColor: "divider",
           }}
         />
 
         <Typography fontSize={26} fontWeight={700}>
           Deposit Submitted Successfully
         </Typography>
-        <Typography color="gray" fontSize={14} mt={1}>
+        <Typography color="text.secondary" fontSize={14} mt={1}>
           Your payment proof has been received and is under review
         </Typography>
       </Box>
@@ -66,29 +68,31 @@ export default function DepositConfirmationPage() {
         sx={{
           maxWidth: 700,
           mx: "auto",
-          background: "linear-gradient(135deg, #0c1324, #101a38)",
-          border: "1px solid #1f2a44",
+          bgcolor: "background.paper",
+          border: 1,
+          borderColor: "divider",
           borderRadius: 4,
           p: { xs: 3, md: 4 },
           textAlign: "center",
         }}
       >
         {/* Success Icon */}
-        <CheckCircleIcon sx={{ fontSize: 80, color: "#22c55e", mb: 2 }} />
+        <CheckCircleIcon sx={{ fontSize: 80, color: "success.main", mb: 2 }} />
 
         <Typography fontSize={22} fontWeight={700} mb={1}>
           Payment Proof Submitted
         </Typography>
 
-        <Typography fontSize={14} color="gray" mb={3}>
+        <Typography fontSize={14} color="text.secondary" mb={3}>
           Our team is reviewing your deposit. This usually takes a few minutes.
         </Typography>
 
         {/* Deposit Summary */}
         <Card
           sx={{
-            background: "#0c1324",
-            border: "1px solid #1f2a44",
+            bgcolor: "action.hover",
+            border: 1,
+            borderColor: "divider",
             borderRadius: 3,
             p: 3,
             textAlign: "left",
@@ -101,28 +105,28 @@ export default function DepositConfirmationPage() {
 
           <Grid container spacing={2}>
             <Grid size={{ xs: 6 }}>
-              <Typography fontSize={13} color="gray">
+              <Typography fontSize={13} color="text.secondary">
                 Payment Method
               </Typography>
               <Typography fontWeight={600}>USDT</Typography>
             </Grid>
 
             <Grid size={{ xs: 6 }}>
-              <Typography fontSize={13} color="gray">
+              <Typography fontSize={13} color="text.secondary">
                 Amount
               </Typography>
               <Typography fontWeight={600}>100.00 USD</Typography>
             </Grid>
 
             <Grid size={{ xs: 6 }}>
-              <Typography fontSize={13} color="gray">
+              <Typography fontSize={13} color="text.secondary">
                 Status
               </Typography>
               <Chip label="Pending Confirmation" color="warning" size="small" />
             </Grid>
 
             <Grid size={{ xs: 6 }}>
-              <Typography fontSize={13} color="gray">
+              <Typography fontSize={13} color="text.secondary">
                 Reference ID
               </Typography>
               <Typography fontWeight={600}>DEP-982374</Typography>
@@ -131,7 +135,7 @@ export default function DepositConfirmationPage() {
         </Card>
 
         {/* Info */}
-        <Typography fontSize={13} color="gray" mb={3}>
+        <Typography fontSize={13} color="text.secondary" mb={3}>
           Once confirmed, your balance will be credited automatically and you
           can start trading immediately.
         </Typography>
@@ -154,9 +158,9 @@ export default function DepositConfirmationPage() {
               fullWidth
               size="large"
               sx={{
-                background: "#2563eb",
-                color: "#fff",
-                "&:hover": { background: "#1d4ed8" },
+                bgcolor: "primary.main",
+                color: "primary.contrastText",
+                "&:hover": { bgcolor: "primary.dark" },
               }}
               onClick={() => router.push("/dashboard/deposit")}
             >
@@ -165,7 +169,7 @@ export default function DepositConfirmationPage() {
           </Grid>
         </Grid>
 
-        <Typography fontSize={11} color="gray" mt={3} textAlign="center">
+        <Typography fontSize={11} color="text.secondary" mt={3} textAlign="center">
           Deposits are protected with 256-bit SSL encryption
         </Typography>
       </Card>
@@ -180,14 +184,15 @@ export default function DepositConfirmationPage() {
           <Grid size={{ xs: 12, md: 4 }} key={item}>
             <Card
               sx={{
-                background: "#0c1324",
-                border: "1px solid #1f2a44",
+                bgcolor: "background.paper",
+                border: 1,
+                borderColor: "divider",
                 p: 3,
                 textAlign: "center",
               }}
             >
               <Typography fontWeight={600}>{item}</Typography>
-              <Typography fontSize={12} color="gray">
+              <Typography fontSize={12} color="text.secondary">
                 Your funds are always protected
               </Typography>
             </Card>

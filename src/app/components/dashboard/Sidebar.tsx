@@ -126,13 +126,15 @@ function SidebarItem({
             px: 2,
             py: 1.5,
             borderRadius: 2,
-            color: isChildActive ? "#fff" : "#94a3b8",
-            bgcolor: isChildActive ? "rgba(255,255,255,0.05)" : "transparent",
+            color: isChildActive
+              ? "var(--foreground)"
+              : "var(--muted-foreground)",
+            bgcolor: isChildActive ? "var(--accent)" : "transparent",
             cursor: "pointer",
             transition: "all 0.2s",
             "&:hover": {
-              bgcolor: "rgba(255,255,255,0.05)",
-              color: "#fff",
+              bgcolor: "var(--accent)",
+              color: "var(--foreground)",
             },
           }}
         >
@@ -163,16 +165,20 @@ function SidebarItem({
                       px: 2,
                       py: 1.5,
                       borderRadius: 2,
-                      color: isChildItemActive ? "#fff" : "#64748b",
+                      color: isChildItemActive
+                        ? "var(--primary-foreground)"
+                        : "var(--muted-foreground)",
                       bgcolor: isChildItemActive
-                        ? "primary.main"
+                        ? "var(--primary)"
                         : "transparent",
                       transition: "all 0.2s",
                       "&:hover": {
                         bgcolor: isChildItemActive
-                          ? "primary.dark"
-                          : "rgba(255,255,255,0.05)",
-                        color: "#fff",
+                          ? "var(--primary)"
+                          : "var(--accent)",
+                        color: isChildItemActive
+                          ? "var(--primary-foreground)"
+                          : "var(--foreground)",
                       },
                     }}
                   >
@@ -180,7 +186,11 @@ function SidebarItem({
                       width={6}
                       height={6}
                       borderRadius="50%"
-                      bgcolor={isChildItemActive ? "#fff" : "currentColor"}
+                      bgcolor={
+                        isChildItemActive
+                          ? "currentColor"
+                          : "var(--muted-foreground)"
+                      }
                     />
                     <Typography variant="body2" fontWeight={500}>
                       {child.label}
@@ -209,12 +219,14 @@ function SidebarItem({
           px: 2,
           py: 1.5,
           borderRadius: 2,
-          color: isActive ? "#fff" : "#94a3b8",
-          bgcolor: isActive ? "primary.main" : "transparent",
+          color: isActive
+            ? "var(--primary-foreground)"
+            : "var(--muted-foreground)",
+          bgcolor: isActive ? "var(--primary)" : "transparent",
           transition: "all 0.2s",
           "&:hover": {
-            bgcolor: isActive ? "primary.dark" : "rgba(255,255,255,0.05)",
-            color: "#fff",
+            bgcolor: isActive ? "var(--primary)" : "var(--accent)",
+            color: isActive ? "var(--primary-foreground)" : "var(--foreground)",
           },
         }}
       >
@@ -241,18 +253,24 @@ export default function Sidebar({
   const SidebarContent = (
     <Box
       width={280}
-      bgcolor="#0f172a"
-      color="#e2e8f0"
+      bgcolor="var(--card)"
+      color="var(--card-foreground)"
       height="100%"
       display="flex"
       flexDirection="column"
+      sx={{ borderRight: "1px solid", borderColor: "var(--border)" }}
     >
-      <Box p={3} borderBottom="1px solid rgba(255,255,255,0.1)">
+      <Box p={3} borderBottom="1px solid" borderColor="var(--border)">
         <Typography
           variant="h5"
           fontWeight={800}
           letterSpacing={1}
-          color="primary.main"
+          sx={{
+            background: "linear-gradient(45deg, #3b82f6, #06b6d4)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            color: "transparent",
+          }}
         >
           ROLFSQ
         </Typography>
@@ -271,7 +289,7 @@ export default function Sidebar({
         </Stack>
       </Box>
 
-      <Box p={2} borderTop="1px solid rgba(255,255,255,0.1)">
+      <Box p={2} borderTop="1px solid" borderColor="var(--border)">
         <Link href="/logout" style={{ textDecoration: "none" }}>
           <Box
             sx={{
@@ -281,12 +299,12 @@ export default function Sidebar({
               px: 2,
               py: 1.5,
               borderRadius: 2,
-              color: "#ef4444",
+              color: "var(--destructive)",
               cursor: "pointer",
               transition: "all 0.2s",
               "&:hover": {
-                bgcolor: "rgba(239, 68, 68, 0.1)",
-                transform: "translateY(-1px)",
+                bgcolor: "var(--accent)",
+                color: "var(--destructive-foreground)",
               },
             }}
           >

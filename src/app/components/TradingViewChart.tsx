@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 export default function TradingViewChart() {
   const container = useRef<HTMLDivElement>(null);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     if (!container.current) return;
@@ -14,6 +16,9 @@ export default function TradingViewChart() {
     script.src = "https://s3.tradingview.com/tv.js";
     script.async = true;
 
+    const theme = resolvedTheme === "light" ? "light" : "dark";
+    const toolbarBg = resolvedTheme === "light" ? "#ffffff" : "#0b0b0b";
+
     script.onload = () => {
       // @ts-expect-error // TradingView global variable
       new window.TradingView.widget({
@@ -21,10 +26,10 @@ export default function TradingViewChart() {
         symbol: "BINANCE:BTCUSDT",
         interval: "1",
         timezone: "Etc/UTC",
-        theme: "dark",
+        theme: theme,
         style: "1",
         locale: "en",
-        toolbar_bg: "#0b0b0b",
+        toolbar_bg: toolbarBg,
         hide_side_toolbar: false,
         allow_symbol_change: true,
         container_id: "tv_chart_container",
@@ -32,13 +37,13 @@ export default function TradingViewChart() {
     };
 
     container.current.appendChild(script);
-  }, []);
+  }, [resolvedTheme]);
 
   return (
     <div
       id="tv_chart_container"
       ref={container}
-      className="w-full h-[500px] md:h-[600px]"
+      className="w-full h-[500px] md:h-[600px] bg-card rounded-xl overflow-hidden"
     />
   );
 }

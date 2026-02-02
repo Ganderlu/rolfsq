@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
       alignItems="center"
       justifyContent="center"
       px={2}
-      sx={{ background: "linear-gradient(180deg,#050505,#000)" }}
+      sx={{ bgcolor: "background.default" }}
     >
       <Paper
         sx={{
@@ -62,11 +62,12 @@ export default function AdminLoginPage() {
           maxWidth: 420,
           p: 4,
           borderRadius: 3,
-          background: "linear-gradient(180deg,#111,#050505)",
-          border: "1px solid #1c1c1c",
+          bgcolor: "background.paper",
+          border: 1,
+          borderColor: "divider",
         }}
       >
-        <Typography variant="h5" fontWeight={700} textAlign="center" mb={1}>
+        <Typography variant="h5" fontWeight={700} textAlign="center" mb={1} color="text.primary">
           Admin Login
         </Typography>
 

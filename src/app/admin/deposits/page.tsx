@@ -52,36 +52,37 @@ export default function AdminDepositsPage() {
 
   return (
     <Box p={{ xs: 2, md: 4 }}>
-      <Typography fontSize={22} fontWeight={700} mb={3}>
+      <Typography fontSize={22} fontWeight={700} mb={3} color="text.primary">
         Deposit Requests
       </Typography>
 
-      <Paper sx={{ overflowX: "auto" }}>
+      <Paper sx={{ overflowX: "auto", bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>User</TableCell>
-              <TableCell>Asset</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Tx Hash</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell align="right">Action</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>User</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>Asset</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>Amount</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>Tx Hash</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>Status</TableCell>
+              <TableCell align="right" sx={{ color: "text.secondary" }}>Action</TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
             {deposits.map((d) => (
               <TableRow key={d.id}>
-                <TableCell>{d.userEmail}</TableCell>
-                <TableCell>
+                <TableCell sx={{ color: "text.primary" }}>{d.userEmail}</TableCell>
+                <TableCell sx={{ color: "text.primary" }}>
                   {d.asset} ({d.network})
                 </TableCell>
-                <TableCell>${d.amount}</TableCell>
+                <TableCell sx={{ color: "text.primary" }}>${d.amount}</TableCell>
                 <TableCell
                   sx={{
                     maxWidth: 120,
                     overflow: "hidden",
                     textOverflow: "ellipsis",
+                    color: "text.primary",
                   }}
                 >
                   {d.txHash}

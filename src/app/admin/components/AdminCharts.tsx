@@ -17,8 +17,8 @@ export default function AdminCharts({
   data: { date: string; deposits: number; withdrawals: number }[];
 }) {
   return (
-    <Paper sx={{ p: 2, borderRadius: 2 }}>
-      <Typography fontWeight={600} mb={2}>
+    <Paper sx={{ p: 2, borderRadius: 2, bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+      <Typography fontWeight={600} mb={2} color="text.primary">
         Daily Transactions
       </Typography>
 

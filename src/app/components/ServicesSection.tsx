@@ -21,9 +21,9 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section className="w-full bg-black py-20 px-4">
+    <section className="w-full bg-background py-20 px-4">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-white text-3xl md:text-4xl font-semibold mb-12">
+        <h2 className="text-foreground text-3xl md:text-4xl font-semibold mb-12">
           Our Services
         </h2>
 
@@ -31,7 +31,7 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group relative rounded-xl overflow-hidden shadow-lg"
+              className="group relative rounded-xl overflow-hidden shadow-lg border border-border"
             >
               <Image
                 src={service.image}

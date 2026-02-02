@@ -34,15 +34,16 @@ export default function FeatureCards() {
                 sx={{
                   p: 8,
                   height: "100%",
-                  bgcolor: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.05)",
-                  color: "#e2e8f0",
+                  bgcolor: "var(--card)",
+                  border: "1px solid",
+                  borderColor: "var(--border)",
+                  color: "var(--card-foreground)",
                   borderRadius: 4,
                   transition: "all 0.3s",
                   "&:hover": {
-                    bgcolor: "rgba(255,255,255,0.05)",
+                    bgcolor: "var(--accent)",
                     transform: "translateY(-5px)",
-                    border: "1px solid rgba(59,130,246,0.3)",
+                    borderColor: "var(--primary)",
                   },
                 }}
               >
@@ -52,7 +53,7 @@ export default function FeatureCards() {
                     p: 2,
                     borderRadius: 3,
                     bgcolor: "rgba(59,130,246,0.1)",
-                    color: "#60a5fa",
+                    color: "var(--primary)",
                     mb: 3,
                   }}
                 >
@@ -63,7 +64,7 @@ export default function FeatureCards() {
                 </Typography>
                 <Typography
                   variant="body1"
-                  color="rgba(255,255,255,0.6)"
+                  color="var(--muted-foreground)"
                   lineHeight={1.7}
                 >
                   {f.text}

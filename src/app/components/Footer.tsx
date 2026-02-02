@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-gradient-to-b from-black to-neutral-900 text-gray-300 px-4 pt-20">
+    <footer className="w-full bg-background border-t border-border text-muted-foreground px-4 pt-20">
       <div className="max-w-7xl mx-auto">
 
         {/* TOP GRID */}
@@ -18,22 +18,22 @@ export default function Footer() {
                 width={48}
                 height={48}
               />
-              <h2 className="text-2xl text-purple-600 font-bold">
+              <h2 className="text-2xl text-primary font-bold">
                  Rolfsq
               </h2>
             </div>
 
-            <p className="text-sm leading-relaxed mb-6 max-w-md">
+            <p className="text-sm leading-relaxed mb-6 max-w-md text-foreground">
               We are everything a traditional financial institution is not.
               We set out to give investors better, simpler and more profitable
               ways to become financially successful and secure.
             </p>
 
-            <h4 className="text-white font-semibold mb-2">
+            <h4 className="text-foreground font-semibold mb-2">
               General Risk Disclaimer
             </h4>
 
-            <p className="text-xs leading-relaxed text-gray-400">
+            <p className="text-xs leading-relaxed text-muted-foreground">
               Nothing on this website or in our services constitutes a
               solicitation, advice, endorsement, or offer to buy or sell
               financial instruments by Prime Max Capital GROUP, its agents,
@@ -51,26 +51,26 @@ export default function Footer() {
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-10">
             
             <div>
-              <h4 className="text-white font-semibold mb-4">
+              <h4 className="text-foreground font-semibold mb-4">
                 Social Links
               </h4>
               <ul className="space-y-3 text-sm">
-                <li><Link href="#">Home</Link></li>
-                <li><Link href="#">Company PDF</Link></li>
-                <li><Link href="#">Sign Up</Link></li>
-                <li><Link href="#">Get Support</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Home</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Company PDF</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Sign Up</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Get Support</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4 opacity-0 md:opacity-100">
+              <h4 className="text-foreground font-semibold mb-4 opacity-0 md:opacity-100">
                 Links
               </h4>
               <ul className="space-y-3 text-sm">
-                <li><Link href="#">About Us</Link></li>
-                <li><Link href="#">Login</Link></li>
-                <li><Link href="#">Certification</Link></li>
-                <li><Link href="#">Privacy</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">About Us</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Login</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Certification</Link></li>
+                <li><Link href="#" className="hover:text-primary transition-colors">Privacy</Link></li>
               </ul>
             </div>
           </div>
@@ -78,10 +78,10 @@ export default function Footer() {
 
         {/* BROKERAGE SERVICES */}
         <div className="mb-12">
-          <h4 className="text-white font-semibold mb-2">
+          <h4 className="text-foreground font-semibold mb-2">
             Brokerage Services
           </h4>
-          <p className="text-xs text-gray-400 leading-relaxed max-w-5xl">
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-5xl">
             Our brokerage services include margin-based products, which carry
             the risk of losing your initial deposit. Before trading, consider
             your investment objectives, risk tolerance, and experience level.

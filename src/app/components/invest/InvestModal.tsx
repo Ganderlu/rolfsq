@@ -47,19 +47,27 @@ export default function InvestModal({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogContent
-        sx={{
-          background: "#2c2c2c",
-          color: "#fff",
-          borderRadius: 2,
-        }}
-      >
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="sm"
+      PaperProps={{
+        sx: {
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
+          backgroundImage: "none",
+        },
+      }}
+    >
+      <DialogContent>
         <Typography fontWeight={600} mb={2}>
           Start Investing with the {plan.title}
         </Typography>
 
-        <Typography fontSize={14} mb={1}>
+        <Typography fontSize={14} mb={1} sx={{ color: "var(--muted-foreground)" }}>
           Amount
         </Typography>
 
@@ -70,15 +78,26 @@ export default function InvestModal({
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             type="number"
-            sx={{ background: "#111", borderRadius: 1 }}
+            sx={{
+              "& .MuiInputBase-root": {
+                bgcolor: "var(--background)",
+                color: "var(--foreground)",
+                borderRadius: 1,
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "var(--input)",
+              },
+            }}
           />
           <Box
             sx={{
               px: 2,
               display: "flex",
               alignItems: "center",
-              background: "#fff",
-              color: "#000",
+              bgcolor: "var(--background)",
+              color: "var(--foreground)",
+              border: "1px solid",
+              borderColor: "var(--input)",
               borderRadius: 1,
             }}
           >
@@ -87,7 +106,15 @@ export default function InvestModal({
         </Box>
 
         <Box display="flex" justifyContent="flex-end" gap={1}>
-          <Button onClick={onClose} variant="outlined">
+          <Button
+            onClick={onClose}
+            variant="outlined"
+            sx={{
+              color: "var(--muted-foreground)",
+              borderColor: "var(--border)",
+              "&:hover": { borderColor: "var(--foreground)", color: "var(--foreground)" },
+            }}
+          >
             Close
           </Button>
 
@@ -95,12 +122,12 @@ export default function InvestModal({
             onClick={handleSubmit}
             disabled={loading}
             sx={{
-              background: "#ff7a00",
-              color: "#fff",
-              "&:hover": { background: "#ff8f26" },
+              bgcolor: "var(--primary)",
+              color: "var(--primary-foreground)",
+              "&:hover": { bgcolor: "var(--primary)", opacity: 0.9 },
             }}
           >
-            {loading ? "Submitting..." : "Submit"}
+            {loading ? "Processing..." : "Invest"}
           </Button>
         </Box>
       </DialogContent>

@@ -9,14 +9,13 @@ import { db } from "@/app/firebase/firebaseClient";
 import { auth } from "../../../firebase/firebaseClient";
 import { getAuth } from "firebase/auth";
 
-
 const gateways = ["Bitcoin", "ETH", "BNB", "TRON"];
 
 export default function WithdrawPage() {
-   const currentUser = auth.currentUser;
- const [usdtBalance, setUsdtBalance] = useState(0);
+  const currentUser = auth.currentUser;
+  const [usdtBalance, setUsdtBalance] = useState(0);
 
- useEffect(() => {
+  useEffect(() => {
     const auth = getAuth();
     const user = auth.currentUser;
     if (!user) return;
@@ -30,7 +29,7 @@ export default function WithdrawPage() {
     return () => unsub();
   }, []);
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, color: "#fff" }}>
+    <Box sx={{ p: { xs: 2, md: 4 }, color: "text.primary" }}>
       {/* PAGE TITLE */}
       <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
         Withdraw Gateway
@@ -40,7 +39,7 @@ export default function WithdrawPage() {
       <Grid container spacing={2}>
         {gateways.map((name) => (
           <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={name}>
-            <GatewayCard title={name} balance={usdtBalance}/>
+            <GatewayCard title={name} balance={usdtBalance} />
           </Grid>
         ))}
       </Grid>
@@ -50,9 +49,10 @@ export default function WithdrawPage() {
         sx={{
           mt: 4,
           p: { xs: 2, md: 3 },
-          background: "linear-gradient(180deg,#0f0f0f,#050505)",
+          bgcolor: "background.paper",
           borderRadius: 2,
-          border: "1px solid #1c1c1c",
+          border: 1,
+          borderColor: "divider",
         }}
       >
         <WithdrawLogs />

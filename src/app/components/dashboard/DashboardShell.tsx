@@ -15,7 +15,7 @@ export default function DashboardShell({
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#0f172a" }}>
+    <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "var(--background)" }}>
       {/* Sidebar */}
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
@@ -27,6 +27,8 @@ export default function DashboardShell({
           display: "flex",
           flexDirection: "column",
           minHeight: "100vh",
+          bgcolor: "var(--background)",
+          color: "var(--foreground)",
         }}
       >
         <Topbar onMenuClick={() => setSidebarOpen(true)} />

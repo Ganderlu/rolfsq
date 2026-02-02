@@ -35,21 +35,22 @@ export default function WhyPrimeMax() {
         {/* Cards */}
         <Grid container spacing={4}>
           {/* Left Card */}
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid item xs={12} md={6}>
             <Card
               sx={{
                 borderRadius: 4,
                 overflow: "hidden",
                 height: "100%",
-                bgcolor: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                color: "#fff",
+                bgcolor: "var(--card)",
+                border: "1px solid",
+                borderColor: "var(--border)",
+                color: "var(--card-foreground)",
               }}
             >
               <CardMedia
                 component="img"
                 height="280"
-                image="/images/opportunities.jpg" // replace with your image
+                image="/images/opportunities.jpg"
                 alt="Investment Opportunities"
               />
 
@@ -58,7 +59,7 @@ export default function WhyPrimeMax() {
                   Investment Opportunities
                 </Typography>
 
-                <Typography color="text.secondary" mb={3}>
+                <Typography color="var(--muted-foreground)" mb={3}>
                   Prime Max Capital leads in diverse investment opportunities,
                   offering investors the chance to explore forex, gold,
                   cannabis, and real estate markets with tailored funding
@@ -72,50 +73,56 @@ export default function WhyPrimeMax() {
                   elevation={0}
                   sx={{
                     bgcolor: "transparent",
-                    color: "#fff",
+                    color: "var(--foreground)",
                     "&:before": { display: "none" },
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+                    expandIcon={
+                      <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
+                    }
                   >
                     Funding evaluations
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
 
-                <Divider sx={{ borderColor: "rgba(255,255,255,0.1)" }} />
+                <Divider sx={{ borderColor: "var(--border)" }} />
 
                 <Accordion
                   disableGutters
                   elevation={0}
                   sx={{
                     bgcolor: "transparent",
-                    color: "#fff",
+                    color: "var(--foreground)",
                     "&:before": { display: "none" },
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+                    expandIcon={
+                      <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
+                    }
                   >
                     Competitions
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
 
-                <Divider sx={{ borderColor: "rgba(255,255,255,0.1)" }} />
+                <Divider sx={{ borderColor: "var(--border)" }} />
 
                 <Accordion
                   disableGutters
                   elevation={0}
                   sx={{
                     bgcolor: "transparent",
-                    color: "#fff",
+                    color: "var(--foreground)",
                     "&:before": { display: "none" },
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+                    expandIcon={
+                      <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
+                    }
                   >
                     Profit share & Scaling plan
                   </AccordionSummary>
@@ -126,15 +133,16 @@ export default function WhyPrimeMax() {
           </Grid>
 
           {/* Right Card */}
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid item xs={12} md={6}>
             <Card
               sx={{
                 borderRadius: 4,
                 overflow: "hidden",
                 height: "100%",
-                bgcolor: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                color: "#fff",
+                bgcolor: "var(--card)",
+                border: "1px solid",
+                borderColor: "var(--border)",
+                color: "var(--card-foreground)",
               }}
             >
               <CardMedia
@@ -149,7 +157,7 @@ export default function WhyPrimeMax() {
                   Brokerage
                 </Typography>
 
-                <Typography color="text.secondary" mb={3}>
+                <Typography color="var(--muted-foreground)" mb={3}>
                   We offer a comprehensive suite of brokerage services. Our
                   brokerage provides traders access to a wide range of financial
                   instruments, including forex, commodities, indices, and more.
@@ -163,50 +171,56 @@ export default function WhyPrimeMax() {
                   elevation={0}
                   sx={{
                     bgcolor: "transparent",
-                    color: "#fff",
+                    color: "var(--foreground)",
                     "&:before": { display: "none" },
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+                    expandIcon={
+                      <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
+                    }
                   >
                     Forex
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
 
-                <Divider sx={{ borderColor: "rgba(255,255,255,0.1)" }} />
+                <Divider sx={{ borderColor: "var(--border)" }} />
 
                 <Accordion
                   disableGutters
                   elevation={0}
                   sx={{
                     bgcolor: "transparent",
-                    color: "#fff",
+                    color: "var(--foreground)",
                     "&:before": { display: "none" },
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+                    expandIcon={
+                      <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
+                    }
                   >
                     Commodities & Indices
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
 
-                <Divider sx={{ borderColor: "rgba(255,255,255,0.1)" }} />
+                <Divider sx={{ borderColor: "var(--border)" }} />
 
                 <Accordion
                   disableGutters
                   elevation={0}
                   sx={{
                     bgcolor: "transparent",
-                    color: "#fff",
+                    color: "var(--foreground)",
                     "&:before": { display: "none" },
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+                    expandIcon={
+                      <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
+                    }
                   >
                     Trading Platforms
                   </AccordionSummary>

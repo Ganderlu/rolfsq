@@ -1,10 +1,23 @@
 "use client";
 
-import { Box, Button, Container, Stack, Typography, IconButton, Drawer, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Stack,
+  Typography,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -16,6 +29,15 @@ const navLinks = [
 export default function Navbar() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleDrawer = () => {
     setMobileOpen(!mobileOpen);
@@ -28,9 +50,11 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         zIndex: 1000,
-        bgcolor: "rgba(15, 23, 42, 0.9)",
+        bgcolor: scrolled ? "var(--background)" : "transparent",
         backdropFilter: "blur(10px)",
-        borderBottom: "1px solid rgba(255,255,255,0.1)",
+        borderBottom: "1px solid",
+        borderColor: scrolled ? "var(--border)" : "transparent",
+        transition: "all 0.3s ease",
       }}
     >
       <Container maxWidth="xl">
@@ -72,11 +96,11 @@ export default function Navbar() {
                 style={{ textDecoration: "none" }}
               >
                 <Typography
-                  color="rgba(255,255,255,0.7)"
-                  fontWeight={500}
                   sx={{
+                    color: "var(--muted-foreground)",
+                    fontWeight: 500,
                     transition: "color 0.2s",
-                    "&:hover": { color: "#fff" },
+                    "&:hover": { color: "var(--foreground)" },
                   }}
                 >
                   {link.label}
@@ -85,15 +109,17 @@ export default function Navbar() {
             ))}
           </Stack>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons & Theme Toggle */}
           <Stack
             direction="row"
             spacing={2}
+            alignItems="center"
             sx={{ display: { xs: "none", md: "flex" } }}
           >
+            <ThemeToggle />
             <Button
               variant="text"
-              sx={{ color: "#fff" }}
+              sx={{ color: "var(--foreground)" }}
               onClick={() => router.push("/login")}
             >
               Login
@@ -112,7 +138,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <IconButton
-            sx={{ display: { md: "none" }, color: "#fff" }}
+            sx={{ display: { md: "none" }, color: "var(--foreground)" }}
             onClick={toggleDrawer}
           >
             {mobileOpen ? <X /> : <Menu />}
@@ -127,11 +153,12 @@ export default function Navbar() {
         onClose={toggleDrawer}
         PaperProps={{
           sx: {
-            bgcolor: "#0f172a",
-            color: "#fff",
+            bgcolor: "var(--background)",
+            color: "var(--foreground)",
             top: "80px !important", // Below navbar
             boxShadow: "none",
-            borderTop: "1px solid rgba(255,255,255,0.1)",
+            borderTop: "1px solid",
+            borderColor: "var(--border)",
           },
         }}
       >
@@ -150,6 +177,9 @@ export default function Navbar() {
             </ListItem>
           ))}
           <Stack spacing={2} mt={2}>
+            <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
+              <ThemeToggle />
+            </Box>
             <Button
               variant="outlined"
               color="inherit"

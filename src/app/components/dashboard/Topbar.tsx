@@ -25,14 +25,15 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        bgcolor: "#0f172a",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
+        bgcolor: "var(--background)",
+        borderBottom: "1px solid",
+        borderColor: "var(--border)",
       }}
     >
       <Stack direction="row" spacing={2} alignItems="center">
         <IconButton
           onClick={onMenuClick}
-          sx={{ display: { md: "none" }, color: "#94a3b8" }}
+          sx={{ display: { md: "none" }, color: "var(--muted-foreground)" }}
         >
           <MenuIcon />
         </IconButton>
@@ -41,8 +42,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
         <Typography
           variant="h6"
           fontWeight={600}
-          color="#f1f5f9"
-          sx={{ display: { xs: "none", sm: "block" } }}
+          sx={{ display: { xs: "none", sm: "block" }, color: "var(--foreground)" }}
         >
           Welcome Back!
         </Typography>
@@ -53,8 +53,8 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
           <IconButton
             size="small"
             sx={{
-              color: "#94a3b8",
-              "&:hover": { color: "#fff", bgcolor: "rgba(255,255,255,0.05)" },
+              color: "var(--muted-foreground)",
+              "&:hover": { color: "var(--foreground)", bgcolor: "var(--accent)" },
             }}
           >
             <Search size={20} />
@@ -62,8 +62,8 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
           <IconButton
             size="small"
             sx={{
-              color: "#94a3b8",
-              "&:hover": { color: "#fff", bgcolor: "rgba(255,255,255,0.05)" },
+              color: "var(--muted-foreground)",
+              "&:hover": { color: "var(--foreground)", bgcolor: "var(--accent)" },
             }}
           >
             <Bell size={20} />
@@ -77,14 +77,15 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
             gap: 2,
             ml: 1,
             pl: 3,
-            borderLeft: "1px solid rgba(255,255,255,0.1)",
+            borderLeft: "1px solid",
+            borderColor: "var(--border)",
           }}
         >
           <Box textAlign="right" sx={{ display: { xs: "none", sm: "block" } }}>
-            <Typography variant="body2" fontWeight={600} color="#f1f5f9">
+            <Typography variant="body2" fontWeight={600} sx={{ color: "var(--foreground)" }}>
               {currentUser?.email?.split("@")[0] || "User"}
             </Typography>
-            <Typography variant="caption" color="#94a3b8">
+            <Typography variant="caption" sx={{ color: "var(--muted-foreground)" }}>
               Investor
             </Typography>
           </Box>
@@ -92,9 +93,11 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
             sx={{
               width: 40,
               height: 40,
-              bgcolor: "primary.main",
+              bgcolor: "var(--primary)",
+              color: "var(--primary-foreground)",
               fontSize: 16,
-              border: "2px solid rgba(255,255,255,0.1)",
+              border: "2px solid",
+              borderColor: "var(--border)",
             }}
           >
             {currentUser?.email?.[0].toUpperCase() || "U"}
