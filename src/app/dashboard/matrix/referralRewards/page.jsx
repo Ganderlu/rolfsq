@@ -4,7 +4,6 @@ import {
   Box,
   Typography,
   TextField,
-  MenuItem,
   Button,
   Paper,
   Table,
@@ -15,16 +14,61 @@ import {
   Stack,
   useTheme,
   useMediaQuery,
+  CircularProgress,
+  Chip,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useEffect, useState } from "react";
+import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import { auth, db } from "@/app/firebase/firebaseClient";
+import { onAuthStateChanged } from "firebase/auth";
 
-export default function TransactionsPage() {
+export default function ReferralRewardsPage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  const [rewards, setRewards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      // Query 'referralRewards' collection
+      // Ensure you have this collection or adjust to 'transactions' where type == 'referral'
+      const q = query(
+        collection(db, "referralRewards"),
+        where("userId", "==", user.uid)
+        // orderBy("createdAt", "desc") // Requires index, use client-side sort if needed initially
+      );
+
+      const unsubscribe = onSnapshot(q, (snap) => {
+        const data = snap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          createdAt: doc.data().createdAt?.toDate(),
+        }));
+        setRewards(data.sort((a, b) => b.createdAt - a.createdAt));
+        setLoading(false);
+      });
+
+      return () => unsubscribe();
+    });
+
+    return () => unsubscribeAuth();
+  }, []);
+
+  const filteredRewards = rewards.filter((r) =>
+    r.id.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, color: "white" }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>
+    <Box sx={{ p: { xs: 2, md: 4 }, color: "text.primary", minHeight: "100vh" }}>
+      <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
         Referral Rewards
       </Typography>
 
@@ -33,8 +77,9 @@ export default function TransactionsPage() {
         sx={{
           p: 2,
           mb: 3,
-          background: "rgba(255,255,255,0.02)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          bgcolor: "background.paper",
+          border: 1,
+          borderColor: "divider",
         }}
       >
         <Stack
@@ -44,41 +89,21 @@ export default function TransactionsPage() {
         >
           <TextField
             fullWidth
-            placeholder="Trx ID"
+            placeholder="Search Reward ID"
             size="small"
-            InputProps={{ sx: { color: "white" } }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-
-          {/* <TextField
-            select
-            size="small"
-            fullWidth={isMobile}
-            defaultValue="PRIMARY"
-          >
-            <MenuItem value="PRIMARY">PRIMARY</MenuItem>
-            <MenuItem value="DEMO">DEMO</MenuItem>
-          </TextField> */}
-
-          {/* <TextField
-            select
-            size="small"
-            fullWidth={isMobile}
-            defaultValue="ALL"
-          >
-            <MenuItem value="ALL">ALL</MenuItem>
-            <MenuItem value="DEPOSIT">DEPOSIT</MenuItem>
-            <MenuItem value="WITHDRAW">WITHDRAW</MenuItem>
-          </TextField> */}
-
-          <TextField type="date" size="small" fullWidth={isMobile} />
 
           <Button
             variant="contained"
             startIcon={<SearchIcon />}
             sx={{
-              background: "#ff8a00",
+              bgcolor: "#ff7a00",
+              color: "#fff",
               px: 4,
               width: isMobile ? "100%" : "auto",
+              "&:hover": { bgcolor: "#e66e00" },
             }}
           >
             Search
@@ -89,8 +114,9 @@ export default function TransactionsPage() {
       {/* Table */}
       <Paper
         sx={{
-          background: "rgba(255,255,255,0.02)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          bgcolor: "background.paper",
+          border: 1,
+          borderColor: "divider",
           overflowX: "auto",
         }}
       >
@@ -98,24 +124,69 @@ export default function TransactionsPage() {
           <TableHead>
             <TableRow>
               {[
-                "Initiated At",
-                "Trx",
-                "Users",
+                "Date",
+                "Reward ID",
+                "From User",
+                "Plan",
                 "Amount",
-                "Details",
+                "Status",
               ].map((head) => (
-                <TableCell key={head} sx={{ color: "white" }}>
+                <TableCell key={head} sx={{ color: "text.secondary", fontWeight: 600 }}>
                   {head}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell colSpan={8} align="center" sx={{ color: "gray" }}>
-                No Data Found
-              </TableCell>
-            </TableRow>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={6} align="center" sx={{ py: 3 }}>
+                  <CircularProgress size={30} sx={{ color: "#ff7a00" }} />
+                </TableCell>
+              </TableRow>
+            ) : filteredRewards.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={6}
+                  align="center"
+                  sx={{ color: "text.secondary", py: 4 }}
+                >
+                  No Referral Rewards Found
+                </TableCell>
+              </TableRow>
+            ) : (
+              filteredRewards.map((row) => (
+                <TableRow key={row.id} hover>
+                  <TableCell sx={{ color: "text.primary" }}>
+                    {row.createdAt?.toLocaleDateString() || "N/A"}
+                  </TableCell>
+                  <TableCell sx={{ color: "text.secondary", fontSize: 12 }}>
+                    {row.id.substring(0, 8)}...
+                  </TableCell>
+                  <TableCell sx={{ color: "text.primary" }}>
+                    {row.fromUser || "Anonymous"}
+                  </TableCell>
+                  <TableCell sx={{ color: "text.primary" }}>
+                    {row.planTitle || "N/A"}
+                  </TableCell>
+                  <TableCell sx={{ color: "#4caf50", fontWeight: "bold" }}>
+                    +${row.amount}
+                  </TableCell>
+                  <TableCell>
+                    <Chip
+                      label={row.status || "COMPLETED"}
+                      size="small"
+                      sx={{
+                        bgcolor: "rgba(76, 175, 80, 0.1)",
+                        color: "#4caf50",
+                        fontWeight: "bold",
+                        border: "1px solid rgba(76, 175, 80, 0.2)",
+                      }}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </Paper>

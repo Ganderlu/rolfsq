@@ -53,7 +53,7 @@ const navItems: NavItem[] = [
     icon: TrendingUp,
     children: [
       { label: "Investment Plans", href: "/dashboard/investments/plans" },
-      { label: "My Portfolio", href: "/dashboard/investments/funds" },
+      { label: "Funds", href: "/dashboard/investments/funds" },
       {
         label: "Profit Statistics",
         href: "/dashboard/investments/profit-statistics",
