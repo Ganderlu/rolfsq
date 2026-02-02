@@ -35,7 +35,7 @@ export default function WhyPrimeMax() {
         {/* Cards */}
         <Grid container spacing={4}>
           {/* Left Card */}
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Card
               sx={{
                 borderRadius: 4,
@@ -133,7 +133,7 @@ export default function WhyPrimeMax() {
           </Grid>
 
           {/* Right Card */}
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Card
               sx={{
                 borderRadius: 4,

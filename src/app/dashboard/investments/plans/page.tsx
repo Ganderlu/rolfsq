@@ -13,8 +13,10 @@ import {
   Stack,
   Divider,
 } from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import {
+  CheckCircle as CheckCircleIcon,
+  TrendingUp as TrendingUpIcon,
+} from "@mui/icons-material";
 
 export default function InvestmentPlansPage() {
   const [open, setOpen] = useState(false);
@@ -65,7 +67,7 @@ export default function InvestmentPlansPage() {
 
       <Grid container spacing={3}>
         {plans.map((plan) => (
-          <Grid item xs={12} md={6} lg={4} key={plan.title}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }} key={plan.title}>
             <Paper
               sx={{
                 position: "relative",

@@ -111,14 +111,16 @@ export default function MatrixPlansPage() {
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, minHeight: "100vh", color: "text.primary" }}>
+    <Box
+      sx={{ p: { xs: 2, md: 4 }, minHeight: "100vh", color: "text.primary" }}
+    >
       <Typography variant="h4" fontWeight="bold" mb={4} textAlign="center">
         Matrix Plans
       </Typography>
 
       <Grid container spacing={4} justifyContent="center">
         {plans.map((plan, index) => (
-          <Grid item xs={12} md={4} key={index}>
+          <Grid size={{ xs: 12, md: 4 }} key={index}>
             <Paper
               sx={{
                 position: "relative",
@@ -152,12 +154,21 @@ export default function MatrixPlansPage() {
                 />
               )}
 
-              <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={2}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="flex-start"
+                mb={2}
+              >
                 <Box>
                   <Typography variant="h4" fontWeight="bold">
                     ${plan.price}
                   </Typography>
-                  <Typography variant="h6" fontWeight="bold" sx={{ opacity: 0.9 }}>
+                  <Typography
+                    variant="h6"
+                    fontWeight="bold"
+                    sx={{ opacity: 0.9 }}
+                  >
                     {plan.title}
                   </Typography>
                 </Box>
@@ -179,7 +190,10 @@ export default function MatrixPlansPage() {
                 <Typography variant="body2" sx={{ mb: 1, color: "#ccc" }}>
                   Aggregate Level Commission: {plan.commission}
                 </Typography>
-                <Typography variant="body2" sx={{ color: "#ff7a00", fontWeight: "bold" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "#ff7a00", fontWeight: "bold" }}
+                >
                   Get back {plan.cashback} of what you invested
                 </Typography>
               </Box>

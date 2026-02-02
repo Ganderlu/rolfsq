@@ -16,6 +16,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Box,
+  Typography,
+  Paper,
 } from "@mui/material";
 
 export default function AdminWithdrawals() {
@@ -73,7 +76,14 @@ export default function AdminWithdrawals() {
         Withdrawal Requests
       </Typography>
 
-      <Paper sx={{ overflowX: "auto", bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+      <Paper
+        sx={{
+          overflowX: "auto",
+          bgcolor: "background.paper",
+          border: 1,
+          borderColor: "divider",
+        }}
+      >
         <Table>
           <TableHead>
             <TableRow>
@@ -88,13 +98,20 @@ export default function AdminWithdrawals() {
             {withdrawals.map((w) => (
               <TableRow key={w.id}>
                 <TableCell sx={{ color: "text.primary" }}>{w.userId}</TableCell>
-                <TableCell sx={{ color: "text.primary" }}>${w.amount}</TableCell>
+                <TableCell sx={{ color: "text.primary" }}>
+                  ${w.amount}
+                </TableCell>
                 <TableCell sx={{ color: "text.primary" }}>{w.status}</TableCell>
                 <TableCell>
                   {w.status === "pending" && (
                     <>
-                      <Button onClick={() => approveWithdraw(w)}>Approve</Button>
-                      <Button color="error" onClick={() => rejectWithdraw(w.id)}>
+                      <Button onClick={() => approveWithdraw(w)}>
+                        Approve
+                      </Button>
+                      <Button
+                        color="error"
+                        onClick={() => rejectWithdraw(w.id)}
+                      >
                         Reject
                       </Button>
                     </>

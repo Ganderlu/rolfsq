@@ -51,7 +51,7 @@ export default function ProfitStatisticsPage() {
 
       const q = query(
         collection(db, "investments"),
-        where("userId", "==", user.uid)
+        where("userId", "==", user.uid),
       );
 
       const unsubscribe = onSnapshot(q, (snap) => {
@@ -111,7 +111,7 @@ export default function ProfitStatisticsPage() {
 
         // Convert monthlyData object to array and sort
         const chartArr = Object.values(monthlyData).sort(
-          (a, b) => a.timestamp - b.timestamp
+          (a, b) => a.timestamp - b.timestamp,
         );
         setChartData(chartArr);
 
@@ -128,7 +128,7 @@ export default function ProfitStatisticsPage() {
   }, []);
 
   const filteredTransactions = transactions.filter((t) =>
-    t.id.toLowerCase().includes(searchTerm.toLowerCase())
+    t.id.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -136,7 +136,7 @@ export default function ProfitStatisticsPage() {
       {/* TOP SECTION */}
       <Grid container spacing={3}>
         {/* Investment Summary */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card
             sx={{
               height: "100%",
@@ -198,7 +198,7 @@ export default function ProfitStatisticsPage() {
         </Grid>
 
         {/* Monthly Chart */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card
             sx={{
               height: "100%",
@@ -264,7 +264,7 @@ export default function ProfitStatisticsPage() {
 
         {/* Filters */}
         <Grid container spacing={2} mb={2}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <TextField
               fullWidth
               placeholder="Search by ID"
@@ -288,7 +288,7 @@ export default function ProfitStatisticsPage() {
               sx={{ bgcolor: "rgba(255,255,255,0.05)", borderRadius: 1 }}
             />
           </Grid> */}
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Button
               fullWidth
               startIcon={<SearchIcon />}

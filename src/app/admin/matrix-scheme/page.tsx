@@ -67,7 +67,7 @@ export default function AdminMatrixSchemePage() {
 
       {/* Stats Overview */}
       <Grid container spacing={2} sx={{ mb: 4 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Paper sx={{ p: 2, bgcolor: "#1e1e1e", color: "white" }}>
             <Typography variant="subtitle2" color="gray">
               Total Enrollments
@@ -77,7 +77,7 @@ export default function AdminMatrixSchemePage() {
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Paper sx={{ p: 2, bgcolor: "#1e1e1e", color: "white" }}>
             <Typography variant="subtitle2" color="gray">
               Active Plans
