@@ -28,6 +28,7 @@ import {
   ChevronDown,
   ChevronRight,
 } from "lucide-react";
+import { ThemeToggle } from "../ThemeToggle";
 
 interface NavItem {
   label: string;
@@ -290,6 +291,21 @@ export default function Sidebar({
       </Box>
 
       <Box p={2} borderTop="1px solid" borderColor="var(--border)">
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            px: 2,
+            py: 1.5,
+            mb: 1,
+          }}
+        >
+          <ThemeToggle />
+          <Typography variant="body2" fontWeight={500}>
+            Theme
+          </Typography>
+        </Box>
         <Link href="/logout" style={{ textDecoration: "none" }}>
           <Box
             sx={{

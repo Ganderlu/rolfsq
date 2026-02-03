@@ -19,7 +19,7 @@ export default function CommunitySection() {
 
         {/* RIGHT – CONTENT */}
         <div className="flex flex-col items-start">
-          <span className="text-sm font-semibold tracking-wide text-emerald-500 uppercase mb-4">
+          <span className="text-sm font-semibold tracking-wide text-blue-500 uppercase mb-4">
             Trade with the best
           </span>
 
@@ -34,7 +34,7 @@ export default function CommunitySection() {
             to succeed.
           </p>
 
-          <button className="bg-purple-600 hover:bg-purple-700 transition-colors text-white font-semibold px-8 py-4 rounded-lg shadow-md">
+          <button className="bg-blue-400 hover:bg-blue-400 transition-colors text-white font-semibold px-8 py-4 rounded-lg shadow-md">
             Join Us Today
           </button>
         </div>

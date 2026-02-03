@@ -11,6 +11,7 @@ import CreditCard from "./components/CreditCard";
 import MissionSection from "./components/MissionSection";
 import PlansSection from "./components/PlansSection";
 import PrinciplesSection from "./components/PrinciplesSection";
+import CryptoTicker from "@/app/components/widgets/CryptoTicker";
 import TradingHero from "./components/TradingHero";
 import ServicesSection from "./components/ServicesSection";
 import FAQSection from "./components/FAQSection";
@@ -20,10 +21,11 @@ export default function Home() {
   return (
     <Box sx={{ bgcolor: "var(--background)" }}>
       <Navbar />
+      <CryptoTicker />
       <Hero />
-      <CryptoStats />
-      <FeatureCards />
+      {/* <CryptoStats /> */}
       <TradeSection />
+      <FeatureCards />
       <WhyPrimeMax />
       <CommunitySection />
       <Advisor/>

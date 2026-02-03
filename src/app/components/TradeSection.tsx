@@ -101,7 +101,7 @@ export default function TradeSection() {
             <Typography variant="h3" fontWeight={700} gutterBottom>
               TRADE THE WAY YOU WANT
             </Typography>
-            <Typography color="text.secondary">
+            <Typography color="text.white" variant="body1" sx={{ opacity: 0.75 }}>
               Choose between forex, gold, cannabis, and real estate — with
               account types and strategies to suit any investment style. At OFL
               (Prime Max Capital), we provide the tools and flexibility to build
@@ -112,12 +112,12 @@ export default function TradeSection() {
           <Button
             variant="contained"
             sx={{
-              bgcolor: "#9c27b0",
+              bgcolor: "var(--primary)",
               px: 4,
               py: 1.2,
               borderRadius: 1,
               fontWeight: 600,
-              "&:hover": { bgcolor: "#7b1fa2" },
+              "&:hover": { bgcolor: "var(--primary-hover)" },
             }}
           >
             FIND OUT MORE
