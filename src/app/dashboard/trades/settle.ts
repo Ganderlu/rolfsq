@@ -1,6 +1,6 @@
 "use server";
 
-import { adminDb } from "../../lib/firebaseAdmin";
+import { adminDb } from "../../firebase/firebaseAdmin";
 import { FieldValue } from "firebase-admin/firestore";
 
 export async function settleTrade(tradeId: string, closePrice: number) {
@@ -18,7 +18,7 @@ export async function settleTrade(tradeId: string, closePrice: number) {
   const profit = won ? trade.amount * trade.payout : 0;
 
   const userRef = adminDb.doc(`users/${trade.uid}`);
-  const balanceField = trade.mode === "demo" ? "balanceDemo" : "balanceLive";
+  const balanceField = trade.mode === "demo" ? "balanceDemo" : "usdtBalance";
 
   if (won) {
     await userRef.update({

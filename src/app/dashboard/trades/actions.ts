@@ -1,9 +1,10 @@
 "use server";
 
-import { adminDb } from "../../lib/firebaseAdmin";
+import { adminDb } from "../../firebase/firebaseAdmin";
 import { auth } from "@/lib/auth/server";
 
 export async function placeTrade({
+  uid,
   asset,
   direction,
   amount,
@@ -11,35 +12,36 @@ export async function placeTrade({
   payout,
   price,
 }: any) {
-  const session = await auth();
-  if (!session?.uid) throw new Error("Unauthorized");
+  if (!uid) throw new Error("Unauthorized");
 
-  const userRef = adminDb.doc(`users/${session.uid}`);
+  const userRef = adminDb.doc(`users/${uid}`);
   const userSnap = await userRef.get();
   const user = userSnap.data();
 
   if (!user) throw new Error("User not found");
 
-  const balanceField = user.mode === "demo" ? "balanceDemo" : "balanceLive";
+  const mode = user.mode || "demo";
+  const balanceField = mode === "demo" ? "balanceDemo" : "usdtBalance";
+  const currentBalance = user[balanceField] || 0;
 
-  if (user[balanceField] < amount) {
+  if (currentBalance < amount) {
     throw new Error("Insufficient balance");
   }
 
   // 🔻 Deduct balance immediately
   await userRef.update({
-    [balanceField]: user[balanceField] - amount,
+    [balanceField]: currentBalance - amount,
   });
 
   const expiresAt = new Date(Date.now() + duration * 1000);
 
   const tradeRef = await adminDb.collection("trades").add({
-    uid: session.uid,
+    uid,
     asset,
     direction,
     amount,
     payout,
-    mode: user.mode,
+    mode,
     openPrice: price,
     closePrice: null,
     openedAt: new Date(),

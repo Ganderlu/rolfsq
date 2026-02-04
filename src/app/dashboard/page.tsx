@@ -1,100 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { onSnapshot, doc, collection, query, where } from "firebase/firestore";
-import { db, auth } from "../firebase/firebaseClient";
 import { useRouter } from "next/navigation";
-import NotificationBell from "@/app/components/notifications/NotificationBell";
 import CryptoTicker from "@/app/components/widgets/CryptoTicker";
 import SelectAsset from "../components/SelectAsset";
 import TradingViewChart from "../components/TradingViewChart";
 import PlaceOrder from "../components/PlaceOrder";
 import ActiveTrades from "../components/ActiveTrades";
-import Link from "next/link";
+import { useUserStats } from "@/hooks/useUserStats";
 
 export default function Dashboard() {
   const router = useRouter();
-  const [stats, setStats] = useState({
-    totalInvest: 0,
-    totalProfit: 0,
-    runningInvest: 0,
-    totalCommission: 0,
-    referralCommission: 0,
-    levelCommission: 0,
-    totalTrades: 0,
-    winRate: 0,
-    netPnL: 0,
-    activeTrades: 0,
-    balance: 0,
-    username: "User",
-  });
-
-  useEffect(() => {
-    const user = auth.currentUser;
-    if (!user) return;
-
-    // USER PROFILE
-    const unsubUser = onSnapshot(doc(db, "users", user.uid), (snap) => {
-      if (snap.exists()) {
-        const d = snap.data();
-        setStats((s) => ({
-          ...s,
-          balance: d.usdtBalance || 0,
-          totalTrades: d.totalTrades || 0,
-          activeTrades: d.activeTrades || 0,
-          netPnL: d.totalPnL || 0,
-          username: d.username || "User",
-        }));
-      }
-    });
-
-    // INVESTMENTS
-    const unsubInvest = onSnapshot(
-      query(collection(db, "investments"), where("userId", "==", user.uid)),
-      (snap) => {
-        let total = 0;
-        let profit = 0;
-        let running = 0;
-
-        snap.forEach((d) => {
-          const i = d.data();
-          total += i.amount || 0;
-          profit += i.profit || 0;
-          if (i.status === "running") running += i.amount;
-        });
-
-        setStats((s) => ({
-          ...s,
-          totalInvest: total,
-          totalProfit: profit,
-          runningInvest: running,
-        }));
-      },
-    );
-
-    // MATRIX
-    const unsubMatrix = onSnapshot(
-      query(
-        collection(db, "matrixEnrollments"),
-        where("userId", "==", user.uid),
-      ),
-      (snap) => {
-        let total = 0;
-        snap.forEach((d) => (total += d.data().commission || 0));
-
-        setStats((s) => ({
-          ...s,
-          totalCommission: total,
-        }));
-      },
-    );
-
-    return () => {
-      unsubUser();
-      unsubInvest();
-      unsubMatrix();
-    };
-  }, []);
+  const stats = useUserStats();
 
   return (
     <div className="space-y-10 text-foreground">

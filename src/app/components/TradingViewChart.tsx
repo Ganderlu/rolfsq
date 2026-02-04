@@ -2,10 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { useMarketStore } from "@/store/useMarketStore";
 
 export default function TradingViewChart() {
   const container = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
+  const { symbol } = useMarketStore();
 
   useEffect(() => {
     if (!container.current) return;
@@ -23,7 +25,7 @@ export default function TradingViewChart() {
       // @ts-expect-error // TradingView global variable
       new window.TradingView.widget({
         autosize: true,
-        symbol: "BINANCE:BTCUSDT",
+        symbol: symbol,
         interval: "1",
         timezone: "Etc/UTC",
         theme: theme,
@@ -37,7 +39,7 @@ export default function TradingViewChart() {
     };
 
     container.current.appendChild(script);
-  }, [resolvedTheme]);
+  }, [resolvedTheme, symbol]);
 
   return (
     <div
