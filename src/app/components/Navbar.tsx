@@ -21,9 +21,11 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Markets", href: "/markets" },
-  { label: "Features", href: "/features" },
-  { label: "About", href: "/about" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Services", href: "/services" },
+  { label: "FAQs", href: "/faqs" },
+  { label: "Our Licence", href: "/license" },
+  { label: "Contact Us", href: "/contact-us" },
 ];
 
 export default function Navbar() {
