@@ -58,7 +58,7 @@ export default function ContactUsPage() {
               mb: 2,
             }}
           >
-            Contact Us
+            Contact Us!
           </Typography>
           <Typography
             variant="h6"
