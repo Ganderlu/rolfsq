@@ -1,7 +1,37 @@
+"use client";
+
 import { saveStep1 } from "../../../app/register/actions";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Alert, CircularProgress } from "@mui/material";
 
 export default function RegisterPersonalInfoPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    try {
+      const res = await saveStep1(formData);
+      if (res?.success) {
+        router.push(`/register/location?rid=${res.id}`);
+      } else {
+        // @ts-ignore
+        setError(res?.error || "Something went wrong");
+      }
+    } catch (err: any) {
+      setError(err.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="min-h-screen w-full bg-background flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-[420px] rounded-2xl border border-border bg-card shadow-2xl p-6 sm:p-8">
@@ -57,7 +87,9 @@ export default function RegisterPersonalInfoPage() {
         </div>
 
         {/* Form */}
-        <form action={saveStep1} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && <Alert severity="error">{error}</Alert>}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               name="username"
@@ -90,9 +122,11 @@ export default function RegisterPersonalInfoPage() {
             <span className="text-xs text-muted-foreground">Step 1 of 3</span>
             <button
               type="submit"
-              className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+              disabled={loading}
+              className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-50 flex items-center gap-2"
             >
-              Continue →
+              {loading && <CircularProgress size={16} color="inherit" />}
+              {loading ? "Saving..." : "Continue →"}
             </button>
           </div>
         </form>

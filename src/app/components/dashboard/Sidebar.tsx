@@ -253,7 +253,7 @@ export default function Sidebar({
 
   const SidebarContent = (
     <Box
-      width={280}
+      width={240}
       bgcolor="var(--card)"
       color="var(--card-foreground)"
       height="100%"
@@ -278,7 +278,7 @@ export default function Sidebar({
       </Box>
 
       <Box flex={1} overflow="auto" py={2}>
-        <Stack spacing={1} px={2}>
+        <Stack spacing={0.5} px={1}>
           {navItems.map((item, index) => (
             <SidebarItem
               key={index}
@@ -290,7 +290,7 @@ export default function Sidebar({
         </Stack>
       </Box>
 
-      <Box p={2} borderTop="1px solid" borderColor="var(--border)">
+      <Box p={1} borderTop="1px solid" borderColor="var(--border)">
         <Box
           sx={{
             display: "flex",
@@ -298,7 +298,7 @@ export default function Sidebar({
             gap: 2,
             px: 2,
             py: 1.5,
-            mb: 1,
+            mb: 0.5,
           }}
         >
           <ThemeToggle />
@@ -350,10 +350,10 @@ export default function Sidebar({
     <Drawer
       variant="permanent"
       sx={{
-        width: 280,
+        width: 240,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: 280,
+          width: 240,
           boxSizing: "border-box",
           border: "none",
         },

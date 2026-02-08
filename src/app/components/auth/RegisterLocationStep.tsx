@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { saveStep2 } from "../../../app/register/actions";
 import {
+  Alert,
   Box,
   Button,
   Card,
   CardContent,
+  CircularProgress,
   Container,
   MenuItem,
   Select,
@@ -19,8 +21,32 @@ import {
 
 export default function RegisterLocationStep() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const rid = searchParams.get("rid"); // ✅ get registration id
   const [country, setCountry] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    try {
+      const res = await saveStep2(formData);
+      if (res?.success) {
+        router.push(`/register/security?rid=${res.rid}`);
+      } else {
+        // @ts-ignore
+        setError(res?.error || "Something went wrong");
+      }
+    } catch (err: any) {
+      setError(err.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   if (!rid) {
     return (
@@ -89,7 +115,12 @@ export default function RegisterLocationStep() {
             </Stepper>
 
             {/* ✅ FORM CONNECTED TO FIREBASE */}
-            <form action={saveStep2}>
+            <form onSubmit={handleSubmit}>
+              {error && (
+                <Alert severity="error" sx={{ mb: 3 }}>
+                  {error}
+                </Alert>
+              )}
               {/* REQUIRED */}
               <input type="hidden" name="rid" value={rid} />
 
@@ -157,6 +188,7 @@ export default function RegisterLocationStep() {
                 <Button
                   type="submit"
                   variant="contained"
+                  disabled={loading}
                   sx={{
                     bgcolor: "var(--primary)",
                     color: "var(--primary-foreground)",
@@ -168,7 +200,14 @@ export default function RegisterLocationStep() {
                     "&:hover": { bgcolor: "var(--primary)", opacity: 0.9 },
                   }}
                 >
-                  Next Step
+                  {loading && (
+                    <CircularProgress
+                      size={16}
+                      color="inherit"
+                      sx={{ mr: 1 }}
+                    />
+                  )}
+                  {loading ? "Saving..." : "Next Step"}
                 </Button>
               </Box>
             </form>

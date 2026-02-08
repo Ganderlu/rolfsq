@@ -16,13 +16,39 @@ export async function placeTrade({
 
   const userRef = adminDb.doc(`users/${uid}`);
   const userSnap = await userRef.get();
-  const user = userSnap.data();
+  let user = userSnap.data();
 
-  if (!user) throw new Error("User not found");
+  // 🛠️ AUTO-FIX: Create user profile if missing (for legacy or broken auth)
+  if (!user) {
+    console.warn(`User ${uid} profile missing. Creating default demo profile.`);
+    const defaultProfile = {
+      uid,
+      username: "User",
+      email: "user@example.com", // Placeholder
+      mode: "demo",
+      balanceDemo: 10000,
+      balanceLive: 0,
+      usdtBalance: 0,
+      createdAt: new Date(),
+    };
+    await userRef.set(defaultProfile);
+    user = defaultProfile;
+  }
 
-  const mode = user.mode || "demo";
+  const mode = user?.mode || "demo";
   const balanceField = mode === "demo" ? "balanceDemo" : "usdtBalance";
-  const currentBalance = user[balanceField] || 0;
+  
+  // 🛠️ AUTO-FIX: Ensure balance exists for demo
+  let currentBalance = user?.[balanceField];
+  
+  if (currentBalance === undefined || currentBalance === null) {
+      if (mode === "demo") {
+          currentBalance = 10000;
+          await userRef.update({ balanceDemo: 10000 });
+      } else {
+          currentBalance = 0;
+      }
+  }
 
   if (currentBalance < amount) {
     throw new Error("Insufficient balance");

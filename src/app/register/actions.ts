@@ -23,7 +23,7 @@ export async function saveStep1(formData: FormData) {
 
   const docRef = await adminDb.collection("registration_steps").add(data);
 
-  redirect(`/register/location?rid=${docRef.id}`);
+  return { success: true, id: docRef.id };
 }
 
 /* =========================
@@ -41,15 +41,12 @@ export async function saveStep2(formData: FormData) {
     throw new Error("Country missing");
   }
 
-  await adminDb
-    .collection("registration_steps")
-    .doc(registrationId)
-    .update({
-      country: country,
-      step: 2,
-    });
+  await adminDb.collection("registration_steps").doc(registrationId).update({
+    country: country,
+    step: 2,
+  });
 
-  redirect(`/register/security?rid=${registrationId}`);
+  return { success: true, rid: registrationId };
 }
 
 /* =========================
@@ -97,32 +94,38 @@ export async function completeRegistration(formData: FormData) {
     });
 
     // 👤 CREATE USER PROFILE
-    await adminDb.collection("users").doc(user.uid).set({
-      uid: user.uid,
-      username: data.username,
-      fullName: data.fullName,
-      email: data.email,
-      phone: data.phone || "",
-      country: data.country,
-      mode: "demo",
-      balanceDemo: 10000,
-      balanceLive: 0,
-      usdtBalance: 0,
-      totalTrades: 0,
-      activeTrades: 0,
-      totalPnL: 0,
-      role: "user",
-      createdAt: new Date(),
-    });
+    await adminDb
+      .collection("users")
+      .doc(user.uid)
+      .set({
+        uid: user.uid,
+        username: data.username,
+        fullName: data.fullName,
+        email: data.email,
+        phone: data.phone || "",
+        country: data.country,
+        mode: "demo",
+        balanceDemo: 10000,
+        balanceLive: 0,
+        usdtBalance: 0,
+        totalTrades: 0,
+        activeTrades: 0,
+        totalPnL: 0,
+        role: "user",
+        createdAt: new Date(),
+      });
 
     // 🧹 CLEAN TEMP REGISTRATION DATA
     await ref.delete();
 
+    // 🔑 GENERATE CUSTOM TOKEN FOR AUTO-LOGIN
+    const token = await adminAuth.createCustomToken(user.uid);
+
+    return { success: true, token };
+
   } catch (error: any) {
     console.error("Registration error:", error);
-    throw new Error(error.message || "Registration failed");
+    // Return the error message instead of throwing
+    return { success: false, error: error.message || "Registration failed" };
   }
-
-  // 🚀 REDIRECT TO DASHBOARD
-  redirect("/dashboard");
 }
