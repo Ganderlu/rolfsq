@@ -7,46 +7,70 @@ import { adminAuth, adminDb } from "../firebase/firebaseAdmin";
    STEP 1 — PERSONAL INFO
 ========================= */
 export async function saveStep1(formData: FormData) {
-  const data = {
-    username: formData.get("username"),
-    fullName: formData.get("fullName"),
-    email: formData.get("email"),
-    phone: formData.get("phone"),
-    step: 1,
-    createdAt: new Date(),
-  };
+  try {
+    const data = {
+      username: formData.get("username"),
+      fullName: formData.get("fullName"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      step: 1,
+      createdAt: new Date(),
+    };
 
-  // Validation
-  if (!data.username || !data.fullName || !data.email) {
-    throw new Error("Missing required fields");
+    // Validation
+    if (!data.username || !data.fullName || !data.email) {
+      throw new Error("Missing required fields");
+    }
+
+    // Check if adminDb is initialized
+    if (!adminDb.collection) {
+      throw new Error(
+        "Server Database not configured. Check environment variables.",
+      );
+    }
+
+    const docRef = await adminDb.collection("registration_steps").add(data);
+
+    return { success: true, id: docRef.id };
+  } catch (error: any) {
+    console.error("Registration Step 1 Error:", error);
+    return { success: false, error: error.message || "An error occurred" };
   }
-
-  const docRef = await adminDb.collection("registration_steps").add(data);
-
-  return { success: true, id: docRef.id };
 }
 
 /* =========================
    STEP 2 — LOCATION
 ========================= */
 export async function saveStep2(formData: FormData) {
-  const registrationId = formData.get("rid") as string;
-  const country = formData.get("country");
+  try {
+    const registrationId = formData.get("rid") as string;
+    const country = formData.get("country");
 
-  if (!registrationId) {
-    throw new Error("Registration ID missing");
+    if (!registrationId) {
+      throw new Error("Registration ID missing");
+    }
+
+    if (!country) {
+      throw new Error("Country missing");
+    }
+
+    // Check if adminDb is initialized
+    if (!adminDb.collection) {
+      throw new Error(
+        "Server Database not configured. Check environment variables.",
+      );
+    }
+
+    await adminDb.collection("registration_steps").doc(registrationId).update({
+      country: country,
+      step: 2,
+    });
+
+    return { success: true, rid: registrationId };
+  } catch (error: any) {
+    console.error("Registration Step 2 Error:", error);
+    return { success: false, error: error.message || "An error occurred" };
   }
-
-  if (!country) {
-    throw new Error("Country missing");
-  }
-
-  await adminDb.collection("registration_steps").doc(registrationId).update({
-    country: country,
-    step: 2,
-  });
-
-  return { success: true, rid: registrationId };
 }
 
 /* =========================
@@ -122,7 +146,6 @@ export async function completeRegistration(formData: FormData) {
     const token = await adminAuth.createCustomToken(user.uid);
 
     return { success: true, token };
-
   } catch (error: any) {
     console.error("Registration error:", error);
     // Return the error message instead of throwing
