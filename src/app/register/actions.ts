@@ -92,6 +92,12 @@ export async function completeRegistration(formData: FormData) {
     throw new Error("Passwords do not match");
   }
 
+  if (!adminDb || !adminAuth) {
+    throw new Error(
+      "Firebase Admin not initialized. Check .env.local and restart the server.",
+    );
+  }
+
   // 🔹 FETCH TEMP REGISTRATION DATA
   const ref = adminDb.collection("registration_steps").doc(rid);
   const snapshot = await ref.get();
