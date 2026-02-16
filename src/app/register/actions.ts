@@ -23,9 +23,9 @@ export async function saveStep1(formData: FormData) {
     }
 
     // Check if adminDb is initialized
-    if (!adminDb.collection) {
+    if (!adminDb) {
       throw new Error(
-        "Server Database not configured. Check environment variables.",
+        "Firebase Admin not initialized. Check .env.local and restart the server.",
       );
     }
 
@@ -55,9 +55,9 @@ export async function saveStep2(formData: FormData) {
     }
 
     // Check if adminDb is initialized
-    if (!adminDb.collection) {
+    if (!adminDb) {
       throw new Error(
-        "Server Database not configured. Check environment variables.",
+        "Firebase Admin not initialized. Check .env.local and restart the server.",
       );
     }
 
