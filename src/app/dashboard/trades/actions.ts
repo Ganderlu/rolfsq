@@ -14,6 +14,12 @@ export async function placeTrade({
 }: any) {
   if (!uid) throw new Error("Unauthorized");
 
+  if (!adminDb) {
+    throw new Error(
+      "Firebase Admin not initialized. Check .env.local and restart the server.",
+    );
+  }
+
   const userRef = adminDb.doc(`users/${uid}`);
   const userSnap = await userRef.get();
   let user = userSnap.data();

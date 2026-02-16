@@ -4,6 +4,12 @@ import { adminDb } from "../../firebase/firebaseAdmin";
 import { FieldValue } from "firebase-admin/firestore";
 
 export async function settleTrade(tradeId: string, closePrice: number) {
+  if (!adminDb) {
+    throw new Error(
+      "Firebase Admin not initialized. Check .env.local and restart the server.",
+    );
+  }
+
   const tradeRef = adminDb.doc(`trades/${tradeId}`);
   const tradeSnap = await tradeRef.get();
   const trade = tradeSnap.data();

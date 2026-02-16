@@ -12,6 +12,12 @@ export async function submitContactForm(formData: FormData) {
     throw new Error("Missing required fields");
   }
 
+  if (!adminDb) {
+    throw new Error(
+      "Firebase Admin not initialized. Check .env.local and restart the server.",
+    );
+  }
+
   await adminDb.collection("contacts").add({
     name,
     email,

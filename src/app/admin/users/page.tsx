@@ -5,6 +5,12 @@ import { QueryDocumentSnapshot } from "firebase-admin/firestore";
 export const dynamic = "force-dynamic";
 
 export default async function ManageUsersPage() {
+  if (!adminDb) {
+    throw new Error(
+      "Firebase Admin not initialized. Check .env.local and restart the server.",
+    );
+  }
+
   const snapshot = await adminDb
     .collection("users")
     .orderBy("createdAt", "desc")
