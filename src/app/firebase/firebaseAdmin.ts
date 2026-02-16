@@ -6,13 +6,13 @@ const projectId = process.env.FIREBASE_PROJECT_ID;
 const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
 const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
 
-console.log("🔥 Firebase Admin Env Check:");
+console.log("🔥 [Firebase Admin] Env Check:");
 console.log("   Project ID  →", projectId ? "✅ OK" : "❌ MISSING");
 console.log("   Client Email →", clientEmail ? "✅ OK" : "❌ MISSING");
 console.log("   Private Key  →", privateKey ? `✅ OK (${privateKey.length} chars)` : "❌ MISSING");
 
 if (!projectId || !clientEmail || !privateKey) {
-  console.error("❌ Missing Firebase Admin environment variables!");
+  console.error("❌ Missing Firebase Admin environment variables in Vercel!");
 }
 
 const adminApp = projectId && clientEmail && privateKey
