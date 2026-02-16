@@ -24,9 +24,7 @@ export async function saveStep1(formData: FormData) {
 
     // Check if adminDb is initialized
     if (!adminDb) {
-      throw new Error(
-        "Firebase Admin not initialized. Check .env.local and restart the server.",
-      );
+      throw new Error("Firebase Admin not initialized. Check Vercel env vars.");
     }
 
     const docRef = await adminDb.collection("registration_steps").add(data);
@@ -56,9 +54,7 @@ export async function saveStep2(formData: FormData) {
 
     // Check if adminDb is initialized
     if (!adminDb) {
-      throw new Error(
-        "Firebase Admin not initialized. Check .env.local and restart the server.",
-      );
+      throw new Error("Firebase Admin not initialized. Check Vercel env vars.");
     }
 
     await adminDb.collection("registration_steps").doc(registrationId).update({
