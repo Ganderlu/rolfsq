@@ -1,7 +1,12 @@
+"use client";
+
 import * as React from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function TradingHero() {
+  const { t } = useLanguage();
+
   return (
     <Box
       sx={{
@@ -55,9 +60,7 @@ export default function TradingHero() {
               mb: 3,
             }}
           >
-            START TRADING
-            <br />
-            WITH US TODAY
+            {t("tradingHero.heading")}
           </Typography>
 
           <Typography
@@ -70,9 +73,7 @@ export default function TradingHero() {
               color: "var(--muted-foreground)",
             }}
           >
-            Ready to take your trading to the next level? Sign up with us and
-            unlock your potential with our world-class brokerage and prop
-            trading services.
+            {t("tradingHero.text")}
           </Typography>
 
           <Button
@@ -89,7 +90,7 @@ export default function TradingHero() {
               "&:hover": { bgcolor: "var(--primary)", opacity: 0.9 },
             }}
           >
-            JOIN US TODAY
+            {t("tradingHero.cta")}
           </Button>
         </Box>
 

@@ -132,7 +132,12 @@ export default function ProfitStatisticsPage() {
   );
 
   return (
-    <Box sx={{ p: { xs: 2, md: 3 }, color: "#fff" }}>
+    <Box
+      sx={{
+        p: { xs: 2, md: 3 },
+        color: "var(--foreground)",
+      }}
+    >
       {/* TOP SECTION */}
       <Grid container spacing={3}>
         {/* Investment Summary */}
@@ -142,9 +147,10 @@ export default function ProfitStatisticsPage() {
               height: "100%",
               p: 3,
               borderRadius: 3,
-              background: "linear-gradient(135deg, #0c0c0c 60%, #2b1605)",
-              color: "#fff",
-              border: "1px solid rgba(255,255,255,0.1)",
+              bgcolor: "var(--card)",
+              color: "var(--card-foreground)",
+              border: "1px solid",
+              borderColor: "var(--border)",
             }}
           >
             <Box display="flex" justifyContent="space-between">
@@ -170,7 +176,10 @@ export default function ProfitStatisticsPage() {
                 justifyContent="space-between"
                 mt={2}
               >
-                <Typography color="gray" fontSize={14}>
+                <Typography
+                  color="var(--muted-foreground)"
+                  fontSize={14}
+                >
                   {label}
                 </Typography>
                 <Typography fontWeight={600}>
@@ -204,9 +213,10 @@ export default function ProfitStatisticsPage() {
               height: "100%",
               p: 3,
               borderRadius: 3,
-              background: "linear-gradient(135deg, #0c0c0c 60%, #1a1a1a)",
-              color: "#fff",
-              border: "1px solid rgba(255,255,255,0.1)",
+              bgcolor: "var(--card)",
+              color: "var(--card-foreground)",
+              border: "1px solid",
+              borderColor: "var(--border)",
             }}
           >
             <Typography fontWeight={600} mb={2}>
@@ -253,9 +263,10 @@ export default function ProfitStatisticsPage() {
           mt: 4,
           p: 3,
           borderRadius: 3,
-          background: "linear-gradient(135deg, #0c0c0c 60%, #141414)",
-          color: "#fff",
-          border: "1px solid rgba(255,255,255,0.1)",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
         }}
       >
         <Typography fontWeight={600} mb={2}>

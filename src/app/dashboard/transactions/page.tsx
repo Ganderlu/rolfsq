@@ -116,7 +116,12 @@ export default function TransactionsPage() {
   };
 
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, color: "text.primary" }}>
+    <Box
+      sx={{
+        p: { xs: 2, md: 4 },
+        color: "var(--foreground)",
+      }}
+    >
       <Typography variant="h6" sx={{ mb: 2 }}>
         Transactions
       </Typography>
@@ -126,9 +131,11 @@ export default function TransactionsPage() {
         sx={{
           p: 2,
           mb: 3,
-          bgcolor: "background.paper",
-          border: 1,
-          borderColor: "divider",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
+          borderRadius: 3,
         }}
       >
         <Stack
@@ -175,10 +182,12 @@ export default function TransactionsPage() {
       {/* Table */}
       <Paper
         sx={{
-          bgcolor: "background.paper",
-          border: 1,
-          borderColor: "divider",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
           overflowX: "auto",
+          borderRadius: 3,
         }}
       >
         <Table>
@@ -192,7 +201,10 @@ export default function TransactionsPage() {
                 "Asset/Network",
                 "Status",
               ].map((head) => (
-                <TableCell key={head} sx={{ color: "text.secondary" }}>
+                <TableCell
+                  key={head}
+                  sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}
+                >
                   {head}
                 </TableCell>
               ))}
@@ -201,29 +213,29 @@ export default function TransactionsPage() {
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={6} align="center">
+                  <TableCell colSpan={6} align="center">
                   <CircularProgress size={24} />
                 </TableCell>
               </TableRow>
             ) : allTransactions.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={6}
-                  align="center"
-                  sx={{ color: "text.secondary", py: 4 }}
-                >
+                  <TableCell
+                    colSpan={6}
+                    align="center"
+                    sx={{ color: "var(--muted-foreground)", py: 4 }}
+                  >
                   No Transactions Found
                 </TableCell>
               </TableRow>
             ) : (
               allTransactions.map((t) => (
                 <TableRow key={t.id}>
-                  <TableCell sx={{ color: "text.primary" }}>
+                  <TableCell sx={{ color: "var(--foreground)" }}>
                     {t.date?.toLocaleDateString() || "N/A"}
                   </TableCell>
                   <TableCell
                     sx={{
-                      color: "text.secondary",
+                      color: "var(--muted-foreground)",
                       fontSize: 12,
                       maxWidth: 100,
                       overflow: "hidden",

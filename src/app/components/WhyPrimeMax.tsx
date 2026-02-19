@@ -14,8 +14,11 @@ import {
   Divider,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function WhyPrimeMax() {
+  const { t } = useLanguage();
+
   return (
     <Box py={{ xs: 6, md: 10 }}>
       <Container maxWidth="lg">
@@ -28,8 +31,7 @@ export default function WhyPrimeMax() {
           mx="auto"
           mb={6}
         >
-          Join 15,000+ Traders from across the globe. Prime Max Capital is your
-          trusted partner in forex, gold, cannabis, and real estate markets.
+          {t("why.heading")}
         </Typography>
 
         {/* Cards */}
@@ -56,16 +58,11 @@ export default function WhyPrimeMax() {
 
               <CardContent>
                 <Typography variant="h5" fontWeight={600} mb={2}>
-                  Investment Opportunities
+                  {t("why.investmentTitle")}
                 </Typography>
 
                 <Typography color="var(--muted-foreground)" mb={3}>
-                  Prime Max Capital leads in diverse investment opportunities,
-                  offering investors the chance to explore forex, gold,
-                  cannabis, and real estate markets with tailored funding
-                  solutions. Our innovative approach ensures you maximize your
-                  potential with competitive profit-sharing models and scalable
-                  growth plans.
+                  {t("why.investmentText")}
                 </Typography>
 
                 <Accordion
@@ -82,7 +79,7 @@ export default function WhyPrimeMax() {
                       <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
                     }
                   >
-                    Funding evaluations
+                    {t("why.investmentAccordion1")}
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
@@ -103,7 +100,7 @@ export default function WhyPrimeMax() {
                       <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
                     }
                   >
-                    Competitions
+                    {t("why.investmentAccordion2")}
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
@@ -124,7 +121,7 @@ export default function WhyPrimeMax() {
                       <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
                     }
                   >
-                    Profit share & Scaling plan
+                    {t("why.investmentAccordion3")}
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
@@ -154,16 +151,11 @@ export default function WhyPrimeMax() {
 
               <CardContent>
                 <Typography variant="h5" fontWeight={600} mb={2}>
-                  Brokerage
+                  {t("why.brokerageTitle")}
                 </Typography>
 
                 <Typography color="var(--muted-foreground)" mb={3}>
-                  We offer a comprehensive suite of brokerage services. Our
-                  brokerage provides traders access to a wide range of financial
-                  instruments, including forex, commodities, indices, and more.
-                  With competitive spreads, advanced trading tools, and
-                  lightning fast execution, we ensure that you have everything
-                  you need to trade with confidence.
+                  {t("why.brokerageText")}
                 </Typography>
 
                 <Accordion
@@ -180,7 +172,7 @@ export default function WhyPrimeMax() {
                       <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
                     }
                   >
-                    Forex
+                    {t("why.brokerageAccordion1")}
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
@@ -201,7 +193,7 @@ export default function WhyPrimeMax() {
                       <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
                     }
                   >
-                    Commodities & Indices
+                    {t("why.brokerageAccordion2")}
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>
@@ -222,7 +214,7 @@ export default function WhyPrimeMax() {
                       <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
                     }
                   >
-                    Trading Platforms
+                    {t("why.brokerageAccordion3")}
                   </AccordionSummary>
                   <AccordionDetails />
                 </Accordion>

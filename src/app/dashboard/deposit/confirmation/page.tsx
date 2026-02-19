@@ -26,8 +26,8 @@ export default function DepositConfirmationPage() {
       px={{ xs: 2, md: 6 }}
       py={6}
       sx={{
-        bgcolor: "background.default",
-        color: "text.primary",
+        bgcolor: "transparent",
+        color: "var(--foreground)",
       }}
     >
       {/* Header */}
@@ -37,18 +37,22 @@ export default function DepositConfirmationPage() {
           label="Secure Payment Confirmation"
           sx={{
             mb: 2,
-            bgcolor: "background.paper",
-            color: "primary.main",
-            border: 1,
-            borderColor: "divider",
+            bgcolor: "var(--card)",
+            color: "var(--primary)",
+            border: "1px solid",
+            borderColor: "var(--border)",
           }}
         />
 
         <Typography fontSize={26} fontWeight={700}>
           Deposit Submitted Successfully
         </Typography>
-        <Typography color="text.secondary" fontSize={14} mt={1}>
-          Your payment proof has been received and is under review
+        <Typography
+          color="text.secondary"
+          fontSize={14}
+          mt={1}
+        >
+          Your payment proof has been received and is under review.
         </Typography>
       </Box>
 
@@ -68,9 +72,10 @@ export default function DepositConfirmationPage() {
         sx={{
           maxWidth: 700,
           mx: "auto",
-          bgcolor: "background.paper",
-          border: 1,
-          borderColor: "divider",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
           borderRadius: 4,
           p: { xs: 3, md: 4 },
           textAlign: "center",
@@ -90,9 +95,9 @@ export default function DepositConfirmationPage() {
         {/* Deposit Summary */}
         <Card
           sx={{
-            bgcolor: "action.hover",
-            border: 1,
-            borderColor: "divider",
+            bgcolor: "var(--background)",
+            border: "1px solid",
+            borderColor: "var(--border)",
             borderRadius: 3,
             p: 3,
             textAlign: "left",
@@ -169,7 +174,12 @@ export default function DepositConfirmationPage() {
           </Grid>
         </Grid>
 
-        <Typography fontSize={11} color="text.secondary" mt={3} textAlign="center">
+        <Typography
+          fontSize={11}
+          color="text.secondary"
+          mt={3}
+          textAlign="center"
+        >
           Deposits are protected with 256-bit SSL encryption
         </Typography>
       </Card>
@@ -184,9 +194,10 @@ export default function DepositConfirmationPage() {
           <Grid size={{ xs: 12, md: 4 }} key={item}>
             <Card
               sx={{
-                bgcolor: "background.paper",
-                border: 1,
-                borderColor: "divider",
+                bgcolor: "var(--card)",
+                color: "var(--card-foreground)",
+                border: "1px solid",
+                borderColor: "var(--border)",
                 p: 3,
                 textAlign: "center",
               }}

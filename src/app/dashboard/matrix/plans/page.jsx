@@ -112,7 +112,11 @@ export default function MatrixPlansPage() {
 
   return (
     <Box
-      sx={{ p: { xs: 2, md: 4 }, minHeight: "100vh", color: "text.primary" }}
+      sx={{
+        p: { xs: 2, md: 4 },
+        minHeight: "100vh",
+        color: "var(--foreground)",
+      }}
     >
       <Typography variant="h4" fontWeight="bold" mb={4} textAlign="center">
         Matrix Plans
@@ -125,17 +129,19 @@ export default function MatrixPlansPage() {
               sx={{
                 position: "relative",
                 p: 4,
-                bgcolor: "#1e1e1e",
-                color: "#fff",
+                bgcolor: "var(--card)",
+                color: "var(--card-foreground)",
                 borderRadius: 4,
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                border: "1px solid",
+                borderColor: "var(--border)",
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
-                transition: "transform 0.2s",
+                transition: "transform 0.2s, box-shadow 0.2s, border-color 0.2s",
                 "&:hover": {
                   transform: "translateY(-5px)",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+                  borderColor: "var(--primary)",
                 },
               }}
             >
@@ -177,17 +183,24 @@ export default function MatrixPlansPage() {
 
               <Box
                 sx={{
-                  bgcolor: "rgba(255, 255, 255, 0.05)",
+                  bgcolor: "var(--background)",
                   borderRadius: 2,
                   p: 2,
                   mb: 4,
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  border: "1px solid",
+                  borderColor: "var(--border)",
                 }}
               >
-                <Typography variant="body2" sx={{ mb: 1, color: "#ccc" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ mb: 1, color: "var(--muted-foreground)" }}
+                >
                   Straightforward Referral Reward: {plan.reward}
                 </Typography>
-                <Typography variant="body2" sx={{ mb: 1, color: "#ccc" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ mb: 1, color: "var(--muted-foreground)" }}
+                >
                   Aggregate Level Commission: {plan.commission}
                 </Typography>
                 <Typography

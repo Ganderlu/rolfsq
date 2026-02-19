@@ -14,7 +14,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 export default function FAQSection() {
   const faqs = [
     "How do I create my account?",
-    "How long does my deposit take before it can reflect on my Prime Max Capital Investments account dashboard?",
+    "How long does my deposit take before it can reflect on my Noble Vest Investments account dashboard?",
     "How many times can I make a deposit?",
     "How do I make a deposit?",
     "How many years has it been functional?",
@@ -32,22 +32,40 @@ export default function FAQSection() {
           }}
         >
           {/* FAQ LIST */}
-          <Paper sx={{ p: { xs: 2, md: 4 }, bgcolor: "var(--card)", color: "var(--card-foreground)", border: "1px solid", borderColor: "var(--border)" }}>
-            <Typography
-              variant="h4"
-              sx={{ fontWeight: 700, mb: 3 }}
-            >
+          <Paper
+            sx={{
+              p: { xs: 2, md: 4 },
+              bgcolor: "var(--card)",
+              color: "var(--card-foreground)",
+              border: "1px solid",
+              borderColor: "var(--border)",
+            }}
+          >
+            <Typography variant="h4" sx={{ fontWeight: 700, mb: 3 }}>
               Frequently Asked Questions
             </Typography>
 
             {faqs.map((q, index) => (
-              <Accordion key={index} elevation={0} disableGutters sx={{ bgcolor: "transparent", color: "var(--foreground)", "&:before": { display: "none" } }}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "var(--foreground)" }} />}>
+              <Accordion
+                key={index}
+                elevation={0}
+                disableGutters
+                sx={{
+                  bgcolor: "transparent",
+                  color: "var(--foreground)",
+                  "&:before": { display: "none" },
+                }}
+              >
+                <AccordionSummary
+                  expandIcon={
+                    <ExpandMoreIcon sx={{ color: "var(--foreground)" }} />
+                  }
+                >
                   <Typography sx={{ fontWeight: 500 }}>{q}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography sx={{ color: "var(--muted-foreground)" }}>
-                    This answer will be provided by Prime Max Capital Investments.
+                    This answer will be provided by Noble Vest Investments.
                   </Typography>
                 </AccordionDetails>
               </Accordion>
@@ -70,7 +88,7 @@ export default function FAQSection() {
                 Need any help!
               </Typography>
               <Typography sx={{ opacity: 0.9, mb: 4 }}>
-                Find answers to frequently asked questions about Prime Max Capital
+                Find answers to frequently asked questions about Noble Vest
               </Typography>
             </Box>
 

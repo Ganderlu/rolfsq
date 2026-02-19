@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Container,
@@ -9,13 +11,15 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { ShieldCheck, FileCheck, Globe, Building2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function LicensePage() {
+  const { t } = useLanguage();
+
   return (
     <Box sx={{ bgcolor: "var(--background)", minHeight: "100vh" }}>
       <Navbar />
 
-      {/* Page Header */}
       <Box
         sx={{
           pt: 15,
@@ -33,14 +37,17 @@ export default function LicensePage() {
               mb: 2,
             }}
           >
-            Licensing & Regulation
+            {t("license.title")}
           </Typography>
           <Typography
             variant="h6"
-            sx={{ color: "var(--text-secondary)", maxWidth: "800px", mx: "auto" }}
+            sx={{
+              color: "var(--text-secondary)",
+              maxWidth: "800px",
+              mx: "auto",
+            }}
           >
-            We operate under strict regulatory standards to ensure the safety
-            and security of your investments.
+            {t("license.subtitle")}
           </Typography>
         </Container>
       </Box>
@@ -73,7 +80,7 @@ export default function LicensePage() {
                   variant="body1"
                   sx={{ color: "text.secondary", mb: 2 }}
                 >
-                  Rolfsq Invest is a fully registered financial services
+                  Noble Vest Invest is a fully registered financial services
                   provider, operating in compliance with international financial
                   laws.
                 </Typography>
@@ -147,7 +154,10 @@ export default function LicensePage() {
               >
                 Global Coverage
               </Typography>
-              <Typography variant="body2" sx={{ color: "var(--text-secondary)" }}>
+              <Typography
+                variant="body2"
+                sx={{ color: "var(--text-secondary)" }}
+              >
                 Licensed to operate in over 150 countries worldwide, excluding
                 restricted jurisdictions.
               </Typography>
@@ -165,7 +175,10 @@ export default function LicensePage() {
               >
                 Headquarters
               </Typography>
-              <Typography variant="body2" sx={{ color: "var(--text-secondary)" }}>
+              <Typography
+                variant="body2"
+                sx={{ color: "var(--text-secondary)" }}
+              >
                 12 Financial District, Canary Wharf, London, United Kingdom.
               </Typography>
             </Box>
@@ -182,7 +195,10 @@ export default function LicensePage() {
               >
                 Insurance
               </Typography>
-              <Typography variant="body2" sx={{ color: "var(--text-secondary)" }}>
+              <Typography
+                variant="body2"
+                sx={{ color: "var(--text-secondary)" }}
+              >
                 Client funds are insured up to $1,000,000 against platform
                 insolvency.
               </Typography>

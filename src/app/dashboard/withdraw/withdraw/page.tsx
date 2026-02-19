@@ -29,7 +29,12 @@ export default function WithdrawPage() {
     return () => unsub();
   }, []);
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, color: "text.primary" }}>
+    <Box
+      sx={{
+        p: { xs: 2, md: 4 },
+        color: "var(--foreground)",
+      }}
+    >
       {/* PAGE TITLE */}
       <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
         Withdraw Gateway
@@ -49,10 +54,11 @@ export default function WithdrawPage() {
         sx={{
           mt: 4,
           p: { xs: 2, md: 3 },
-          bgcolor: "background.paper",
-          borderRadius: 2,
-          border: 1,
-          borderColor: "divider",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          borderRadius: 3,
+          border: "1px solid",
+          borderColor: "var(--border)",
         }}
       >
         <WithdrawLogs />

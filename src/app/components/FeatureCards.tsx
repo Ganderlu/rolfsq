@@ -2,26 +2,28 @@
 
 import { Grid, Paper, Typography, Box, Container } from "@mui/material";
 import { ShieldCheck, TrendingUp, Wallet } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const features = [
   {
     icon: ShieldCheck,
-    title: "Secure Platform",
-    text: "Firebase-backed authentication and top-tier data security standards.",
+    titleKey: "feature.secureTitle",
+    textKey: "feature.secureText",
   },
   {
     icon: TrendingUp,
-    title: "Smart Investments",
-    text: "Advanced algorithms to track and manage your digital asset portfolio.",
+    titleKey: "feature.smartTitle",
+    textKey: "feature.smartText",
   },
   {
     icon: Wallet,
-    title: "Real-Time Tracking",
-    text: "Monitor your balances, trades, and investment status instantly.",
+    titleKey: "feature.realtimeTitle",
+    textKey: "feature.realtimeText",
   },
 ];
 
 export default function FeatureCards() {
+  const { t } = useLanguage();
   return (
     <Container maxWidth="xl" sx={{ pb: 16 }}>
       <Grid container spacing={8}>
@@ -60,14 +62,14 @@ export default function FeatureCards() {
                   <Icon size={32} />
                 </Box>
                 <Typography variant="h5" fontWeight={700} gutterBottom>
-                  {f.title}
+                  {t(f.titleKey)}
                 </Typography>
                 <Typography
                   variant="body1"
                   color="var(--muted-foreground)"
                   lineHeight={1.7}
                 >
-                  {f.text}
+                  {t(f.textKey)}
                 </Typography>
               </Paper>
             </Grid>

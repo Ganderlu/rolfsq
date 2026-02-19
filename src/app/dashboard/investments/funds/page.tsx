@@ -76,7 +76,12 @@ export default function TransactionsPage() {
   );
 
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, color: "white" }}>
+    <Box
+      sx={{
+        p: { xs: 2, md: 4 },
+        color: "var(--foreground)",
+      }}
+    >
       <Typography variant="h6" sx={{ mb: 2 }}>
         Investment Records
       </Typography>
@@ -86,8 +91,11 @@ export default function TransactionsPage() {
         sx={{
           p: 2,
           mb: 3,
-          background: "rgba(255,255,255,0.02)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
+          borderRadius: 3,
         }}
       >
         <Stack
@@ -101,12 +109,12 @@ export default function TransactionsPage() {
             size="small"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            InputProps={{ sx: { color: "white" } }}
+            InputProps={{ sx: { color: "var(--foreground)" } }}
             sx={{
               "& .MuiOutlinedInput-root": {
-                "& fieldset": { borderColor: "rgba(255,255,255,0.2)" },
-                "&:hover fieldset": { borderColor: "rgba(255,255,255,0.4)" },
-                "&.Mui-focused fieldset": { borderColor: "#ff7a00" },
+                "& fieldset": { borderColor: "var(--border)" },
+                "&:hover fieldset": { borderColor: "var(--primary)" },
+                "&.Mui-focused fieldset": { borderColor: "var(--primary)" },
               },
             }}
           />
@@ -129,9 +137,12 @@ export default function TransactionsPage() {
       {/* Table */}
       <Paper
         sx={{
-          background: "rgba(255,255,255,0.02)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
           overflowX: "auto",
+          borderRadius: 3,
         }}
       >
         <Table>
@@ -145,7 +156,10 @@ export default function TransactionsPage() {
                 "Duration",
                 "Status",
               ].map((head) => (
-                <TableCell key={head} sx={{ color: "gray" }}>
+                <TableCell
+                  key={head}
+                  sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}
+                >
                   {head}
                 </TableCell>
               ))}
@@ -160,29 +174,33 @@ export default function TransactionsPage() {
               </TableRow>
             ) : filteredInvestments.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} align="center" sx={{ color: "gray", py: 4 }}>
+                <TableCell
+                  colSpan={6}
+                  align="center"
+                  sx={{ color: "var(--muted-foreground)", py: 4 }}
+                >
                   No Data Found
                 </TableCell>
               </TableRow>
             ) : (
               filteredInvestments.map((row) => (
                 <TableRow key={row.id} hover>
-                  <TableCell sx={{ color: "white" }}>
+                  <TableCell sx={{ color: "var(--foreground)" }}>
                     {row.createdAt?.toLocaleDateString() || "N/A"}
                     <Typography variant="caption" display="block" color="gray">
                       {row.createdAt?.toLocaleTimeString()}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>
+                  <TableCell sx={{ color: "var(--foreground)" }}>
                     {row.planName || "N/A"}
                   </TableCell>
                   <TableCell sx={{ color: "#00ff00" }}>
                     ${row.amount?.toLocaleString()}
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>
+                  <TableCell sx={{ color: "var(--foreground)" }}>
                     {row.interest || "0%"}
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>
+                  <TableCell sx={{ color: "var(--foreground)" }}>
                     {row.duration || "N/A"}
                   </TableCell>
                   <TableCell>

@@ -1,3 +1,7 @@
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
+
 const plans = [
   {
     name: "Student Plan",
@@ -61,16 +65,16 @@ const plans = [
 ];
 
 export default function PlansSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="w-full bg-background px-4 py-20 border-t border-border">
       <div className="max-w-7xl mx-auto text-center mb-16">
         <h2 className="text-foreground text-2xl md:text-3xl font-semibold mb-3">
-          The Right Plan for every Business
+          {t("plans.heading")}
         </h2>
         <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
-          Discover flexible and transparent pricing options designed to meet the
-          diverse needs of businesses, whether you’re a startup, small business,
-          or enterprise.
+          {t("plans.subheading")}
         </p>
       </div>
 
@@ -91,15 +95,15 @@ export default function PlansSection() {
             <p className="text-foreground text-sm mb-4">{plan.price}</p>
 
             <button className="bg-primary hover:bg-primary/90 transition text-primary-foreground text-sm font-semibold py-2 rounded-lg mb-2">
-              Apply for this plan
+              {t("plans.apply")}
             </button>
 
             <p className="text-muted-foreground text-xs text-center mb-4">
-              *No Credit Card required
+              {t("plans.note")}
             </p>
 
             <p className="text-white text-sm font-semibold mb-3">
-              Benefits Included:
+              {t("plans.benefits")}
             </p>
 
             <ul className="space-y-3 text-sm text-gray-300">

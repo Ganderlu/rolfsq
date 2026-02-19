@@ -16,11 +16,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { submitContactForm } from "./actions";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactUsPage() {
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const { t } = useLanguage();
 
   async function handleSubmit(formData: FormData) {
     setStatus("loading");
@@ -58,13 +60,17 @@ export default function ContactUsPage() {
               mb: 2,
             }}
           >
-            Contact Us!
+            {t("contact.title")}
           </Typography>
           <Typography
             variant="h6"
-            sx={{ color: "var(--text-secondary)", maxWidth: "800px", mx: "auto" }}
+            sx={{
+              color: "var(--text-secondary)",
+              maxWidth: "800px",
+              mx: "auto",
+            }}
           >
-            Have questions? Our support team is available 24/7 to assist you.
+            {t("contact.subtitle")}
           </Typography>
         </Container>
       </Box>
@@ -109,7 +115,7 @@ export default function ContactUsPage() {
                       variant="body1"
                       sx={{ color: "var(--primary)", fontWeight: "medium" }}
                     >
-                      support@rolfsq.com
+                      support@Noble Vest.com
                     </Typography>
                   </Box>
                 </CardContent>

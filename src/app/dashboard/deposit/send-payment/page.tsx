@@ -70,8 +70,8 @@ export default function SendPaymentPage() {
       px={{ xs: 2, md: 6 }}
       py={6}
       sx={{
-        bgcolor: "background.default",
-        color: "text.primary",
+        bgcolor: "transparent",
+        color: "var(--foreground)",
       }}
     >
       <Card
@@ -79,10 +79,11 @@ export default function SendPaymentPage() {
           maxWidth: 520,
           mx: "auto",
           p: 4,
-          bgcolor: "background.paper",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
           borderRadius: 3,
-          border: 1,
-          borderColor: "divider",
+          border: "1px solid",
+          borderColor: "var(--border)",
         }}
       >
         <Typography fontWeight={700} fontSize={22} mb={2}>

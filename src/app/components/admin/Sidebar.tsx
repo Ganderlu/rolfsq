@@ -27,7 +27,7 @@ export default function Sidebar({ open, onClose }: any) {
         borderColor="divider"
       >
         <Box p={3} fontWeight={700}>
-          PRIME MAX CAPITAL
+          Noble Vest
         </Box>
 
         <List>
@@ -49,7 +49,12 @@ export default function Sidebar({ open, onClose }: any) {
 
       {/* Mobile Drawer */}
       <Drawer open={open} onClose={onClose}>
-        <Box width={260} bgcolor="background.paper" color="text.primary" height="100%">
+        <Box
+          width={260}
+          bgcolor="background.paper"
+          color="text.primary"
+          height="100%"
+        >
           <List>
             {menu.map((item) => (
               <ListItemButton

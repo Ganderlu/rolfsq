@@ -5,28 +5,24 @@ export default function Footer() {
   return (
     <footer className="w-full bg-background border-t border-border text-muted-foreground px-4 pt-20">
       <div className="max-w-7xl mx-auto">
-
         {/* TOP GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
-          
           {/* LEFT – LOGO + DESCRIPTION */}
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src="/images/nature3.jpg" // replace with your logo
-                alt="Prime Max Capital"
+                alt="Noble Vest"
                 width={48}
                 height={48}
               />
-              <h2 className="text-2xl text-primary font-bold">
-                 Rolfsq
-              </h2>
+              <h2 className="text-2xl text-primary font-bold">Noble Vest</h2>
             </div>
 
             <p className="text-sm leading-relaxed mb-6 max-w-md text-foreground">
-              We are everything a traditional financial institution is not.
-              We set out to give investors better, simpler and more profitable
-              ways to become financially successful and secure.
+              We are everything a traditional financial institution is not. We
+              set out to give investors better, simpler and more profitable ways
+              to become financially successful and secure.
             </p>
 
             <h4 className="text-foreground font-semibold mb-2">
@@ -36,29 +32,55 @@ export default function Footer() {
             <p className="text-xs leading-relaxed text-muted-foreground">
               Nothing on this website or in our services constitutes a
               solicitation, advice, endorsement, or offer to buy or sell
-              financial instruments by Prime Max Capital GROUP, its agents,
-              employees, contractors, or affiliated entities. You are solely
-              responsible for evaluating the benefits and risks of using any
-              information or content on this website. All investments carry
-              substantial risk, and investment decisions are solely your
-              responsibility. Information on the website is provided “as is,”
-              without guarantees of completeness, accuracy, timeliness, or
-              results.
+              financial instruments by Noble Vest GROUP, its agents, employees,
+              contractors, or affiliated entities. You are solely responsible
+              for evaluating the benefits and risks of using any information or
+              content on this website. All investments carry substantial risk,
+              and investment decisions are solely your responsibility.
+              Information on the website is provided “as is,” without guarantees
+              of completeness, accuracy, timeliness, or results.
             </p>
           </div>
 
           {/* MIDDLE – SOCIAL LINKS */}
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-10">
-            
             <div>
               <h4 className="text-foreground font-semibold mb-4">
                 Social Links
               </h4>
               <ul className="space-y-3 text-sm">
-                <li><Link href="#" className="hover:text-primary transition-colors">Home</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-colors">Company PDF</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-colors">Sign Up</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-colors">Get Support</Link></li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Company PDF
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Sign Up
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Get Support
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -67,10 +89,38 @@ export default function Footer() {
                 Links
               </h4>
               <ul className="space-y-3 text-sm">
-                <li><Link href="#" className="hover:text-primary transition-colors">About Us</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-colors">Login</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-colors">Certification</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-colors">Privacy</Link></li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Certification
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Privacy
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -102,7 +152,7 @@ export default function Footer() {
               height={48}
             />
             <p className="text-xs text-gray-400 max-w-md">
-              Prime Max Capital is a member of The Financial Commission, an
+              Noble Vest is a member of The Financial Commission, an
               international organization engaged in the resolution of disputes
               within the financial services industry in the Forex market.
             </p>
@@ -116,7 +166,7 @@ export default function Footer() {
               height={48}
             />
             <p className="text-xs text-gray-400 max-w-md">
-              Prime Max Capital is regulated by the UK/US Securities and Exchange
+              Noble Vest is regulated by the UK/US Securities and Exchange
               Commission. Investing involves risk and may result in loss.
             </p>
           </div>
@@ -124,9 +174,7 @@ export default function Footer() {
 
         {/* BOTTOM BAR */}
         <div className="border-t border-white/10 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400">
-          <span>
-            © 2025 Prime Max Capital. All Rights Reserved.
-          </span>
+          <span>© 2025 Noble Vest. All Rights Reserved.</span>
 
           <div className="flex gap-4">
             <Link href="#">About</Link>
@@ -135,7 +183,6 @@ export default function Footer() {
             <Link href="#">Contact</Link>
           </div>
         </div>
-
       </div>
     </footer>
   );

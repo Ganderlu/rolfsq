@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 const services = [
   {
@@ -20,11 +23,13 @@ const services = [
 ];
 
 export default function ServicesSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="w-full bg-background py-20 px-4">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-foreground text-3xl md:text-4xl font-semibold mb-12">
-          Our Services
+          {t("services.heading")}
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

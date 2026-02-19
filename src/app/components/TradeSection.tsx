@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
+import { useLanguage } from "@/context/LanguageContext";
 
 const rows = [
   {
@@ -86,6 +87,8 @@ const rows = [
 ];
 
 export default function TradeSection() {
+  const { t } = useLanguage();
+
   return (
     <Box py={{ xs: 6, md: 10 }}>
       <Container maxWidth="lg">
@@ -99,13 +102,10 @@ export default function TradeSection() {
         >
           <Box maxWidth={520}>
             <Typography variant="h3" fontWeight={700} gutterBottom>
-              TRADE THE WAY YOU WANT
+              {t("trade.heading")}
             </Typography>
             <Typography color="text.white" variant="body1" sx={{ opacity: 0.75 }}>
-              Choose between forex, gold, cannabis, and real estate — with
-              account types and strategies to suit any investment style. At OFL
-              (Prime Max Capital), we provide the tools and flexibility to build
-              your ideal portfolio.
+              {t("trade.text")}
             </Typography>
           </Box>
 
@@ -120,7 +120,7 @@ export default function TradeSection() {
               "&:hover": { bgcolor: "var(--primary-hover)" },
             }}
           >
-            FIND OUT MORE
+            {t("trade.cta")}
           </Button>
         </Box>
 
@@ -185,8 +185,7 @@ export default function TradeSection() {
               mt={2}
               display="block"
             >
-              Pricing is indicative. Past performance is not a reliable
-              indicator of future results.
+              {t("trade.disclaimer")}
             </Typography>
           </Paper>
         </Box>

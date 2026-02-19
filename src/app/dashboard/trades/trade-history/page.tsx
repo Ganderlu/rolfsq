@@ -110,37 +110,37 @@ export default function TradeHistoryPage() {
   const uniqueSymbols = Array.from(new Set(trades.map((t) => t.asset)));
 
   return (
-    <div className="p-4 md:p-6 space-y-6">
+    <div className="p-4 md:p-6 space-y-6 text-foreground">
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-[#0b0b0b] border border-neutral-800 rounded-xl p-4">
-          <p className="text-gray-400 text-sm">Total Trades</p>
-          <p className="text-xl font-semibold text-white">{totalTrades}</p>
+        <div className="bg-card border border-border rounded-2xl p-4">
+          <p className="text-muted-foreground text-sm">Total Trades</p>
+          <p className="text-xl font-semibold">{totalTrades}</p>
         </div>
-        <div className="bg-[#0b0b0b] border border-neutral-800 rounded-xl p-4">
-          <p className="text-gray-400 text-sm">Win Rate</p>
-          <p className="text-xl font-semibold text-white">{winRate}%</p>
+        <div className="bg-card border border-border rounded-2xl p-4">
+          <p className="text-muted-foreground text-sm">Win Rate</p>
+          <p className="text-xl font-semibold">{winRate}%</p>
         </div>
-        <div className="bg-[#0b0b0b] border border-neutral-800 rounded-xl p-4">
-          <p className="text-gray-400 text-sm">Total P&L</p>
+        <div className="bg-card border border-border rounded-2xl p-4">
+          <p className="text-muted-foreground text-sm">Total P&L</p>
           <p
             className={`text-xl font-semibold ${totalPnL >= 0 ? "text-emerald-500" : "text-red-500"}`}
           >
             ${totalPnL.toFixed(2)}
           </p>
         </div>
-        <div className="bg-[#0b0b0b] border border-neutral-800 rounded-xl p-4">
-          <p className="text-gray-400 text-sm">Total Volume</p>
-          <p className="text-xl font-semibold text-white">
+        <div className="bg-card border border-border rounded-2xl p-4">
+          <p className="text-muted-foreground text-sm">Total Volume</p>
+          <p className="text-xl font-semibold">
             ${totalVolume.toFixed(2)}
           </p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-[#0b0b0b] border border-neutral-800 rounded-xl p-4 space-y-4">
+      <div className="bg-card border border-border rounded-2xl p-4 space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-white font-semibold">Filters</h2>
+          <h2 className="font-semibold">Filters</h2>
           <button
             onClick={() =>
               setFilters({
@@ -163,13 +163,13 @@ export default function TradeHistoryPage() {
             placeholder="Trade ID, Symbol..."
             value={filters.search}
             onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-            className="bg-[#111] border border-neutral-800 rounded px-3 py-2 text-sm text-white"
+            className="bg-background border border-border rounded px-3 py-2 text-sm text-foreground"
           />
 
           <select
             value={filters.symbol}
             onChange={(e) => setFilters({ ...filters, symbol: e.target.value })}
-            className="bg-[#111] border border-neutral-800 rounded px-3 py-2 text-sm text-white"
+            className="bg-background border border-border rounded px-3 py-2 text-sm text-foreground"
           >
             <option value="all">All Symbols</option>
             {uniqueSymbols.map((s) => (
@@ -184,7 +184,7 @@ export default function TradeHistoryPage() {
             onChange={(e) =>
               setFilters({ ...filters, direction: e.target.value })
             }
-            className="bg-[#111] border border-neutral-800 rounded px-3 py-2 text-sm text-white"
+            className="bg-background border border-border rounded px-3 py-2 text-sm text-foreground"
           >
             <option value="all">All Directions</option>
             <option value="call">Call (Buy)</option>
@@ -194,7 +194,7 @@ export default function TradeHistoryPage() {
           <select
             value={filters.status}
             onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-            className="bg-[#111] border border-neutral-800 rounded px-3 py-2 text-sm text-white"
+            className="bg-background border border-border rounded px-3 py-2 text-sm text-foreground"
           >
             <option value="all">All Statuses</option>
             <option value="open">Open</option>
@@ -208,7 +208,7 @@ export default function TradeHistoryPage() {
             onChange={(e) =>
               setFilters({ ...filters, startDate: e.target.value })
             }
-            className="bg-[#111] border border-neutral-800 rounded px-3 py-2 text-sm text-white"
+            className="bg-background border border-border rounded px-3 py-2 text-sm text-foreground"
           />
 
           <input
@@ -217,16 +217,16 @@ export default function TradeHistoryPage() {
             onChange={(e) =>
               setFilters({ ...filters, endDate: e.target.value })
             }
-            className="bg-[#111] border border-neutral-800 rounded px-3 py-2 text-sm text-white"
+            className="bg-background border border-border rounded px-3 py-2 text-sm text-foreground"
           />
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-[#0b0b0b] border border-neutral-800 rounded-xl overflow-hidden">
+      <div className="bg-card border border-border rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-gray-300">
-            <thead className="bg-[#111]">
+          <table className="w-full text-sm text-muted-foreground">
+            <thead className="bg-muted">
               <tr>
                 {[
                   "Trade ID",
@@ -250,7 +250,7 @@ export default function TradeHistoryPage() {
                 <tr>
                   <td
                     colSpan={9}
-                    className="px-4 py-8 text-center text-gray-500"
+                    className="px-4 py-8 text-center text-muted-foreground"
                   >
                     Loading trades...
                   </td>
@@ -258,8 +258,8 @@ export default function TradeHistoryPage() {
               ) : filteredTrades.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="px-4 py-16 text-center">
-                    <p className="text-white font-medium">No Trades Found</p>
-                    <p className="text-gray-500 text-sm">
+                    <p className="font-medium">No Trades Found</p>
+                    <p className="text-muted-foreground text-sm">
                       Try adjusting your filters or place a new trade
                     </p>
                   </td>
@@ -275,12 +275,12 @@ export default function TradeHistoryPage() {
                   return (
                     <tr
                       key={trade.id}
-                      className="border-b border-neutral-800 hover:bg-[#111]"
+                      className="border-b border-border hover:bg-muted/40"
                     >
-                      <td className="px-4 py-3 font-mono text-xs text-gray-500">
+                      <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
                         {trade.id.slice(0, 8)}...
                       </td>
-                      <td className="px-4 py-3 font-medium text-white">
+                      <td className="px-4 py-3 font-medium text-foreground">
                         {trade.asset}
                       </td>
                       <td className="px-4 py-3">

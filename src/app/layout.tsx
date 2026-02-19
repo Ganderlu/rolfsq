@@ -3,11 +3,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Rolfsq Invest | Premium Digital Asset Trading",
+  title: "Noble Vest Invest | Premium Digital Asset Trading",
   description:
     "Secure, transparent, and efficient way to grow your portfolio with advanced trading algorithms.",
   icons: {
@@ -37,7 +38,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>{children}</AuthProvider>
+          <LanguageProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

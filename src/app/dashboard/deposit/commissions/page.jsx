@@ -23,7 +23,12 @@ export default function TransactionsPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, color: "text.primary" }}>
+    <Box
+      sx={{
+        p: { xs: 2, md: 4 },
+        color: "var(--foreground)",
+      }}
+    >
       <Typography variant="h6" sx={{ mb: 2 }}>
         Referral Deposit Commission Rewards
       </Typography>
@@ -33,9 +38,11 @@ export default function TransactionsPage() {
         sx={{
           p: 2,
           mb: 3,
-          bgcolor: "background.paper",
-          border: 1,
-          borderColor: "divider",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
+          borderRadius: 3,
         }}
       >
         <Stack
@@ -70,10 +77,12 @@ export default function TransactionsPage() {
       {/* Table */}
       <Paper
         sx={{
-          bgcolor: "background.paper",
-          border: 1,
-          borderColor: "divider",
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid",
+          borderColor: "var(--border)",
           overflowX: "auto",
+          borderRadius: 3,
         }}
       >
         <Table>
@@ -86,7 +95,10 @@ export default function TransactionsPage() {
                 "Amount",
                 "Details",
               ].map((head) => (
-                <TableCell key={head} sx={{ color: "white" }}>
+                <TableCell
+                  key={head}
+                  sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}
+                >
                   {head}
                 </TableCell>
               ))}
@@ -94,7 +106,11 @@ export default function TransactionsPage() {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell colSpan={8} align="center" sx={{ color: "gray" }}>
+              <TableCell
+                colSpan={8}
+                align="center"
+                sx={{ color: "var(--muted-foreground)" }}
+              >
                 No Data Found
               </TableCell>
             </TableRow>

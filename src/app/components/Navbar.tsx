@@ -12,24 +12,28 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { COUNTRY_OPTIONS, useLanguage } from "@/context/LanguageContext";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us" },
-  { label: "Services", href: "/services" },
-  { label: "FAQs", href: "/faqs" },
-  { label: "Our Licence", href: "/license" },
-  { label: "Contact Us", href: "/contact-us" },
+  { key: "home", href: "/" },
+  { key: "about", href: "/about-us" },
+  { key: "services", href: "/services" },
+  { key: "faqs", href: "/faqs" },
+  { key: "license", href: "/license" },
+  { key: "contact", href: "/contact-us" },
 ];
 
 export default function Navbar() {
   const router = useRouter();
+  const { country, setCountry, t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -81,11 +85,10 @@ export default function Navbar() {
                 color: "transparent",
               }}
             >
-              ROLFSQ
+              Noble Vest
             </Typography>
           </Link>
 
-          {/* Desktop Nav */}
           <Stack
             direction="row"
             spacing={4}
@@ -93,7 +96,7 @@ export default function Navbar() {
           >
             {navLinks.map((link) => (
               <Link
-                key={link.label}
+                key={link.key}
                 href={link.href}
                 style={{ textDecoration: "none" }}
               >
@@ -105,26 +108,48 @@ export default function Navbar() {
                     "&:hover": { color: "var(--foreground)" },
                   }}
                 >
-                  {link.label}
+                  {t(`nav.${link.key}`)}
                 </Typography>
               </Link>
             ))}
           </Stack>
 
-          {/* Auth Buttons & Theme Toggle */}
+          {/* Desktop: Country Select + Auth Buttons & Theme Toggle */}
           <Stack
             direction="row"
             spacing={2}
             alignItems="center"
             sx={{ display: { xs: "none", md: "flex" } }}
           >
+            <Select
+              size="small"
+              value={country}
+              onChange={(e) => setCountry(e.target.value as string)}
+              sx={{
+                minWidth: 160,
+                bgcolor: "var(--background)",
+                color: "var(--foreground)",
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "var(--border)",
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "var(--primary)",
+                },
+              }}
+            >
+              {COUNTRY_OPTIONS.map((option) => (
+                <MenuItem key={option.code} value={option.code}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
             <ThemeToggle />
             <Button
               variant="text"
               sx={{ color: "var(--foreground)" }}
               onClick={() => router.push("/login")}
             >
-              Login
+              {t("nav.login")}
             </Button>
             <Button
               variant="contained"
@@ -134,17 +159,46 @@ export default function Navbar() {
               }}
               onClick={() => router.push("/register")}
             >
-              Get Started
+              {t("nav.getStarted")}
             </Button>
           </Stack>
 
-          {/* Mobile Menu Button */}
-          <IconButton
-            sx={{ display: { md: "none" }, color: "var(--foreground)" }}
-            onClick={toggleDrawer}
+          {/* Mobile: Country Select + Menu Button */}
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            sx={{ display: { xs: "flex", md: "none" } }}
           >
-            {mobileOpen ? <X /> : <Menu />}
-          </IconButton>
+            <Select
+              size="small"
+              value={country}
+              onChange={(e) => setCountry(e.target.value as string)}
+              sx={{
+                minWidth: 120,
+                bgcolor: "var(--background)",
+                color: "var(--foreground)",
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "var(--border)",
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "var(--primary)",
+                },
+              }}
+            >
+              {COUNTRY_OPTIONS.map((option) => (
+                <MenuItem key={option.code} value={option.code}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+            <IconButton
+              sx={{ color: "var(--foreground)" }}
+              onClick={toggleDrawer}
+            >
+              {mobileOpen ? <X /> : <Menu />}
+            </IconButton>
+          </Stack>
         </Box>
       </Container>
 
@@ -166,7 +220,7 @@ export default function Navbar() {
       >
         <List sx={{ px: 2, pb: 4 }}>
           {navLinks.map((link) => (
-            <ListItem key={link.label} disablePadding>
+            <ListItem key={link.key} disablePadding>
               <ListItemButton
                 onClick={() => {
                   router.push(link.href);
@@ -174,7 +228,7 @@ export default function Navbar() {
                 }}
                 sx={{ borderRadius: 2, mb: 1 }}
               >
-                <ListItemText primary={link.label} />
+                <ListItemText primary={t(`nav.${link.key}`)} />
               </ListItemButton>
             </ListItem>
           ))}
@@ -188,7 +242,7 @@ export default function Navbar() {
               fullWidth
               onClick={() => router.push("/login")}
             >
-              Login
+              {t("nav.login")}
             </Button>
             <Button
               variant="contained"
@@ -196,7 +250,7 @@ export default function Navbar() {
               sx={{ bgcolor: "#3b82f6" }}
               onClick={() => router.push("/register")}
             >
-              Get Started
+              {t("nav.getStarted")}
             </Button>
           </Stack>
         </List>

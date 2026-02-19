@@ -20,7 +20,7 @@ export default function TradeNowPage() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-foreground">
       {/* HEADER & STATS */}
       <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
          <h1 className="text-2xl font-bold">Trade Now</h1>

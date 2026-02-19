@@ -3,9 +3,11 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { ArrowRight, ShieldCheck, TrendingUp } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Hero() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   return (
     <Box
@@ -65,7 +67,7 @@ export default function Hero() {
                 variant="caption"
                 sx={{ color: "var(--primary)", fontWeight: 600 }}
               >
-                SECURE & REGULATED PLATFORM
+                {t("hero.badge")}
               </Typography>
             </Box>
 
@@ -78,8 +80,7 @@ export default function Hero() {
                 color: "var(--foreground)",
               }}
             >
-              Invest Smarter in <br />
-              <span style={{ color: "var(--primary)" }}>Digital Assets</span>
+              {t("hero.title")}
             </Typography>
 
             <Typography
@@ -91,9 +92,7 @@ export default function Hero() {
                 lineHeight: 1.6,
               }}
             >
-              Rolfsq provides a secure, transparent, and efficient way to grow
-              your portfolio. Join thousands of investors earning passive income
-              through our advanced trading algorithms.
+              {t("hero.subtitle")}
             </Typography>
           </Stack>
 
@@ -113,7 +112,7 @@ export default function Hero() {
               }}
               onClick={() => router.push("/register")}
             >
-              Start Investing
+              {t("hero.primaryCta")}
             </Button>
             <Button
               size="large"
@@ -134,7 +133,7 @@ export default function Hero() {
               }}
               onClick={() => router.push("/login")}
             >
-              View Markets
+              {t("hero.secondaryCta")}
             </Button>
           </Stack>
 
@@ -157,7 +156,7 @@ export default function Hero() {
                 $50M+
               </Typography>
               <Typography variant="body2" color="rgba(255,255,255,0.5)">
-                Assets Managed
+                {t("hero.stat.assets")}
               </Typography>
             </Box>
             <Box>
@@ -165,7 +164,7 @@ export default function Hero() {
                 25k+
               </Typography>
               <Typography variant="body2" color="rgba(255,255,255,0.5)">
-                Active Investors
+                {t("hero.stat.investors")}
               </Typography>
             </Box>
             <Box>
@@ -173,7 +172,7 @@ export default function Hero() {
                 120+
               </Typography>
               <Typography variant="body2" color="rgba(255,255,255,0.5)">
-                Countries
+                {t("hero.stat.countries")}
               </Typography>
             </Box>
           </Stack>

@@ -56,8 +56,8 @@ export default function DepositPage() {
       px={{ xs: 2, md: 6 }}
       py={6}
       sx={{
-        bgcolor: "background.default",
-        color: "text.primary",
+        bgcolor: "transparent",
+        color: "var(--foreground)",
       }}
     >
       {/* Header */}
@@ -65,14 +65,18 @@ export default function DepositPage() {
         <Typography fontSize={28} fontWeight={700}>
           Fund Your Account
         </Typography>
-        <Typography color="gray" mt={1}>
-          Secure deposits to start trading
+        <Typography sx={{ color: "var(--muted-foreground)", mt: 1 }}>
+          Securely fund your trading account using your preferred payment method.
         </Typography>
       </Box>
 
       {/* Quick Amounts */}
       <Box textAlign="center" mb={6}>
-        <Typography fontSize={13} color="gray" mb={1}>
+        <Typography
+          fontSize={13}
+          sx={{ color: "var(--muted-foreground)" }}
+          mb={1}
+        >
           Quick amounts:
         </Typography>
         <Stack
@@ -87,9 +91,9 @@ export default function DepositPage() {
               variant="outlined"
               onClick={() => setAmount(String(amt))}
               sx={{
-                color: "text.primary",
-                borderColor: "divider",
-                "&:hover": { borderColor: "primary.main" },
+                color: "var(--muted-foreground)",
+                borderColor: "var(--border)",
+                "&:hover": { borderColor: "var(--primary)" },
               }}
             >
               ${amt.toLocaleString()}
@@ -104,10 +108,11 @@ export default function DepositPage() {
         <Grid size={{ xs: 12, md: 6 }}>
           <Card
             sx={{
-              bgcolor: "background.paper",
+              bgcolor: "var(--card)",
+              color: "var(--card-foreground)",
               borderRadius: 3,
-              border: 1,
-              borderColor: "divider",
+              border: "1px solid",
+              borderColor: "var(--border)",
               p: 3,
             }}
           >
@@ -123,7 +128,7 @@ export default function DepositPage() {
                 label="Secure"
                 size="small"
                 sx={{
-                  background: "#0f2d1f",
+                  bgcolor: "rgba(34,197,94,0.12)",
                   color: "#22c55e",
                 }}
               />
@@ -144,7 +149,7 @@ export default function DepositPage() {
               }}
               sx={{
                 mb: 3,
-                background: "#131b2e",
+                bgcolor: "var(--background)",
                 borderRadius: 1,
               }}
             >
@@ -164,12 +169,16 @@ export default function DepositPage() {
               onChange={(e) => setAmount(e.target.value)}
               placeholder="$ 0.00"
               sx={{
-                bgcolor: "action.hover",
+                bgcolor: "var(--background)",
                 borderRadius: 1,
               }}
             />
-            <Typography fontSize={12} color="gray" mt={1}>
-              Enter the amount you wish to deposit
+            <Typography
+              fontSize={12}
+              sx={{ color: "var(--muted-foreground)" }}
+              mt={1}
+            >
+              Enter the amount you wish to deposit.
             </Typography>
 
             <Button
@@ -192,9 +201,10 @@ export default function DepositPage() {
               size="large"
               sx={{
                 mt: 3,
-                background: "linear-gradient(90deg, #2563eb, #3b82f6)",
-                color: "#fff",
+                bgcolor: "var(--primary)",
+                color: "var(--primary-foreground)",
                 fontWeight: 600,
+                "&:hover": { bgcolor: "var(--primary)" },
               }}
             >
               Proceed with Deposit
@@ -207,9 +217,11 @@ export default function DepositPage() {
           {/* Payment Methods */}
           <Card
             sx={{
-              background: "#0c1324",
+              bgcolor: "var(--card)",
+              color: "var(--card-foreground)",
               borderRadius: 3,
-              border: "1px solid #1f2a44",
+              border: "1px solid",
+              borderColor: "var(--border)",
               p: 3,
               mb: 3,
             }}
@@ -228,7 +240,7 @@ export default function DepositPage() {
                   p={1.5}
                   borderRadius={2}
                   sx={{
-                    background: "#131b2e",
+                    bgcolor: "var(--background)",
                   }}
                 >
                   <CreditCardIcon fontSize="small" />
@@ -241,9 +253,11 @@ export default function DepositPage() {
           {/* How To Deposit */}
           <Card
             sx={{
-              background: "#0c1324",
+              bgcolor: "var(--card)",
+              color: "var(--card-foreground)",
               borderRadius: 3,
-              border: "1px solid #1f2a44",
+              border: "1px solid",
+              borderColor: "var(--border)",
               p: 3,
             }}
           >

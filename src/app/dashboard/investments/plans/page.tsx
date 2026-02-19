@@ -57,12 +57,20 @@ export default function InvestmentPlansPage() {
   ];
 
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, color: "#fff" }}>
+    <Box
+      sx={{
+        p: { xs: 2, md: 4 },
+        color: "var(--foreground)",
+      }}
+    >
       <Typography variant="h5" sx={{ mb: 1, fontWeight: "bold" }}>
         Enhancing Capital through Binary Investments
       </Typography>
-      <Typography variant="body2" sx={{ mb: 4, color: "gray" }}>
-        Choose a plan that suits your financial goals
+      <Typography
+        variant="body2"
+        sx={{ mb: 4, color: "var(--muted-foreground)" }}
+      >
+        Choose an investment plan that aligns with your financial goals.
       </Typography>
 
       <Grid container spacing={3}>
@@ -72,18 +80,19 @@ export default function InvestmentPlansPage() {
               sx={{
                 position: "relative",
                 p: 4,
-                bgcolor: "#1e1e1e",
-                color: "#fff",
+                bgcolor: "var(--card)",
+                color: "var(--card-foreground)",
                 borderRadius: 4,
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                border: "1px solid",
+                borderColor: "var(--border)",
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
-                transition: "transform 0.2s, box-shadow 0.2s",
+                transition: "transform 0.2s, box-shadow 0.2s, border-color 0.2s",
                 "&:hover": {
                   transform: "translateY(-5px)",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-                  border: "1px solid #ff7a00",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+                  borderColor: "var(--primary)",
                 },
               }}
             >
@@ -111,8 +120,13 @@ export default function InvestmentPlansPage() {
                   {plan.title}
                 </Typography>
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <TrendingUpIcon sx={{ color: "gray", fontSize: 20 }} />
-                  <Typography variant="body2" sx={{ color: "gray" }}>
+                  <TrendingUpIcon
+                    sx={{ color: "var(--muted-foreground)", fontSize: 20 }}
+                  />
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "var(--muted-foreground)" }}
+                  >
                     Duration: {plan.duration}
                   </Typography>
                 </Stack>
@@ -122,7 +136,10 @@ export default function InvestmentPlansPage() {
 
               <Stack spacing={2} sx={{ mb: 4, flex: 1 }}>
                 <Box display="flex" justifyContent="space-between">
-                  <Typography variant="body2" color="gray">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "var(--muted-foreground)" }}
+                  >
                     Daily Interest
                   </Typography>
                   <Typography variant="subtitle1" fontWeight="bold">
@@ -130,7 +147,10 @@ export default function InvestmentPlansPage() {
                   </Typography>
                 </Box>
                 <Box display="flex" justifyContent="space-between">
-                  <Typography variant="body2" color="gray">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "var(--muted-foreground)" }}
+                  >
                     Limit
                   </Typography>
                   <Typography variant="subtitle1" fontWeight="bold">
@@ -138,7 +158,10 @@ export default function InvestmentPlansPage() {
                   </Typography>
                 </Box>
                 <Box display="flex" justifyContent="space-between">
-                  <Typography variant="body2" color="gray">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "var(--muted-foreground)" }}
+                  >
                     Total Return
                   </Typography>
                   <Typography variant="subtitle1" fontWeight="bold">

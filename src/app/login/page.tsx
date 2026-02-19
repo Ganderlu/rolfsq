@@ -32,12 +32,15 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen w-full bg-background flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-[420px] rounded-2xl border border-border bg-card shadow-2xl p-6 sm:p-8">
-        
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold">R</div>
-            <span className="text-foreground font-semibold tracking-wide">ROLFSQ <span className="text-muted-foreground">INVEST</span></span>
+            <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold">
+              R
+            </div>
+            <span className="text-foreground font-semibold tracking-wide">
+              Noble Vest <span className="text-muted-foreground">INVEST</span>
+            </span>
           </div>
         </div>
 
@@ -71,7 +74,10 @@ export default function LoginPage() {
           <div className="space-y-1">
             <div className="flex justify-between">
               <label className="text-xs text-foreground">Password</label>
-              <Link href="/forgot-password" className="text-xs text-primary hover:text-primary/80">
+              <Link
+                href="/forgot-password"
+                className="text-xs text-primary hover:text-primary/80"
+              >
                 Forgot password?
               </Link>
             </div>
@@ -96,7 +102,10 @@ export default function LoginPage() {
 
         <p className="text-center text-xs text-muted-foreground mt-6">
           Don't have an account?{" "}
-          <Link href="/register" className="text-primary hover:text-primary/80 transition-colors">
+          <Link
+            href="/register"
+            className="text-primary hover:text-primary/80 transition-colors"
+          >
             Create account
           </Link>
         </p>

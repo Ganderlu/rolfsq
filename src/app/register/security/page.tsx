@@ -45,7 +45,7 @@ export default function SecurityPage() {
 //             </div>
 //           </div>
 //           <h1 className="text-xl font-semibold text-white">
-//             Join Prime Max Capital
+//             Join Noble Vest
 //           </h1>
 //           <p className="text-sm text-white/60">
 //             Start your professional trading journey
@@ -84,14 +84,13 @@ export default function SecurityPage() {
 //         {/* Confirm Password */}
 //         <input
 //           type="password"
-        
+
 //           name="confirmPassword"
 //           placeholder="Confirm your password"
 //           className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white"
 //           required
 //         />
 
-       
 //         {/* Verification */}
 //         <div className="rounded-xl border border-white/10 bg-white/5 p-4 mb-4">
 //           <p className="text-xs text-white/60 mb-2">Security Verification</p>
@@ -147,7 +146,7 @@ export default function SecurityPage() {
 //           <label className="flex items-start gap-2 text-xs text-white/80">
 //             <input type="checkbox" name="terms" className="mt-1" />
 //             <span>
-//               I agree to Prime Max Capital’s{" "}
+//               I agree to Noble Vest’s{" "}
 //               <span className="text-indigo-400">Terms and Conditions</span> and
 //               acknowledge that I have read and understood the{" "}
 //               <span className="text-indigo-400">Privacy Policy</span>.

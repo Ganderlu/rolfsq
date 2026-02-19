@@ -13,8 +13,11 @@ export default function GatewayCard({ title, balance }: { title: string; balance
       <Paper
         sx={{
           p: 3,
-          bgcolor: "background.paper",
-          borderRadius: 2,
+          bgcolor: "var(--card)",
+          color: "var(--card-foreground)",
+          borderRadius: 3,
+          border: "1px solid",
+          borderColor: "var(--border)",
         }}
       >
         <Typography fontWeight={600}>{title}</Typography>
