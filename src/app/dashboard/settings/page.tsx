@@ -16,6 +16,7 @@ import {
   Switch,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebaseClient";
@@ -122,7 +123,7 @@ export default function SettingsPage() {
   };
 
   const handleNotificationToggle = async (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     const checked = event.target.checked;
     setNotificationEmail(checked);
@@ -159,7 +160,7 @@ export default function SettingsPage() {
       </Typography>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             sx={{
               p: 3,
@@ -217,8 +218,8 @@ export default function SettingsPage() {
                   onClick={handleSaveProfile}
                   disabled={savingProfile}
                   sx={{
-                    bgcolor: "#3b82f6",
-                    "&:hover": { bgcolor: "#2563eb" },
+                    bgcolor: "primary.main",
+                    "&:hover": { bgcolor: "primary.dark" },
                   }}
                 >
                   {savingProfile ? "Saving..." : "Save Changes"}
@@ -228,7 +229,7 @@ export default function SettingsPage() {
           </Paper>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Stack spacing={3}>
             <Paper
               sx={{

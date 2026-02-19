@@ -8,7 +8,7 @@ import {
   ReactNode,
 } from "react";
 
-type Language = "en" | "fr" | "es" | "pt" | "de";
+type Language = string;
 
 export type CountryCode = string;
 

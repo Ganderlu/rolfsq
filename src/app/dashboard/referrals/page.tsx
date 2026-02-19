@@ -183,7 +183,7 @@ export default function ReferralsPage() {
       </Paper>
 
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card
             sx={{
               bgcolor: "var(--card)",
@@ -206,7 +206,7 @@ export default function ReferralsPage() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card
             sx={{
               bgcolor: "var(--card)",
@@ -229,7 +229,7 @@ export default function ReferralsPage() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card
             sx={{
               bgcolor: "var(--card)",
