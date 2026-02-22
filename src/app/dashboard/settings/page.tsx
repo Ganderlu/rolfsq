@@ -18,7 +18,7 @@ import {
 import { useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc, setDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebaseClient";
 import { toggleUserMode } from "@/app/actions/user";
 
@@ -79,11 +79,15 @@ export default function SettingsPage() {
     setSavingProfile(true);
     try {
       const userRef = doc(db, "users", currentUser.uid);
-      await updateDoc(userRef, {
-        username: form.username || "",
-        fullName: form.fullName || "",
-        phone: form.phone || "",
-      });
+      await setDoc(
+        userRef,
+        {
+          username: form.username || "",
+          fullName: form.fullName || "",
+          phone: form.phone || "",
+        },
+        { merge: true },
+      );
       setSnackbar({
         open: true,
         message: "Profile updated successfully.",
@@ -130,7 +134,7 @@ export default function SettingsPage() {
     if (!currentUser) return;
     try {
       const userRef = doc(db, "users", currentUser.uid);
-      await updateDoc(userRef, { notificationEmail: checked });
+      await setDoc(userRef, { notificationEmail: checked }, { merge: true });
     } catch {
       setSnackbar({
         open: true,

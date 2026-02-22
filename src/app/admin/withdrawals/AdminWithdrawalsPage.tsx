@@ -12,6 +12,7 @@ import {
   doc,
   updateDoc,
   increment,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "@/app/firebase/firebaseClient";
 import { useEffect, useState } from "react";
@@ -30,9 +31,14 @@ export default function AdminWithdrawals() {
       status: "approved",
     });
 
-    await updateDoc(doc(db, "users", w.userId), {
-      usdtBalance: increment(-w.amount),
-    });
+    const userRef = doc(db, "users", w.userId);
+    await setDoc(
+      userRef,
+      {
+        usdtBalance: increment(-w.amount),
+      },
+      { merge: true },
+    );
   };
 
   const reject = async (id: string) => {

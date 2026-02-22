@@ -9,9 +9,10 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { Menu as MenuIcon, Bell, Search, Settings } from "lucide-react";
+import { Menu as MenuIcon, Search, Settings } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import NotificationBell from "@/app/components/notifications/NotificationBell";
 
 export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   const { currentUser } = useAuth();
@@ -59,15 +60,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
           >
             <Search size={20} />
           </IconButton>
-          <IconButton
-            size="small"
-            sx={{
-              color: "var(--muted-foreground)",
-              "&:hover": { color: "var(--foreground)", bgcolor: "var(--accent)" },
-            }}
-          >
-            <Bell size={20} />
-          </IconButton>
+          <NotificationBell />
         </Stack>
 
         <Box

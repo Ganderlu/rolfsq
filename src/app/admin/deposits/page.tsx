@@ -19,6 +19,9 @@ import {
   doc,
   updateDoc,
   increment,
+  addDoc,
+  serverTimestamp,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "@/app/firebase/firebaseClient";
 import { useEffect, useState } from "react";
@@ -38,9 +41,23 @@ export default function AdminDepositsPage() {
       status: "approved",
     });
 
-    // 2️⃣ Credit user balance
-    await updateDoc(doc(db, "users", deposit.userId), {
-      usdtBalance: increment(deposit.amount),
+    const userRef = doc(db, "users", deposit.userId);
+    await setDoc(
+      userRef,
+      {
+        usdtBalance: increment(deposit.amount),
+      },
+      { merge: true },
+    );
+
+    // 3️⃣ Send notification to user inbox
+    await addDoc(collection(db, "notifications"), {
+      userId: deposit.userId,
+      type: "deposit-approved",
+      title: "Deposit Approved",
+      message: `Your deposit of $${deposit.amount} has been approved and added to your balance.`,
+      read: false,
+      createdAt: serverTimestamp(),
     });
   };
 
@@ -56,7 +73,14 @@ export default function AdminDepositsPage() {
         Deposit Requests
       </Typography>
 
-      <Paper sx={{ overflowX: "auto", bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+      <Paper
+        sx={{
+          overflowX: "auto",
+          bgcolor: "background.paper",
+          border: 1,
+          borderColor: "divider",
+        }}
+      >
         <Table>
           <TableHead>
             <TableRow>
@@ -64,19 +88,26 @@ export default function AdminDepositsPage() {
               <TableCell sx={{ color: "text.secondary" }}>Asset</TableCell>
               <TableCell sx={{ color: "text.secondary" }}>Amount</TableCell>
               <TableCell sx={{ color: "text.secondary" }}>Tx Hash</TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>Proof</TableCell>
               <TableCell sx={{ color: "text.secondary" }}>Status</TableCell>
-              <TableCell align="right" sx={{ color: "text.secondary" }}>Action</TableCell>
+              <TableCell align="right" sx={{ color: "text.secondary" }}>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
             {deposits.map((d) => (
               <TableRow key={d.id}>
-                <TableCell sx={{ color: "text.primary" }}>{d.userEmail}</TableCell>
+                <TableCell sx={{ color: "text.primary" }}>
+                  {d.userEmail}
+                </TableCell>
                 <TableCell sx={{ color: "text.primary" }}>
                   {d.asset} ({d.network})
                 </TableCell>
-                <TableCell sx={{ color: "text.primary" }}>${d.amount}</TableCell>
+                <TableCell sx={{ color: "text.primary" }}>
+                  ${d.amount}
+                </TableCell>
                 <TableCell
                   sx={{
                     maxWidth: 120,
@@ -88,14 +119,29 @@ export default function AdminDepositsPage() {
                   {d.txHash}
                 </TableCell>
                 <TableCell>
+                  {d.proofUrl ? (
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      href={d.proofUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View
+                    </Button>
+                  ) : (
+                    "-"
+                  )}
+                </TableCell>
+                <TableCell>
                   <Chip
                     label={d.status}
                     color={
                       d.status === "approved"
                         ? "success"
                         : d.status === "rejected"
-                        ? "error"
-                        : "warning"
+                          ? "error"
+                          : "warning"
                     }
                     size="small"
                   />

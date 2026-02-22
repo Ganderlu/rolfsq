@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -13,12 +14,48 @@ import {
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ShieldIcon from "@mui/icons-material/Shield";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/app/firebase/firebaseClient";
 
 const steps = ["Payment Method", "Send Payment", "Confirmation"];
 
 export default function DepositConfirmationPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [deposit, setDeposit] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const id = searchParams.get("id");
+    if (!id) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchDeposit = async () => {
+      try {
+        const snap = await getDoc(doc(db, "deposits", id));
+        if (snap.exists()) {
+          setDeposit({ id: snap.id, ...snap.data() });
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDeposit();
+  }, [searchParams]);
+
+  const paymentMethod = deposit?.coin || deposit?.asset || "—";
+  const amount =
+    typeof deposit?.amount === "number"
+      ? deposit.amount.toFixed(2)
+      : deposit?.amount
+      ? String(deposit.amount)
+      : "0.00";
+  const status = deposit?.status || "pending";
+  const referenceId = deposit?.id || searchParams.get("id") || "—";
 
   return (
     <Box
@@ -47,12 +84,10 @@ export default function DepositConfirmationPage() {
         <Typography fontSize={26} fontWeight={700}>
           Deposit Submitted Successfully
         </Typography>
-        <Typography
-          color="text.secondary"
-          fontSize={14}
-          mt={1}
-        >
-          Your payment proof has been received and is under review.
+        <Typography color="text.secondary" fontSize={14} mt={1}>
+          {deposit
+            ? "Your payment proof has been received and is under review."
+            : "Your deposit request has been submitted."}
         </Typography>
       </Box>
 
@@ -68,19 +103,19 @@ export default function DepositConfirmationPage() {
       </Box>
 
       {/* Confirmation Card */}
-      <Card
-        sx={{
-          maxWidth: 700,
-          mx: "auto",
-          bgcolor: "var(--card)",
-          color: "var(--card-foreground)",
-          border: "1px solid",
-          borderColor: "var(--border)",
-          borderRadius: 4,
-          p: { xs: 3, md: 4 },
-          textAlign: "center",
-        }}
-      >
+        <Card
+          sx={{
+            maxWidth: 700,
+            mx: "auto",
+            bgcolor: "var(--card)",
+            color: "var(--card-foreground)",
+            border: "1px solid",
+            borderColor: "var(--border)",
+            borderRadius: 4,
+            p: { xs: 3, md: 4 },
+            textAlign: "center",
+          }}
+        >
         {/* Success Icon */}
         <CheckCircleIcon sx={{ fontSize: 80, color: "success.main", mb: 2 }} />
 
@@ -89,7 +124,9 @@ export default function DepositConfirmationPage() {
         </Typography>
 
         <Typography fontSize={14} color="text.secondary" mb={3}>
-          Our team is reviewing your deposit. This usually takes a few minutes.
+          {deposit
+            ? "Our team is reviewing your deposit. This usually takes a few minutes."
+            : "If this page was opened directly, please check your Transactions page for details."}
         </Typography>
 
         {/* Deposit Summary */}
@@ -108,35 +145,57 @@ export default function DepositConfirmationPage() {
             Deposit Summary
           </Typography>
 
-          <Grid container spacing={2}>
-            <Grid size={{ xs: 6 }}>
-              <Typography fontSize={13} color="text.secondary">
-                Payment Method
-              </Typography>
-              <Typography fontWeight={600}>USDT</Typography>
-            </Grid>
+          {loading ? (
+            <Typography fontSize={13} color="text.secondary">
+              Loading your deposit details...
+            </Typography>
+          ) : (
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 6 }}>
+                <Typography fontSize={13} color="text.secondary">
+                  Payment Method
+                </Typography>
+                <Typography fontWeight={600}>{paymentMethod}</Typography>
+              </Grid>
 
-            <Grid size={{ xs: 6 }}>
-              <Typography fontSize={13} color="text.secondary">
-                Amount
-              </Typography>
-              <Typography fontWeight={600}>100.00 USD</Typography>
-            </Grid>
+              <Grid size={{ xs: 6 }}>
+                <Typography fontSize={13} color="text.secondary">
+                  Amount
+                </Typography>
+                <Typography fontWeight={600}>${amount} USD</Typography>
+              </Grid>
 
-            <Grid size={{ xs: 6 }}>
-              <Typography fontSize={13} color="text.secondary">
-                Status
-              </Typography>
-              <Chip label="Pending Confirmation" color="warning" size="small" />
-            </Grid>
+              <Grid size={{ xs: 6 }}>
+                <Typography fontSize={13} color="text.secondary">
+                  Status
+                </Typography>
+                <Chip
+                  label={
+                    status === "approved"
+                      ? "Approved"
+                      : status === "rejected"
+                      ? "Rejected"
+                      : "Pending Confirmation"
+                  }
+                  color={
+                    status === "approved"
+                      ? "success"
+                      : status === "rejected"
+                      ? "error"
+                      : "warning"
+                  }
+                  size="small"
+                />
+              </Grid>
 
-            <Grid size={{ xs: 6 }}>
-              <Typography fontSize={13} color="text.secondary">
-                Reference ID
-              </Typography>
-              <Typography fontWeight={600}>DEP-982374</Typography>
+              <Grid size={{ xs: 6 }}>
+                <Typography fontSize={13} color="text.secondary">
+                  Reference ID
+                </Typography>
+                <Typography fontWeight={600}>{referenceId}</Typography>
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Card>
 
         {/* Info */}

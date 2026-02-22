@@ -10,6 +10,8 @@ const paymentConfig = {
   USDT: { name: "USDT (TRC20)", network: "TRC20" },
   Bitcoin: { name: "Bitcoin", network: "BTC" },
   Ethereum: { name: "Ethereum", network: "ERC20" },
+  Solana: { name: "Solana", network: "SOL" },
+  XRP: { name: "XRP", network: "XRP" },
 };
 
 export default function SendPaymentPage() {
@@ -45,17 +47,17 @@ export default function SendPaymentPage() {
     try {
       setLoading(true);
 
-      await addDoc(collection(db, "deposits"), {
+      const docRef = await addDoc(collection(db, "deposits"), {
         userId: user.uid,
         coin,
         network,
         address,
         amount: Number(amount),
-        status: "pending", // ⏳ admin decision
+        status: "pending",
         createdAt: serverTimestamp(),
       });
 
-      router.push("/dashboard/deposit/confirmation");
+      router.push(`/dashboard/deposit/confirmation?id=${docRef.id}`);
     } catch (error) {
       console.error("Deposit error:", error);
       alert("Failed to submit payment. Try again.");
