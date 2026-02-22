@@ -19,10 +19,37 @@
 // export const db = getFirestore(app);
 
 // Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// import { getAuth } from "firebase/auth";
+// import { getFirestore } from "firebase/firestore";
+// // import { getAnalytics } from "firebase/analytics";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
+
+// // Your web app's Firebase configuration
+// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDj9kfbgaPxYAdOvncA725w0JKCAWn1lQg",
+//   authDomain: "Noble Vest-d179b.firebaseapp.com",
+//   projectId: "Noble Vest-d179b",
+//   storageBucket: "Noble Vest-d179b.firebasestorage.app",
+//   messagingSenderId: "313887622700",
+//   appId: "1:313887622700:web:b435cd0586929dbfcdb389",
+//   measurementId: "G-YNKF3KV6JT",
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// // const analytics = getAnalytics(app);
+
+// export const auth = getAuth(app);
+// export const db = getFirestore(app);
+
+
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,9 +57,9 @@ import { getFirestore } from "firebase/firestore";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDj9kfbgaPxYAdOvncA725w0JKCAWn1lQg",
-  authDomain: "Noble Vest-d179b.firebaseapp.com",
-  projectId: "Noble Vest-d179b",
-  storageBucket: "Noble Vest-d179b.firebasestorage.app",
+  authDomain: "rolfsq-d179b.firebaseapp.com",
+  projectId: "rolfsq-d179b",
+  storageBucket: "rolfsq-d179b.firebasestorage.app",
   messagingSenderId: "313887622700",
   appId: "1:313887622700:web:b435cd0586929dbfcdb389",
   measurementId: "G-YNKF3KV6JT",
@@ -40,7 +67,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-
 export const auth = getAuth(app);
 export const db = getFirestore(app);

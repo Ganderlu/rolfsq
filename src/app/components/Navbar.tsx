@@ -12,15 +12,78 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Select,
-  MenuItem,
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
-import { COUNTRY_OPTIONS, useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
+
+function GoogleTranslateWidget() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const w = window as any;
+    const elementId = "google_translate_element";
+
+    if (!w.googleTranslateElementInit) {
+      w.googleTranslateElementInit = () => {
+        if (
+          !w.google ||
+          !w.google.translate ||
+          !w.google.translate.TranslateElement
+        ) {
+          return;
+        }
+        new w.google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            autoDisplay: false,
+          },
+          elementId,
+        );
+      };
+    }
+
+    const scriptId = "google-translate-script";
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+    if (!script) {
+      script = document.createElement("script");
+      script.id = scriptId;
+      script.src =
+        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      document.body.appendChild(script);
+    } else if (w.google && w.google.translate) {
+      w.googleTranslateElementInit();
+    }
+  }, []);
+
+  return (
+    <Box
+      id="google_translate_element"
+      sx={{
+        minWidth: { xs: 120, md: 180 },
+        display: "flex",
+        alignItems: "center",
+        "& .goog-te-gadget": {
+          fontSize: 0,
+        },
+        "& .goog-te-combo": {
+          fontSize: 13,
+          padding: { xs: "4px 6px", md: "6px 8px" },
+          borderRadius: 4,
+          borderColor: "var(--border)",
+          color: "var(--foreground)",
+          backgroundColor: "var(--background)",
+          minWidth: { xs: 120, md: 180 },
+        },
+      }}
+    />
+  );
+}
 
 const navLinks = [
   { key: "home", href: "/" },
@@ -33,7 +96,7 @@ const navLinks = [
 
 export default function Navbar() {
   const router = useRouter();
-  const { country, setCountry, t } = useLanguage();
+  const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -114,39 +177,22 @@ export default function Navbar() {
             ))}
           </Stack>
 
-          {/* Desktop: Country Select + Auth Buttons & Theme Toggle */}
           <Stack
             direction="row"
             spacing={2}
             alignItems="center"
-            sx={{ display: { xs: "none", md: "flex" } }}
+            sx={{ display: "flex" }}
           >
-            <Select
-              size="small"
-              value={country}
-              onChange={(e) => setCountry(e.target.value as string)}
-              sx={{
-                minWidth: 160,
-                bgcolor: "var(--background)",
-                color: "var(--foreground)",
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--border)",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--primary)",
-                },
-              }}
-            >
-              {COUNTRY_OPTIONS.map((option) => (
-                <MenuItem key={option.code} value={option.code}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
-            <ThemeToggle />
+            <GoogleTranslateWidget />
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <ThemeToggle />
+            </Box>
             <Button
               variant="text"
-              sx={{ color: "var(--foreground)" }}
+              sx={{
+                color: "var(--foreground)",
+                display: { xs: "none", md: "inline-flex" },
+              }}
               onClick={() => router.push("/login")}
             >
               {t("nav.login")}
@@ -156,44 +202,17 @@ export default function Navbar() {
               sx={{
                 bgcolor: "#3b82f6",
                 "&:hover": { bgcolor: "#2563eb" },
+                display: { xs: "none", md: "inline-flex" },
               }}
               onClick={() => router.push("/register")}
             >
               {t("nav.getStarted")}
             </Button>
-          </Stack>
-
-          {/* Mobile: Country Select + Menu Button */}
-          <Stack
-            direction="row"
-            spacing={1}
-            alignItems="center"
-            sx={{ display: { xs: "flex", md: "none" } }}
-          >
-            <Select
-              size="small"
-              value={country}
-              onChange={(e) => setCountry(e.target.value as string)}
-              sx={{
-                minWidth: 120,
-                bgcolor: "var(--background)",
-                color: "var(--foreground)",
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--border)",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--primary)",
-                },
-              }}
-            >
-              {COUNTRY_OPTIONS.map((option) => (
-                <MenuItem key={option.code} value={option.code}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
             <IconButton
-              sx={{ color: "var(--foreground)" }}
+              sx={{
+                color: "var(--foreground)",
+                display: { xs: "flex", md: "none" },
+              }}
               onClick={toggleDrawer}
             >
               {mobileOpen ? <X /> : <Menu />}
