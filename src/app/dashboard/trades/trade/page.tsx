@@ -108,16 +108,16 @@ export default function TradeNowPage() {
 
       {/* STATS GRID */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={6} md={3}>
+        <Grid size={{ xs: 6, md: 3 }}>
           <StatCard title="Available Balance" value={`$${balance.toLocaleString()}`} icon={<Wallet size={18} />} color="#6366f1" />
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid size={{ xs: 6, md: 3 }}>
           <StatCard title="Active Trades" value={stats.activeTrades} icon={<Zap size={18} />} color="#22c55e" />
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid size={{ xs: 6, md: 3 }}>
           <StatCard title="Total Volume" value={stats.totalTrades} icon={<TrendingUp size={18} />} color="#3b82f6" />
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid size={{ xs: 6, md: 3 }}>
           <StatCard title="Net P&L" value={`$${stats.netPnL.toFixed(2)}`} icon={<Activity size={18} />} color={stats.netPnL >= 0 ? "#22c55e" : "#ef4444"} isProfit />
         </Grid>
       </Grid>
@@ -127,7 +127,7 @@ export default function TradeNowPage() {
         
         {/* LEFT: ASSETS SELECTOR (HIDDEN ON MOBILE, USES DRAWER OR TABS INSTEAD?) */}
         {!isTablet && (
-          <Grid item xs={12} xl={2.5}>
+          <Grid size={{ xs: 12, xl: 2.5 }}>
             <Paper elevation={0} sx={{ height: "calc(100vh - 280px)", minHeight: 600, bgcolor: "var(--card)", border: "1px solid", borderColor: "var(--border)", borderRadius: 4, overflow: "hidden" }}>
               <SelectAsset />
             </Paper>
@@ -135,7 +135,7 @@ export default function TradeNowPage() {
         )}
 
         {/* MIDDLE: CHART */}
-        <Grid item xs={12} xl={isTablet ? 8 : 6.5}>
+        <Grid size={{ xs: 12, xl: isTablet ? 8 : 6.5 }}>
           <Paper 
             elevation={0} 
             sx={{ 
@@ -154,7 +154,7 @@ export default function TradeNowPage() {
         </Grid>
 
         {/* RIGHT: ORDER FORM & ACTIVE TRADES */}
-        <Grid item xs={12} xl={isTablet ? 4 : 3}>
+        <Grid size={{ xs: 12, xl: isTablet ? 4 : 3 }}>
           <Stack spacing={2} sx={{ height: isTablet ? "auto" : "calc(100vh - 280px)", minHeight: isTablet ? "auto" : 600 }}>
             <Paper elevation={0} sx={{ p: 0, bgcolor: "var(--card)", border: "1px solid", borderColor: "var(--border)", borderRadius: 4, overflow: "hidden" }}>
               <PlaceOrder />

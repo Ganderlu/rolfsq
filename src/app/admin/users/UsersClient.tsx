@@ -208,7 +208,7 @@ export default function UsersClient({ initialUsers }: { initialUsers: any[] }) {
       {/* Stats Grid */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {stats.map((s) => (
-          <Grid item xs={12} sm={6} lg={3} key={s.label}>
+          <Grid size={{ xs: 12, sm: 6, lg: 3 }} key={s.label}>
             <Paper
               elevation={0}
               sx={{
@@ -794,7 +794,7 @@ function UserCard({ user, onStatusToggle, onBalanceClick, loading }: any) {
           }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Typography
                 variant="caption"
                 sx={{
@@ -816,7 +816,7 @@ function UserCard({ user, onStatusToggle, onBalanceClick, loading }: any) {
                 ${(user.walletBalance || 0).toLocaleString()}
               </Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Typography
                 variant="caption"
                 sx={{

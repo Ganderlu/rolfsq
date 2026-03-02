@@ -161,7 +161,7 @@ export default function InstaPinRechargePage() {
 
       {/* Action Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={0}
             onClick={() => setRechargeModal(true)}
@@ -192,7 +192,7 @@ export default function InstaPinRechargePage() {
           </Paper>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={0}
             onClick={() => setPinModal(true)}

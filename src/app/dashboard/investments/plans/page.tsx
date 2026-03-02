@@ -93,7 +93,7 @@ export default function InvestmentPlansPage() {
 
       <Grid container spacing={3}>
         {plans.map((plan) => (
-          <Grid item xs={12} md={6} lg={4} key={plan.title}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }} key={plan.title}>
             <Paper
               elevation={0}
               sx={{

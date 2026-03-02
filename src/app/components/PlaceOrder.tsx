@@ -121,7 +121,7 @@ export default function PlaceOrder() {
             SELECT DIRECTION
           </Typography>
           <Grid container spacing={1.5}>
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Button
                 fullWidth
                 onClick={() => setDirection("call")}
@@ -151,7 +151,7 @@ export default function PlaceOrder() {
                 </Typography>
               </Button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Button
                 fullWidth
                 onClick={() => setDirection("put")}

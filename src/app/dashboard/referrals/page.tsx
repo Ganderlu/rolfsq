@@ -326,7 +326,7 @@ export default function ReferralsPage() {
       {/* Stats Grid */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {stats.map((s) => (
-          <Grid item xs={12} md={4} key={s.label}>
+          <Grid size={{ xs: 12, md: 4 }} key={s.label}>
             <Paper
               elevation={0}
               sx={{

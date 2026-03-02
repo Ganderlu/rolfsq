@@ -52,13 +52,13 @@ export default function AdminWithdrawals() {
   useEffect(() => {
     return onSnapshot(collection(db, "withdrawals"), (snap) => {
       setWithdrawals(
-        snap.docs
-          .map((d) => ({ id: d.id, ...d.data() }))
-          .sort((a, b) => {
+        (snap.docs.map((d) => ({ id: d.id, ...d.data() })) as any[]).sort(
+          (a, b) => {
             const dateA = a.createdAt?.toDate?.() || new Date(0);
             const dateB = b.createdAt?.toDate?.() || new Date(0);
             return dateB - dateA;
-          }),
+          },
+        ),
       );
     });
   }, []);
