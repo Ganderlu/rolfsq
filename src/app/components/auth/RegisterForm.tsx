@@ -2,14 +2,23 @@
 
 import { saveStep1 } from "../../../app/register/actions";
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Alert, CircularProgress } from "@mui/material";
 
 export default function RegisterPersonalInfoPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [ref, setRef] = useState<string | null>(null);
+
+  useEffect(() => {
+    const referralCode = searchParams.get("ref");
+    if (referralCode) {
+      setRef(referralCode);
+    }
+  }, [searchParams]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -17,6 +26,10 @@ export default function RegisterPersonalInfoPage() {
     setError("");
 
     const formData = new FormData(e.currentTarget);
+    if (ref) {
+      formData.append("referredBy", ref);
+    }
+
     try {
       const res = await saveStep1(formData);
       if (res?.success) {
@@ -42,14 +55,14 @@ export default function RegisterPersonalInfoPage() {
               R
             </div>
             <span className="text-foreground font-semibold tracking-wide">
-              Noble Vest <span className="text-muted-foreground">INVEST</span>
+              Rolfsq <span className="text-muted-foreground">INVEST</span>
             </span>
           </div>
         </div>
 
         {/* Header */}
         <h1 className="text-center text-2xl font-semibold text-foreground mb-1">
-          Join <span className="text-primary">Noble Vest</span>
+          Join <span className="text-primary">Rolfsq </span>
         </h1>
         <p className="text-center text-sm text-muted-foreground mb-5">
           Start your professional trading journey
@@ -150,7 +163,7 @@ export default function RegisterPersonalInfoPage() {
         </div>
 
         <p className="text-center text-[10px] text-muted-foreground/60 mt-4">
-          © 2026 Noble Vest Invest. All rights reserved. Licensed and regulated
+          © 2026 Rolfsq Invest. All rights reserved. Licensed and regulated
           trading platform.
         </p>
       </div>

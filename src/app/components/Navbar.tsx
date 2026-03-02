@@ -14,18 +14,26 @@ import {
   ListItemText,
 } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLanguage } from "@/context/LanguageContext";
 
 function GoogleTranslateWidget() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const w = window as any;
     const elementId = "google_translate_element";
+
+    // Clear previous widget content to avoid duplicates on route changes
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.innerHTML = "";
+    }
 
     if (!w.googleTranslateElementInit) {
       w.googleTranslateElementInit = () => {
@@ -59,29 +67,82 @@ function GoogleTranslateWidget() {
     } else if (w.google && w.google.translate) {
       w.googleTranslateElementInit();
     }
-  }, []);
+  }, [pathname]);
 
   return (
     <Box
-      id="google_translate_element"
       sx={{
-        minWidth: { xs: 120, md: 180 },
         display: "flex",
         alignItems: "center",
-        "& .goog-te-gadget": {
-          fontSize: 0,
-        },
-        "& .goog-te-combo": {
-          fontSize: 13,
-          padding: { xs: "4px 6px", md: "6px 8px" },
-          borderRadius: 4,
-          borderColor: "var(--border)",
-          color: "var(--foreground)",
-          backgroundColor: "var(--background)",
-          minWidth: { xs: 120, md: 180 },
-        },
+        position: "relative",
+        // White square container from the image on mobile
+        bgcolor: { xs: "#ffffff", md: "transparent" },
+        border: { xs: "1px solid var(--border)", md: "none" },
+        borderRadius: { xs: "6px", md: 0 },
+        width: { xs: 34, md: "auto" },
+        height: { xs: 34, md: "auto" },
+        justifyContent: "center",
+        overflow: "hidden",
+        boxShadow: { xs: "0 2px 5px rgba(0,0,0,0.1)", md: "none" },
       }}
-    />
+    >
+      {/* Icon showing behind the hidden select element on mobile */}
+      <Box
+        component="img"
+        src="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png"
+        sx={{
+          width: { xs: 20, md: 0 }, // Only show icon on mobile
+          height: { xs: 20, md: 0 },
+          display: { xs: "block", md: "none" },
+          pointerEvents: "none",
+          position: "absolute",
+          zIndex: 0,
+        }}
+      />
+
+      <Box
+        id="google_translate_element"
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1,
+          "& .goog-te-gadget": {
+            fontSize: 0,
+            color: "transparent",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          },
+          "& .goog-te-gadget span": {
+            display: "none",
+          },
+          "& .goog-te-combo": {
+            fontSize: 13,
+            padding: { xs: "0", md: "6px 8px" },
+            borderRadius: 4,
+            borderColor: "var(--border)",
+            color: "var(--foreground)",
+            backgroundColor: { xs: "transparent", md: "var(--background)" },
+            minWidth: { xs: 34, md: 180 },
+            height: { xs: 34, md: "auto" },
+            cursor: "pointer",
+            outline: "none",
+            border: { xs: "none", md: "1px solid var(--border)" },
+            // Make it transparent on mobile so the icon shows through, but it's still clickable
+            opacity: { xs: 0, md: 1 },
+            position: { xs: "absolute", md: "static" },
+            left: 0,
+            top: 0,
+            WebkitAppearance: "none",
+            MozAppearance: "none",
+            appearance: "none",
+          },
+        }}
+      />
+    </Box>
   );
 }
 
@@ -148,7 +209,7 @@ export default function Navbar() {
                 color: "transparent",
               }}
             >
-              Noble Vest
+              Rolfsq
             </Typography>
           </Link>
 

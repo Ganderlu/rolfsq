@@ -23,7 +23,7 @@ export default function CreditCard() {
           </span>
 
           <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-6">
-            Noble Vest Card
+            Rolfsq Card
           </h2>
 
           <p className="text-gray-600 text-lg leading-relaxed max-w-xl mb-8">
@@ -32,7 +32,7 @@ export default function CreditCard() {
             products. According to a 2017 survey by the FDIC, 25 percent of U.S
             and UK households are unbanked or underbanked, while global numbers
             have reached a staggering 1.7 billion, according to data released by
-            the World Bank. Through our Card, Noble Vest investors can have a
+            the World Bank. Through our Card, Rolfsq investors can have a
             virtual card issued to them while a physical card is mailed to them.
             The card has a minimum of $2,000 balance needed. It can be used at
             over 45 million merchants and ATMs – anywhere in the world where

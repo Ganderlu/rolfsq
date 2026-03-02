@@ -12,11 +12,11 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src="/images/nature3.jpg" // replace with your logo
-                alt="Noble Vest"
+                alt="Rolfsq "
                 width={48}
                 height={48}
               />
-              <h2 className="text-2xl text-primary font-bold">Noble Vest</h2>
+              <h2 className="text-2xl text-primary font-bold">Rolfsq </h2>
             </div>
 
             <p className="text-sm leading-relaxed mb-6 max-w-md text-foreground">
@@ -32,7 +32,7 @@ export default function Footer() {
             <p className="text-xs leading-relaxed text-muted-foreground">
               Nothing on this website or in our services constitutes a
               solicitation, advice, endorsement, or offer to buy or sell
-              financial instruments by Noble Vest GROUP, its agents, employees,
+              financial instruments by Rolfsq GROUP, its agents, employees,
               contractors, or affiliated entities. You are solely responsible
               for evaluating the benefits and risks of using any information or
               content on this website. All investments carry substantial risk,
@@ -152,9 +152,9 @@ export default function Footer() {
               height={48}
             />
             <p className="text-xs text-gray-400 max-w-md">
-              Noble Vest is a member of The Financial Commission, an
-              international organization engaged in the resolution of disputes
-              within the financial services industry in the Forex market.
+              Rolfsq is a member of The Financial Commission, an international
+              organization engaged in the resolution of disputes within the
+              financial services industry in the Forex market.
             </p>
           </div>
 
@@ -166,7 +166,7 @@ export default function Footer() {
               height={48}
             />
             <p className="text-xs text-gray-400 max-w-md">
-              Noble Vest is regulated by the UK/US Securities and Exchange
+              Rolfsq is regulated by the UK/US Securities and Exchange
               Commission. Investing involves risk and may result in loss.
             </p>
           </div>
@@ -174,7 +174,7 @@ export default function Footer() {
 
         {/* BOTTOM BAR */}
         <div className="border-t border-white/10 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400">
-          <span>© 2025 Noble Vest. All Rights Reserved.</span>
+          <span>© 2025 Rolfsq . All Rights Reserved.</span>
 
           <div className="flex gap-4">
             <Link href="#">About</Link>

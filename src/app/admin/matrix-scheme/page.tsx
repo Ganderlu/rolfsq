@@ -16,14 +16,29 @@ import {
   useMediaQuery,
   Card,
   Grid,
+  Avatar,
+  TextField,
+  InputAdornment,
 } from "@mui/material";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "@/app/firebase/firebaseClient";
 import { useEffect, useState } from "react";
+import { 
+  Grid3X3, 
+  Search, 
+  User, 
+  Calendar, 
+  TrendingUp, 
+  Award, 
+  Activity,
+  CheckCircle2,
+  Clock
+} from "lucide-react";
 
 export default function AdminMatrixSchemePage() {
   const [enrollments, setEnrollments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -46,193 +61,146 @@ export default function AdminMatrixSchemePage() {
     return () => unsubscribe();
   }, []);
 
+  const filteredEnrollments = enrollments.filter((e) =>
+    `${e.planTitle} ${e.userId} ${e.id}`.toLowerCase().includes(search.toLowerCase())
+  );
+
   if (loading) {
     return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="50vh"
-      >
-        <CircularProgress />
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
+        <CircularProgress size={40} />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ p: { xs: 2, md: 3 } }}>
-      <Typography variant="h5" sx={{ mb: 3, fontWeight: "bold" }}>
-        Matrix Scheme Enrollments
-      </Typography>
+    <Box sx={{ p: { xs: 2, md: 4 }, bgcolor: "var(--background)", minHeight: "100vh" }}>
+      {/* Header */}
+      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+        <Box>
+          <Typography variant="h4" fontWeight="800" sx={{ color: "var(--foreground)", mb: 0.5, display: "flex", alignItems: "center", gap: 1.5 }}>
+            <Grid3X3 size={28} color="#eab308" /> Matrix Scheme
+          </Typography>
+          <Typography variant="body2" sx={{ color: "var(--muted-foreground)" }}>
+            Monitor multi-level network enrollments and aggregate commission distributions.
+          </Typography>
+        </Box>
+      </Stack>
 
       {/* Stats Overview */}
-      <Grid container spacing={2} sx={{ mb: 4 }}>
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <Paper sx={{ p: 2, bgcolor: "#1e1e1e", color: "white" }}>
-            <Typography variant="subtitle2" color="gray">
-              Total Enrollments
-            </Typography>
-            <Typography variant="h4" fontWeight="bold">
-              {enrollments.length}
-            </Typography>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid item xs={12} sm={6} md={3}>
+          <Paper elevation={0} sx={{ p: 2.5, bgcolor: "var(--card)", border: "1px solid var(--border)", borderRadius: 4 }}>
+            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 1 }}>
+              <Box sx={{ p: 1, borderRadius: 2, bgcolor: "rgba(234, 179, 8, 0.1)", color: "#eab308" }}>
+                <Award size={20} />
+              </Box>
+              <Typography variant="caption" fontWeight="700" sx={{ color: "var(--muted-foreground)", textTransform: "uppercase" }}>Total Enrollments</Typography>
+            </Stack>
+            <Typography variant="h4" fontWeight="900" sx={{ color: "var(--foreground)" }}>{enrollments.length}</Typography>
           </Paper>
         </Grid>
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <Paper sx={{ p: 2, bgcolor: "#1e1e1e", color: "white" }}>
-            <Typography variant="subtitle2" color="gray">
-              Active Plans
-            </Typography>
-            <Typography variant="h4" fontWeight="bold" color="#00e676">
-              {enrollments.filter((e) => e.status === "active").length}
-            </Typography>
+        <Grid item xs={12} sm={6} md={3}>
+          <Paper elevation={0} sx={{ p: 2.5, bgcolor: "var(--card)", border: "1px solid var(--border)", borderRadius: 4 }}>
+            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 1 }}>
+              <Box sx={{ p: 1, borderRadius: 2, bgcolor: "rgba(34, 197, 94, 0.1)", color: "#22c55e" }}>
+                <CheckCircle2 size={20} />
+              </Box>
+              <Typography variant="caption" fontWeight="700" sx={{ color: "var(--muted-foreground)", textTransform: "uppercase" }}>Active Plans</Typography>
+            </Stack>
+            <Typography variant="h4" fontWeight="900" sx={{ color: "#22c55e" }}>{enrollments.filter((e) => e.status === "active" || !e.status).length}</Typography>
           </Paper>
         </Grid>
       </Grid>
 
-      {/* Mobile View - Cards */}
-      {isMobile ? (
-        <Stack spacing={2}>
-          {enrollments.map((row) => (
-            <Card
-              key={row.id}
-              sx={{
-                p: 2,
-                bgcolor: "#1e1e1e",
-                color: "white",
-                border: "1px solid rgba(255,255,255,0.1)",
-              }}
-            >
-              <Stack spacing={1}>
-                <Box display="flex" justifyContent="space-between">
-                  <Typography variant="subtitle1" fontWeight="bold" color="#ff7a00">
-                    {row.planTitle}
-                  </Typography>
-                  <Chip
-                    label={row.status || "active"}
-                    size="small"
-                    sx={{
-                      bgcolor:
-                        row.status === "active"
-                          ? "rgba(0, 230, 118, 0.1)"
-                          : "rgba(255, 255, 255, 0.1)",
-                      color: row.status === "active" ? "#00e676" : "gray",
-                      textTransform: "capitalize",
-                    }}
-                  />
-                </Box>
-                <Typography variant="body2" color="gray">
-                  User ID: {row.userId}
-                </Typography>
-                <Box display="flex" justifyContent="space-between">
-                  <Typography variant="body2">Amount: ${row.amount}</Typography>
-                  <Typography variant="body2">
-                    Commission: ${row.commission}
-                  </Typography>
-                </Box>
-                <Typography variant="caption" color="gray" sx={{ mt: 1 }}>
-                  {row.createdAt?.toLocaleString()}
-                </Typography>
-              </Stack>
-            </Card>
-          ))}
-          {enrollments.length === 0 && (
-            <Typography align="center" color="gray">
-              No enrollments found.
-            </Typography>
-          )}
-        </Stack>
-      ) : (
-        /* Desktop View - Table */
-        <Paper
-          sx={{
-            width: "100%",
-            overflow: "hidden",
-            bgcolor: "#1e1e1e",
-            border: "1px solid rgba(255,255,255,0.1)",
+      {/* Filter */}
+      <Paper elevation={0} sx={{ p: 2, mb: 4, bgcolor: "var(--card)", border: "1px solid var(--border)", borderRadius: 4 }}>
+        <TextField
+          fullWidth
+          size="small"
+          placeholder="Search by plan, user ID or request ID..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search size={18} color="var(--muted-foreground)" />
+              </InputAdornment>
+            ),
+            sx: { bgcolor: "rgba(255,255,255,0.02)", borderRadius: 3 }
           }}
-        >
-          <Table stickyHeader>
-            <TableHead>
+        />
+      </Paper>
+
+      {/* Content */}
+      <Paper elevation={0} sx={{ bgcolor: "var(--card)", border: "1px solid var(--border)", borderRadius: 4, overflow: "hidden" }}>
+        <Table>
+          <TableHead sx={{ bgcolor: "rgba(255,255,255,0.02)" }}>
+            <TableRow>
+              <TableCell sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}>Enrollment Date</TableCell>
+              <TableCell sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}>Investor</TableCell>
+              <TableCell sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}>Plan Package</TableCell>
+              <TableCell sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}>Amount</TableCell>
+              <TableCell sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}>Commission</TableCell>
+              <TableCell align="right" sx={{ color: "var(--muted-foreground)", fontWeight: 600 }}>Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredEnrollments.length === 0 ? (
               <TableRow>
-                <TableCell sx={{ bgcolor: "#2d2d2d", color: "white" }}>
-                  Date
-                </TableCell>
-                <TableCell sx={{ bgcolor: "#2d2d2d", color: "white" }}>
-                  User ID
-                </TableCell>
-                <TableCell sx={{ bgcolor: "#2d2d2d", color: "white" }}>
-                  Plan
-                </TableCell>
-                <TableCell sx={{ bgcolor: "#2d2d2d", color: "white" }}>
-                  Amount
-                </TableCell>
-                <TableCell sx={{ bgcolor: "#2d2d2d", color: "white" }}>
-                  Commission
-                </TableCell>
-                <TableCell sx={{ bgcolor: "#2d2d2d", color: "white" }}>
-                  Status
+                <TableCell colSpan={6} align="center" sx={{ py: 10 }}>
+                  <Typography variant="body2" sx={{ color: "var(--muted-foreground)" }}>No matrix enrollments found.</Typography>
                 </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {enrollments.length === 0 ? (
-                <TableRow>
-                  <TableCell
-                    colSpan={6}
-                    align="center"
-                    sx={{ color: "gray", py: 3 }}
-                  >
-                    No enrollments found
+            ) : (
+              filteredEnrollments.map((row) => (
+                <TableRow key={row.id} sx={{ "&:hover": { bgcolor: "rgba(255,255,255,0.01)" } }}>
+                  <TableCell>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Calendar size={14} color="var(--muted-foreground)" />
+                      <Box>
+                        <Typography variant="body2" sx={{ color: "var(--foreground)" }}>{row.createdAt?.toLocaleDateString()}</Typography>
+                        <Typography variant="caption" sx={{ color: "var(--muted-foreground)" }}>{row.createdAt?.toLocaleTimeString()}</Typography>
+                      </Box>
+                    </Stack>
+                  </TableCell>
+                  <TableCell>
+                    <Stack direction="row" spacing={1.5} alignItems="center">
+                      <Avatar sx={{ width: 32, height: 32, bgcolor: "rgba(234, 179, 8, 0.1)", color: "#eab308" }}>
+                        <User size={16} />
+                      </Avatar>
+                      <Typography variant="body2" fontWeight="600" sx={{ color: "var(--foreground)" }}>{row.userId?.slice(0, 12)}...</Typography>
+                    </Stack>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2" fontWeight="800" sx={{ color: "var(--foreground)" }}>{row.planTitle}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2" fontWeight="800" sx={{ color: "#eab308" }}>${row.amount?.toLocaleString()}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2" fontWeight="800" sx={{ color: "#22c55e" }}>+${row.commission?.toLocaleString()}</Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Chip
+                      label={row.status || "active"}
+                      size="small"
+                      icon={row.status === "active" || !row.status ? <CheckCircle2 size={12} /> : <Clock size={12} />}
+                      sx={{
+                        bgcolor: row.status === "active" || !row.status ? "rgba(34, 197, 94, 0.1)" : "rgba(255, 255, 255, 0.05)",
+                        color: row.status === "active" || !row.status ? "#22c55e" : "var(--muted-foreground)",
+                        fontWeight: 800,
+                        fontSize: "0.65rem",
+                        textTransform: "uppercase"
+                      }}
+                    />
                   </TableCell>
                 </TableRow>
-              ) : (
-                enrollments.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    hover
-                    sx={{
-                      "&:hover": { bgcolor: "rgba(255,255,255,0.05)" },
-                    }}
-                  >
-                    <TableCell sx={{ color: "white" }}>
-                      {row.createdAt?.toLocaleDateString()}{" "}
-                      <Typography variant="caption" color="gray">
-                        {row.createdAt?.toLocaleTimeString()}
-                      </Typography>
-                    </TableCell>
-                    <TableCell sx={{ color: "gray", fontSize: "0.875rem" }}>
-                      {row.userId}
-                    </TableCell>
-                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                      {row.planTitle}
-                    </TableCell>
-                    <TableCell sx={{ color: "#ff7a00" }}>
-                      ${row.amount?.toLocaleString()}
-                    </TableCell>
-                    <TableCell sx={{ color: "#00e676" }}>
-                      ${row.commission?.toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      <Chip
-                        label={row.status || "active"}
-                        size="small"
-                        sx={{
-                          bgcolor:
-                            row.status === "active"
-                              ? "rgba(0, 230, 118, 0.1)"
-                              : "rgba(255, 255, 255, 0.1)",
-                          color: row.status === "active" ? "#00e676" : "gray",
-                          textTransform: "capitalize",
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </Paper>
-      )}
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </Paper>
     </Box>
   );
 }

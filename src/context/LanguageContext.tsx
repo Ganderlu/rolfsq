@@ -84,7 +84,7 @@ const LanguageContext = createContext<LanguageContextValue>({
   t: (key: string) => key,
 });
 
-const COUNTRY_STORAGE_KEY = "Noble Vest-country";
+const COUNTRY_STORAGE_KEY = "Rolfsq -country";
 
 const COUNTRY_TO_LANGUAGE: Record<string, Language> = {
   US: "en",
@@ -156,13 +156,13 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.badge": "SECURE & REGULATED PLATFORM",
     "hero.title": "Invest Smarter in Digital Assets",
     "hero.subtitle":
-      "Noble Vest provides a secure, transparent, and efficient way to grow your portfolio. Join thousands of investors earning passive income through our advanced trading algorithms.",
+      "Rolfsq  provides a secure, transparent, and efficient way to grow your portfolio. Join thousands of investors earning passive income through our advanced trading algorithms.",
     "hero.primaryCta": "Start Investing",
     "hero.secondaryCta": "View Markets",
     "hero.stat.assets": "Assets Managed",
     "hero.stat.investors": "Active Investors",
     "hero.stat.countries": "Countries",
-    "about.title": "About Noble Vest Invest",
+    "about.title": "About Rolfsq  Invest",
     "about.subtitle":
       "Empowering traders worldwide with advanced technology, security, and transparent financial solutions.",
     "faqs.title": "Frequently Asked Questions",
@@ -185,10 +185,10 @@ const translations: Record<Language, Record<string, string>> = {
     "feature.realtimeText":
       "Monitor your balances, trades, and investment status instantly.",
     "why.heading":
-      "Join 15,000+ Traders from across the globe. Noble Vest is your trusted partner in forex, gold, cannabis, and real estate markets.",
+      "Join 15,000+ Traders from across the globe. Rolfsq  is your trusted partner in forex, gold, cannabis, and real estate markets.",
     "why.investmentTitle": "Investment Opportunities",
     "why.investmentText":
-      "Noble Vest leads in diverse investment opportunities, offering investors the chance to explore forex, gold, cannabis, and real estate with tailored funding solutions.",
+      "Rolfsq  leads in diverse investment opportunities, offering investors the chance to explore forex, gold, cannabis, and real estate with tailored funding solutions.",
     "why.investmentAccordion1": "Funding evaluations",
     "why.investmentAccordion2": "Competitions",
     "why.investmentAccordion3": "Profit share & Scaling plan",
@@ -232,8 +232,7 @@ const translations: Record<Language, Record<string, string>> = {
       "Pricing is indicative. Past performance is not a reliable indicator of future results.",
     "faq.heading": "Frequently Asked Questions",
     "faq.helpTitle": "Need any help!",
-    "faq.helpText":
-      "Find answers to frequently asked questions about Noble Vest.",
+    "faq.helpText": "Find answers to frequently asked questions about Rolfsq .",
     "faq.contactCta": "Contact Us",
     "tradingHero.heading": "START TRADING WITH US TODAY",
     "tradingHero.text":
@@ -252,13 +251,13 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.badge": "PLATEFORME SÉCURISÉE ET RÉGLEMENTÉE",
     "hero.title": "Investissez plus intelligemment dans les actifs numériques",
     "hero.subtitle":
-      "Noble Vest offre un moyen sûr, transparent et efficace de développer votre portefeuille. Rejoignez des milliers d’investisseurs qui gagnent un revenu passif grâce à nos algorithmes de trading avancés.",
+      "Rolfsq  offre un moyen sûr, transparent et efficace de développer votre portefeuille. Rejoignez des milliers d’investisseurs qui gagnent un revenu passif grâce à nos algorithmes de trading avancés.",
     "hero.primaryCta": "Commencer à investir",
     "hero.secondaryCta": "Voir les marchés",
     "hero.stat.assets": "Actifs gérés",
     "hero.stat.investors": "Investisseurs actifs",
     "hero.stat.countries": "Pays",
-    "about.title": "À propos de Noble Vest Invest",
+    "about.title": "À propos de Rolfsq  Invest",
     "about.subtitle":
       "Nous donnons aux traders du monde entier les moyens d’agir grâce à une technologie avancée, une sécurité renforcée et des solutions financières transparentes.",
     "faqs.title": "Questions fréquentes",
@@ -281,10 +280,10 @@ const translations: Record<Language, Record<string, string>> = {
     "feature.realtimeText":
       "Surveillez vos soldes, vos trades et vos investissements instantanément.",
     "why.heading":
-      "Rejoignez plus de 15 000 traders dans le monde. Noble Vest est votre partenaire de confiance pour le forex, l’or, le cannabis et l’immobilier.",
+      "Rejoignez plus de 15 000 traders dans le monde. Rolfsq  est votre partenaire de confiance pour le forex, l’or, le cannabis et l’immobilier.",
     "why.investmentTitle": "Opportunités d’investissement",
     "why.investmentText":
-      "Noble Vest propose des opportunités diversifiées avec des solutions de financement adaptées et des modèles de partage de profit compétitifs.",
+      "Rolfsq  propose des opportunités diversifiées avec des solutions de financement adaptées et des modèles de partage de profit compétitifs.",
     "why.investmentAccordion1": "Évaluations de financement",
     "why.investmentAccordion2": "Concours",
     "why.investmentAccordion3": "Partage des profits et plan de croissance",
@@ -330,7 +329,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.heading": "Questions fréquentes",
     "faq.helpTitle": "Besoin d’aide ?",
     "faq.helpText":
-      "Trouvez des réponses aux questions fréquentes sur Noble Vest.",
+      "Trouvez des réponses aux questions fréquentes sur Rolfsq .",
     "faq.contactCta": "Contactez-nous",
     "tradingHero.heading": "COMMENCEZ À TRADER AVEC NOUS DÈS AUJOURD’HUI",
     "tradingHero.text":
@@ -349,13 +348,13 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.badge": "PLATAFORMA SEGURA Y REGULADA",
     "hero.title": "Invierte de forma más inteligente en activos digitales",
     "hero.subtitle":
-      "Noble Vest ofrece una forma segura, transparente y eficiente de hacer crecer tu portafolio. Únete a miles de inversores que ganan ingresos pasivos con nuestros algoritmos avanzados de trading.",
+      "Rolfsq  ofrece una forma segura, transparente y eficiente de hacer crecer tu portafolio. Únete a miles de inversores que ganan ingresos pasivos con nuestros algoritmos avanzados de trading.",
     "hero.primaryCta": "Comenzar a invertir",
     "hero.secondaryCta": "Ver mercados",
     "hero.stat.assets": "Activos gestionados",
     "hero.stat.investors": "Inversores activos",
     "hero.stat.countries": "Países",
-    "about.title": "Acerca de Noble Vest Invest",
+    "about.title": "Acerca de Rolfsq  Invest",
     "about.subtitle":
       "Impulsamos a los traders de todo el mundo con tecnología avanzada, seguridad y soluciones financieras transparentes.",
     "faqs.title": "Preguntas frecuentes",
@@ -378,10 +377,10 @@ const translations: Record<Language, Record<string, string>> = {
     "feature.realtimeText":
       "Supervisa tus saldos, operaciones e inversiones al instante.",
     "why.heading":
-      "Únete a más de 15 000 traders en todo el mundo. Noble Vest es tu socio de confianza en forex, oro, cannabis e inmobiliario.",
+      "Únete a más de 15 000 traders en todo el mundo. Rolfsq  es tu socio de confianza en forex, oro, cannabis e inmobiliario.",
     "why.investmentTitle": "Oportunidades de inversión",
     "why.investmentText":
-      "Noble Vest lidera en oportunidades diversas con soluciones de financiación a medida y modelos competitivos de reparto de beneficios.",
+      "Rolfsq  lidera en oportunidades diversas con soluciones de financiación a medida y modelos competitivos de reparto de beneficios.",
     "why.investmentAccordion1": "Evaluaciones de financiación",
     "why.investmentAccordion2": "Competiciones",
     "why.investmentAccordion3": "Reparto de beneficios y plan de escalado",
@@ -427,7 +426,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.heading": "Preguntas frecuentes",
     "faq.helpTitle": "¿Necesitas ayuda?",
     "faq.helpText":
-      "Encuentra respuestas a preguntas frecuentes sobre Noble Vest.",
+      "Encuentra respuestas a preguntas frecuentes sobre Rolfsq .",
     "faq.contactCta": "Contáctanos",
     "tradingHero.heading": "COMIENZA A OPERAR CON NOSOTROS HOY MISMO",
     "tradingHero.text":
@@ -446,13 +445,13 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.badge": "PLATAFORMA SEGURA E REGULAMENTADA",
     "hero.title": "Invista de forma mais inteligente em ativos digitais",
     "hero.subtitle":
-      "A Noble Vest oferece uma forma segura, transparente e eficiente de aumentar o seu portfólio. Junte-se a milhares de investidores que recebem renda passiva com nossos algoritmos avançados de negociação.",
+      "A Rolfsq  oferece uma forma segura, transparente e eficiente de aumentar o seu portfólio. Junte-se a milhares de investidores que recebem renda passiva com nossos algoritmos avançados de negociação.",
     "hero.primaryCta": "Começar a investir",
     "hero.secondaryCta": "Ver mercados",
     "hero.stat.assets": "Ativos sob gestão",
     "hero.stat.investors": "Investidores ativos",
     "hero.stat.countries": "Países",
-    "about.title": "Sobre a Noble Vest Invest",
+    "about.title": "Sobre a Rolfsq  Invest",
     "about.subtitle":
       "Empoderamos traders no mundo inteiro com tecnologia avançada, segurança e soluções financeiras transparentes.",
     "faqs.title": "Perguntas frequentes",
@@ -475,10 +474,10 @@ const translations: Record<Language, Record<string, string>> = {
     "feature.realtimeText":
       "Monitore seus saldos, operações e investimentos instantaneamente.",
     "why.heading":
-      "Junte-se a mais de 15.000 traders em todo o mundo. A Noble Vest é o seu parceiro de confiança em forex, ouro, cannabis e imobiliário.",
+      "Junte-se a mais de 15.000 traders em todo o mundo. A Rolfsq  é o seu parceiro de confiança em forex, ouro, cannabis e imobiliário.",
     "why.investmentTitle": "Oportunidades de investimento",
     "why.investmentText":
-      "A Noble Vest lidera em oportunidades diversificadas com soluções de financiamento personalizadas e modelos competitivos de partilha de lucros.",
+      "A Rolfsq  lidera em oportunidades diversificadas com soluções de financiamento personalizadas e modelos competitivos de partilha de lucros.",
     "why.investmentAccordion1": "Avaliações de financiamento",
     "why.investmentAccordion2": "Competições",
     "why.investmentAccordion3": "Partilha de lucros e plano de escala",
@@ -524,7 +523,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.heading": "Perguntas frequentes",
     "faq.helpTitle": "Precisa de ajuda?",
     "faq.helpText":
-      "Encontre respostas para perguntas frequentes sobre a Noble Vest.",
+      "Encontre respostas para perguntas frequentes sobre a Rolfsq .",
     "faq.contactCta": "Fale conosco",
     "tradingHero.heading": "COMECE A NEGOCIAR CONOSCO HOJE MESMO",
     "tradingHero.text":
@@ -543,13 +542,13 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.badge": "SICHERE UND REGULIERTE PLATTFORM",
     "hero.title": "Investieren Sie smarter in digitale Vermögenswerte",
     "hero.subtitle":
-      "Noble Vest bietet eine sichere, transparente und effiziente Möglichkeit, Ihr Portfolio zu vergrößern. Schließen Sie sich tausenden Anlegern an, die mit unseren fortschrittlichen Handelsalgorithmen passives Einkommen erzielen.",
+      "Rolfsq  bietet eine sichere, transparente und effiziente Möglichkeit, Ihr Portfolio zu vergrößern. Schließen Sie sich tausenden Anlegern an, die mit unseren fortschrittlichen Handelsalgorithmen passives Einkommen erzielen.",
     "hero.primaryCta": "Jetzt investieren",
     "hero.secondaryCta": "Märkte ansehen",
     "hero.stat.assets": "Verwaltete Vermögenswerte",
     "hero.stat.investors": "Aktive Anleger",
     "hero.stat.countries": "Länder",
-    "about.title": "Über Noble Vest Invest",
+    "about.title": "Über Rolfsq  Invest",
     "about.subtitle":
       "Wir stärken Trader weltweit mit moderner Technologie, Sicherheit und transparenten Finanzlösungen.",
     "faqs.title": "Häufig gestellte Fragen",
@@ -572,10 +571,10 @@ const translations: Record<Language, Record<string, string>> = {
     "feature.realtimeText":
       "Überwachen Sie Ihre Guthaben, Trades und Investitionen in Echtzeit.",
     "why.heading":
-      "Schließen Sie sich über 15.000 Tradern weltweit an. Noble Vest ist Ihr vertrauenswürdiger Partner für Forex, Gold, Cannabis und Immobilien.",
+      "Schließen Sie sich über 15.000 Tradern weltweit an. Rolfsq  ist Ihr vertrauenswürdiger Partner für Forex, Gold, Cannabis und Immobilien.",
     "why.investmentTitle": "Investitionsmöglichkeiten",
     "why.investmentText":
-      "Noble Vest bietet vielfältige Investitionsmöglichkeiten in Forex, Gold, Cannabis und Immobilien mit maßgeschneiderten Finanzierungslösungen.",
+      "Rolfsq  bietet vielfältige Investitionsmöglichkeiten in Forex, Gold, Cannabis und Immobilien mit maßgeschneiderten Finanzierungslösungen.",
     "why.investmentAccordion1": "Finanzierungsbewertungen",
     "why.investmentAccordion2": "Wettbewerbe",
     "why.investmentAccordion3": "Gewinnbeteiligung & Skalierungsplan",
@@ -620,7 +619,7 @@ const translations: Record<Language, Record<string, string>> = {
       "Preise sind indikativ. Frühere Wertentwicklungen sind kein zuverlässiger Indikator für zukünftige Ergebnisse.",
     "faq.heading": "Häufig gestellte Fragen",
     "faq.helpTitle": "Brauchen Sie Hilfe?",
-    "faq.helpText": "Finden Sie Antworten auf häufige Fragen zu Noble Vest.",
+    "faq.helpText": "Finden Sie Antworten auf häufige Fragen zu Rolfsq .",
     "faq.contactCta": "Kontakt",
     "tradingHero.heading": "STARTEN SIE NOCH HEUTE MIT UNSEREM TRADING",
     "tradingHero.text":

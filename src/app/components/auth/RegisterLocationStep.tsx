@@ -84,7 +84,7 @@ export default function RegisterLocationStep() {
               sx={{ color: "var(--primary)" }}
               mb={1}
             >
-              Noble Vest
+              rolfsq
             </Typography>
 
             <Typography
@@ -93,7 +93,7 @@ export default function RegisterLocationStep() {
               fontWeight={600}
               sx={{ color: "var(--foreground)" }}
             >
-              Join Noble Vest Invest
+              Join Rolfsq Invest
             </Typography>
 
             <Typography

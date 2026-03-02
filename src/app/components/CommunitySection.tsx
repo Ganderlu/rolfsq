@@ -12,7 +12,7 @@ export default function CommunitySection() {
         {/* LEFT – IMAGE */}
         <div className="relative w-full overflow-hidden rounded-2xl">
           <Image
-            src="/community.webp" // replace with your image path
+            src="/images/west1.jpeg" // replace with your image path
             alt="Trading community event"
             width={900}
             height={700}

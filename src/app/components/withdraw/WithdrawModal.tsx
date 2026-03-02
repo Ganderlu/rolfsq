@@ -8,236 +8,372 @@ import {
   Button,
   TextField,
   Alert,
+  IconButton,
+  Divider,
+  Stack,
+  InputAdornment,
+  CircularProgress,
+  DialogTitle,
+  Snackbar,
 } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import Divider from "@mui/material/Divider";
-import { useState } from "react";
+import {
+  X,
+  Info,
+  Wallet,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+} from "lucide-react";
+import { useState, useEffect } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/firebaseClient";
 import { useAuth } from "@/context/AuthContext";
-
-
 
 export default function WithdrawModal({
   open,
   onClose,
   balance = 0,
+  asset = "USDT (TRC20)",
 }: {
   open: boolean;
   onClose: () => void;
   balance: number;
+  asset?: string;
 }) {
   const [amount, setAmount] = useState("");
+  const [address, setAddress] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const { currentUser } = useAuth();
 
   const MIN_WITHDRAW = 100;
-  const MAX_WITHDRAW = 1_000_000;
+  const MAX_WITHDRAW = 1000000;
+  const FEE_PERCENTAGE = 0.02; // 2% fee
 
-  const FEE = 0;
-  const receive = amount ? Number(amount) - FEE : 0;
-
-//   const { currentUser } = useAuth();
-//   const [amount, setAmount] = useState("");
-  const [loading, setLoading] = useState(false);
   const numericAmount = Number(amount);
+  const fee = numericAmount * FEE_PERCENTAGE;
+  const receiveAmount = numericAmount > 0 ? numericAmount - fee : 0;
 
   const insufficient = numericAmount > balance;
-  const belowMin = numericAmount < MIN_WITHDRAW;
+  const belowMin = numericAmount > 0 && numericAmount < MIN_WITHDRAW;
   const aboveMax = numericAmount > MAX_WITHDRAW;
+  const invalidAddress = address.length > 0 && address.length < 10;
 
-  const isInvalid = !numericAmount || insufficient || belowMin || aboveMax;
+  const isInvalid =
+    !numericAmount ||
+    insufficient ||
+    belowMin ||
+    aboveMax ||
+    !address ||
+    invalidAddress;
 
   const handleWithdraw = async () => {
     if (isInvalid || !currentUser) return;
 
     setLoading(true);
+    try {
+      await addDoc(collection(db, "withdrawals"), {
+        userId: currentUser.uid,
+        userEmail: currentUser.email,
+        asset: asset,
+        amount: numericAmount,
+        fee: fee,
+        receiveAmount: receiveAmount,
+        address: address,
+        status: "pending",
+        createdAt: serverTimestamp(),
+      });
 
-    await addDoc(collection(db, "withdrawals"), {
-      userId: currentUser.uid,
-      asset: "USDT",
-      network: "TRC20",
-      amount: numericAmount,
-      fee: FEE,
-      receiveAmount: numericAmount - FEE,
-      status: "pending",
-      createdAt: serverTimestamp(),
-    });
-
-    setLoading(false);
-    onClose();
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        setAmount("");
+        setAddress("");
+        onClose();
+      }, 2500);
+    } catch (error) {
+      console.error("Withdrawal error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogContent sx={{ background: "#2c2c2c", color: "#fff" }}>
-        <Typography fontWeight={600} mb={2}>
-          Withdraw with USDT (TRC20)
-        </Typography>
-
-        <Alert severity="info" sx={{ mb: 2 }}>
-          Limit: ${MIN_WITHDRAW} - ${MAX_WITHDRAW}
-        </Alert>
-
-        <TextField
-          fullWidth
-          placeholder="Enter amount to withdraw"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          type="number"
-          sx={{ mb: 1 }}
-        />
-
-        <Typography variant="body2" mb={2}>
-          Available Balance: ${balance}
-        </Typography>
-
-        {insufficient && <Alert severity="error">Insufficient balance</Alert>}
-        {belowMin && amount && (
-          <Alert severity="warning">Minimum is ${MIN_WITHDRAW}</Alert>
-        )}
-        {aboveMax && (
-          <Alert severity="warning">Maximum is ${MAX_WITHDRAW}</Alert>
-        )}
-
-        <Box display="flex" justifyContent="space-between" mt={3}>
-          <Button onClick={onClose} variant="outlined">
-            Cancel
-          </Button>
-
-          <Button
-            variant="contained"
-            disabled={isInvalid || loading}
-            onClick={handleWithdraw}
-            sx={{ background: "#ff7a00" }}
-          >
-            {loading ? "Processing..." : "Proceed to Withdrawal"}
-          </Button>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="xs"
+      PaperProps={{
+        sx: {
+          bgcolor: "var(--card)",
+          backgroundImage: "none",
+          border: "1px solid",
+          borderColor: "var(--border)",
+          borderRadius: 4,
+          color: "#ffffff",
+        },
+      }}
+    >
+      <DialogTitle
+        sx={{
+          p: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box component="span" sx={{ fontSize: "1.25rem", fontWeight: 700 }}>
+          Withdraw {asset}
         </Box>
+        <IconButton
+          onClick={onClose}
+          size="small"
+          sx={{ color: "var(--muted-foreground)" }}
+        >
+          <X size={20} />
+        </IconButton>
+      </DialogTitle>
+
+      <DialogContent sx={{ p: { xs: 2, sm: 3 }, pt: 1 }}>
+        {success ? (
+          <Stack
+            spacing={2}
+            alignItems="center"
+            sx={{ py: 4, textAlign: "center" }}
+          >
+            <Box
+              sx={{
+                p: 2,
+                borderRadius: "50%",
+                bgcolor: "rgba(34, 197, 94, 0.1)",
+                color: "#22c55e",
+              }}
+            >
+              <CheckCircle2 size={48} />
+            </Box>
+            <Typography variant="h6" fontWeight="700">
+              Request Submitted!
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ color: "var(--muted-foreground)" }}
+            >
+              Your withdrawal request for ${numericAmount.toLocaleString()} has
+              been sent for processing.
+            </Typography>
+          </Stack>
+        ) : (
+          <Stack spacing={2.5}>
+            {/* Info Box */}
+            <Box
+              sx={{
+                p: 2,
+                borderRadius: 3,
+                bgcolor: "rgba(99, 102, 241, 0.05)",
+                border: "1px solid rgba(99, 102, 241, 0.1)",
+                display: "flex",
+                gap: 1.5,
+              }}
+            >
+              <Info
+                size={18}
+                color="var(--primary)"
+                style={{ flexShrink: 0, marginTop: 2 }}
+              />
+              <Box>
+                <Typography
+                  variant="caption"
+                  sx={{ color: "var(--muted-foreground)", display: "block" }}
+                >
+                  Withdrawal Limit
+                </Typography>
+                <Typography
+                  variant="caption"
+                  fontWeight="600"
+                  sx={{ color: "#ffffff" }}
+                >
+                  Min: ${MIN_WITHDRAW} | Max: ${MAX_WITHDRAW.toLocaleString()}
+                </Typography>
+              </Box>
+            </Box>
+
+            {/* Amount Input */}
+            <Box>
+              <Typography
+                variant="caption"
+                fontWeight="600"
+                sx={{ mb: 0.5, display: "block", color: "#ffffff" }}
+              >
+                Amount to Withdraw
+              </Typography>
+              <TextField
+                fullWidth
+                size="small"
+                placeholder="0.00"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                type="number"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "var(--muted-foreground)",
+                          fontWeight: "700",
+                        }}
+                      >
+                        $
+                      </Typography>
+                    </InputAdornment>
+                  ),
+                  sx: {
+                    bgcolor: "rgba(255,255,255,0.03)",
+                    borderRadius: 2.5,
+                    "& fieldset": { borderColor: "var(--border)" },
+                    "& input": { color: "#ffffff", fontSize: "0.9rem" },
+                  },
+                }}
+              />
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                sx={{ mt: 0.5 }}
+              >
+                <Typography
+                  variant="caption"
+                  sx={{ color: "var(--muted-foreground)" }}
+                >
+                  Available:{" "}
+                  <span style={{ color: "#ffffff", fontWeight: "600" }}>
+                    ${balance.toLocaleString()}
+                  </span>
+                </Typography>
+                {insufficient && (
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "#ef4444", fontWeight: "600" }}
+                  >
+                    Insufficient Balance
+                  </Typography>
+                )}
+              </Stack>
+            </Box>
+
+            {/* Address Input */}
+            <Box>
+              <Typography
+                variant="caption"
+                fontWeight="600"
+                sx={{ mb: 0.5, display: "block", color: "#ffffff" }}
+              >
+                {asset} Wallet Address
+              </Typography>
+              <TextField
+                fullWidth
+                size="small"
+                placeholder="Enter your destination address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Wallet size={16} color="var(--muted-foreground)" />
+                    </InputAdornment>
+                  ),
+                  sx: {
+                    bgcolor: "rgba(255,255,255,0.03)",
+                    borderRadius: 2.5,
+                    "& fieldset": { borderColor: "var(--border)" },
+                    "& input": { color: "#ffffff", fontSize: "0.9rem" },
+                  },
+                }}
+              />
+            </Box>
+
+            <Divider sx={{ borderColor: "var(--border)" }} />
+
+            {/* Summary */}
+            <Box
+              sx={{
+                p: 1.5,
+                bgcolor: "rgba(255,255,255,0.02)",
+                borderRadius: 2.5,
+                border: "1px solid var(--border)",
+              }}
+            >
+              <Stack spacing={0.5}>
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "var(--muted-foreground)" }}
+                  >
+                    Processing Fee (2%)
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    fontWeight="600"
+                    sx={{ color: "#ef4444" }}
+                  >
+                    -${fee.toFixed(2)}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography
+                    variant="body2"
+                    fontWeight="700"
+                    sx={{ color: "#ffffff" }}
+                  >
+                    Total to Receive
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    fontWeight="800"
+                    sx={{ color: "#22c55e" }}
+                  >
+                    ${receiveAmount.toFixed(2)}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </Box>
+
+            <Button
+              fullWidth
+              variant="contained"
+              disabled={isInvalid || loading}
+              onClick={handleWithdraw}
+              startIcon={
+                loading ? (
+                  <CircularProgress size={18} color="inherit" />
+                ) : (
+                  <ShieldCheck size={18} />
+                )
+              }
+              sx={{
+                borderRadius: 2.5,
+                py: 1.2,
+                textTransform: "none",
+                fontWeight: "700",
+                fontSize: "0.95rem",
+                boxShadow: "0 4px 14px 0 rgba(99, 102, 241, 0.39)",
+                bgcolor: "primary.main",
+                "&:hover": { bgcolor: "primary.dark" },
+              }}
+            >
+              {loading ? "Processing..." : "Confirm Withdrawal"}
+            </Button>
+
+            <Typography
+              variant="caption"
+              align="center"
+              sx={{ color: "var(--muted-foreground)", display: "block" }}
+            >
+              Withdrawals are processed within 24 hours.
+            </Typography>
+          </Stack>
+        )}
       </DialogContent>
     </Dialog>
   );
-
-  //   return (
-  //     <Dialog
-  //       open={open}
-  //       onClose={onClose}
-  //       fullWidth
-  //       maxWidth="xs"
-  //       sx={{
-  //         "& .MuiDialog-paper": {
-  //           background: "#2b2b2b",
-  //           color: "#fff",
-  //           borderRadius: 2,
-  //         },
-  //       }}
-  //     >
-  //       {/* Header */}
-  //       <Box
-  //         display="flex"
-  //         justifyContent="space-between"
-  //         alignItems="center"
-  //         px={2}
-  //         py={1.5}
-  //       >
-  //         <Typography fontWeight={600}>Withdraw with USDT (TRC20)</Typography>
-  //         <IconButton onClick={onClose} sx={{ color: "#aaa" }}>
-  //           <CloseIcon />
-  //         </IconButton>
-  //       </Box>
-
-  //       <DialogContent>
-  //         {/* Info Box */}
-  //         <Box
-  //           display="flex"
-  //           alignItems="center"
-  //           gap={1}
-  //           p={2}
-  //           mb={2}
-  //           borderRadius={1}
-  //           sx={{ backgroundColor: "#d9f7ff", color: "#000" }}
-  //         >
-  //           <InfoOutlinedIcon fontSize="small" />
-  //           <Typography fontSize={14}>Limit: $100 - $1000000</Typography>
-  //         </Box>
-
-  //         {/* Amount */}
-  //         <Typography mb={1}>Withdrawal Amount</Typography>
-
-  //         <Box display="flex">
-  //           <TextField
-  //             fullWidth
-  //             placeholder="Enter amount to withdraw"
-  //             value={amount}
-  //             onChange={(e) => setAmount(e.target.value)}
-  //             InputProps={{
-  //               sx: {
-  //                 background: "#111",
-  //                 color: "#fff",
-  //                 borderRadius: "4px 0 0 4px",
-  //               },
-  //             }}
-  //           />
-  //           <Box
-  //             px={2}
-  //             display="flex"
-  //             alignItems="center"
-  //             sx={{
-  //               background: "#fff",
-  //               color: "#000",
-  //               borderRadius: "0 4px 4px 0",
-  //             }}
-  //           >
-  //             USD
-  //           </Box>
-  //         </Box>
-
-  //         <Typography mt={1} fontSize={13} color="#aaa">
-  //           Available Balance: $0
-  //         </Typography>
-
-  //         <Divider sx={{ my: 2, borderColor: "#444" }} />
-
-  //         {/* Summary */}
-  //         <Box display="flex" justifyContent="space-between" mb={2}>
-  //           <Box>
-  //             <Typography fontSize={13} color="#aaa">
-  //               Processing Fee
-  //             </Typography>
-  //             <Typography fontWeight={600}>${fee.toFixed(2)}</Typography>
-  //           </Box>
-
-  //           <Box textAlign="right">
-  //             <Typography fontSize={13} color="#aaa">
-  //               You Will Receive
-  //             </Typography>
-  //             <Typography fontWeight={600}>${receive.toFixed(2)}</Typography>
-  //           </Box>
-  //         </Box>
-
-  //         {/* Actions */}
-  //         <Box display="flex" justifyContent="space-between">
-  //           <Button
-  //             variant="outlined"
-  //             onClick={onClose}
-  //             sx={{ color: "#fff", borderColor: "#555" }}
-  //           >
-  //             Cancel
-  //           </Button>
-
-  //           <Button
-  //             variant="contained"
-  //             sx={{
-  //               backgroundColor: "#ff7a00",
-  //               fontWeight: 600,
-  //               "&:hover": { backgroundColor: "#ff8f26" },
-  //             }}
-  //           >
-  //             Proceed to Withdrawal
-  //           </Button>
-  //         </Box>
-  //       </DialogContent>
-  //     </Dialog>
-  //   );
 }

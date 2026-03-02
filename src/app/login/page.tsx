@@ -39,7 +39,7 @@ export default function LoginPage() {
               R
             </div>
             <span className="text-foreground font-semibold tracking-wide">
-              Noble Vest <span className="text-muted-foreground">INVEST</span>
+              Rolfsq <span className="text-muted-foreground">INVEST</span>
             </span>
           </div>
         </div>

@@ -1,7 +1,6 @@
-"use client";
+ "use client";
 
 import { useRouter } from "next/navigation";
-import CryptoTicker from "@/app/components/widgets/CryptoTicker";
 import SelectAsset from "../components/SelectAsset";
 import TradingViewChart from "../components/TradingViewChart";
 import PlaceOrder from "../components/PlaceOrder";
@@ -14,21 +13,10 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-10 text-foreground">
-      {/* <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Welcome,{" "}
-          <span className="text-purple-400">{stats.username}</span>
-        </h1>
-      </div> */}
-
-      <div className="py-4">
-        <CryptoTicker />
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <StatCard
           title="Investment"
-          button="Investment Now"
+          button="Invest Now"
           onClick={() => router.push("/dashboard/investments/plans")}
           stats={[
             ["Total Invest", `$${stats.totalInvest}`],
@@ -38,7 +26,7 @@ export default function Dashboard() {
         />
         <StatCard
           title="Matrix"
-          button="Enrolled"
+          button="View Matrix"
           onClick={() => router.push("/dashboard/matrix/plans")}
           stats={[
             ["Total Commission", `$${stats.totalCommission}`],
@@ -67,39 +55,35 @@ export default function Dashboard() {
       </div>
 
       <section className="w-full bg-background min-h-screen p-4 md:p-6">
-      <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr_320px] gap-6">
-        
-        {/* Left */}
-        <SelectAsset />
+        <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr_320px] gap-6">
+          {/* Left */}
+          <SelectAsset />
 
-        {/* Center */}
-        <div className="bg-card border border-border rounded-2xl p-4">
-          <h3 className="text-foreground font-semibold mb-3">Chart</h3>
-          <TradingViewChart />
-        </div>
+          {/* Center */}
+          <div className="bg-card border border-border rounded-2xl p-4">
+            <h3 className="text-foreground font-semibold mb-3">Chart</h3>
+            <TradingViewChart />
+          </div>
 
-        {/* Right */}
-        <div className="space-y-6">
-          <PlaceOrder />
-          <ActiveTrades />
+          {/* Right */}
+          <div className="space-y-6">
+            <PlaceOrder />
+            <ActiveTrades />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </div>
   );
 }
 
-function StatCard({
-  title,
-  stats,
-  button,
-  onClick,
-}: {
+type StatCardProps = {
   title: string;
   stats: (string | number)[][];
   button: string;
   onClick: () => void;
-}) {
+};
+
+function StatCard({ title, stats, button, onClick }: StatCardProps) {
   return (
     <div className="rounded-2xl border border-border bg-card p-8 shadow-xl hover:border-primary/50 transition-all duration-300">
       <h3 className="text-xl font-semibold mb-8 text-foreground tracking-wide">
@@ -113,7 +97,9 @@ function StatCard({
             className="flex justify-between border-b border-border pb-4 last:border-0 last:pb-0"
           >
             <span className="text-muted-foreground">{k}</span>
-            <span className="font-semibold text-foreground tracking-wide">{v}</span>
+            <span className="font-semibold text-foreground tracking-wide">
+              {v}
+            </span>
           </div>
         ))}
       </div>
@@ -128,19 +114,19 @@ function StatCard({
   );
 }
 
-function MiniCard({
-  label,
-  value,
-  highlight,
-}: {
+type MiniCardProps = {
   label: string;
   value: string | number;
   highlight?: boolean;
-}) {
+};
+
+function MiniCard({ label, value, highlight }: MiniCardProps) {
   return (
     <div className="rounded-2xl border border-border bg-card p-8 shadow-xl hover:border-primary/30 transition-all duration-300">
       <div
-        className={`text-3xl font-bold mb-2 ${highlight ? "text-green-500" : "text-foreground"}`}
+        className={`text-3xl font-bold mb-2 ${
+          highlight ? "text-green-500" : "text-foreground"
+        }`}
       >
         {value}
       </div>

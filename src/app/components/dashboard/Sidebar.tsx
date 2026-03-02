@@ -8,6 +8,7 @@ import {
   useMediaQuery,
   useTheme,
   Collapse,
+  Paper,
 } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -43,11 +44,7 @@ const navItems: NavItem[] = [
   {
     label: "Matrix",
     icon: Grid3X3,
-    children: [
-      { label: "Matrix Plans", href: "/dashboard/matrix/plans" },
-      { label: "Referral Rewards", href: "/dashboard/matrix/referralRewards" },
-      { label: "Commissions", href: "/dashboard/matrix/commissions" },
-    ],
+    children: [{ label: "Matrix Plans", href: "/dashboard/matrix/plans" }],
   },
   {
     label: "Investments",
@@ -75,7 +72,7 @@ const navItems: NavItem[] = [
     icon: Wallet,
     children: [
       { label: "Instant Deposit", href: "/dashboard/deposit/instant" },
-      { label: "Commissions", href: "/dashboard/deposit/commissions" },
+      // { label: "Referral Commission", href: "/dashboard/referrals" },
     ],
   },
   {
@@ -125,30 +122,36 @@ function SidebarItem({
             alignItems: "center",
             justifyContent: "space-between",
             px: 2,
-            py: 1.5,
-            borderRadius: 2,
-            color: isChildActive
-              ? "var(--foreground)"
-              : "var(--muted-foreground)",
-            bgcolor: isChildActive ? "var(--accent)" : "transparent",
+            py: 1.2,
+            borderRadius: 2.5,
+            color: isChildActive ? "#ffffff" : "var(--muted-foreground)",
+            bgcolor: isChildActive ? "rgba(99, 102, 241, 0.08)" : "transparent",
             cursor: "pointer",
-            transition: "all 0.2s",
+            transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
             "&:hover": {
-              bgcolor: "var(--accent)",
-              color: "var(--foreground)",
+              bgcolor: "rgba(255, 255, 255, 0.04)",
+              color: "#ffffff",
             },
           }}
         >
-          <Box display="flex" alignItems="center" gap={2}>
-            <Icon size={20} />
-            <Typography variant="body2" fontWeight={500}>
+          <Box display="flex" alignItems="center" gap={1.5}>
+            <Icon size={18} strokeWidth={isActive || isChildActive ? 2.5 : 2} />
+            <Typography variant="body2" fontWeight={isChildActive ? 700 : 500}>
               {item.label}
             </Typography>
           </Box>
-          {open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+          {open ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
         </Box>
-        <Collapse in={open}>
-          <Stack spacing={0.5} mt={0.5} pl={2}>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <Stack
+            spacing={0.5}
+            mt={0.5}
+            sx={{
+              borderLeft: "1px solid rgba(255,255,255,0.05)",
+              ml: 2.5,
+              pl: 1,
+            }}
+          >
             {item.children?.map((child) => {
               const isChildItemActive = pathname === child.href;
               return (
@@ -162,38 +165,41 @@ function SidebarItem({
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 2,
+                      gap: 1.5,
                       px: 2,
-                      py: 1.5,
+                      py: 1,
                       borderRadius: 2,
                       color: isChildItemActive
-                        ? "var(--primary-foreground)"
+                        ? "primary.main"
                         : "var(--muted-foreground)",
                       bgcolor: isChildItemActive
-                        ? "var(--primary)"
+                        ? "rgba(99, 102, 241, 0.08)"
                         : "transparent",
                       transition: "all 0.2s",
+                      position: "relative",
                       "&:hover": {
-                        bgcolor: isChildItemActive
-                          ? "var(--primary)"
-                          : "var(--accent)",
-                        color: isChildItemActive
-                          ? "var(--primary-foreground)"
-                          : "var(--foreground)",
+                        bgcolor: "rgba(255, 255, 255, 0.04)",
+                        color: "#ffffff",
                       },
                     }}
                   >
-                    <Box
-                      width={6}
-                      height={6}
-                      borderRadius="50%"
-                      bgcolor={
-                        isChildItemActive
-                          ? "currentColor"
-                          : "var(--muted-foreground)"
-                      }
-                    />
-                    <Typography variant="body2" fontWeight={500}>
+                    {isChildItemActive && (
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          left: -9,
+                          width: 3,
+                          height: 16,
+                          borderRadius: 1,
+                          bgcolor: "primary.main",
+                        }}
+                      />
+                    )}
+                    <Typography
+                      variant="body2"
+                      fontWeight={isChildItemActive ? 700 : 500}
+                      sx={{ fontSize: "0.825rem" }}
+                    >
                       {child.label}
                     </Typography>
                   </Box>
@@ -216,23 +222,22 @@ function SidebarItem({
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: 2,
+          gap: 1.5,
           px: 2,
-          py: 1.5,
-          borderRadius: 2,
-          color: isActive
-            ? "var(--primary-foreground)"
-            : "var(--muted-foreground)",
-          bgcolor: isActive ? "var(--primary)" : "transparent",
-          transition: "all 0.2s",
+          py: 1.2,
+          borderRadius: 2.5,
+          color: isActive ? "#ffffff" : "var(--muted-foreground)",
+          bgcolor: isActive ? "primary.main" : "transparent",
+          boxShadow: isActive ? "0 4px 12px rgba(99, 102, 241, 0.3)" : "none",
+          transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
           "&:hover": {
-            bgcolor: isActive ? "var(--primary)" : "var(--accent)",
-            color: isActive ? "var(--primary-foreground)" : "var(--foreground)",
+            bgcolor: isActive ? "primary.main" : "rgba(255, 255, 255, 0.04)",
+            color: "#ffffff",
           },
         }}
       >
-        <Icon size={20} />
-        <Typography variant="body2" fontWeight={500}>
+        <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />
+        <Typography variant="body2" fontWeight={isActive ? 700 : 500}>
           {item.label}
         </Typography>
       </Box>
@@ -253,32 +258,52 @@ export default function Sidebar({
 
   const SidebarContent = (
     <Box
-      width={240}
+      width={260}
       bgcolor="var(--card)"
       color="var(--card-foreground)"
       height="100%"
       display="flex"
       flexDirection="column"
-      sx={{ borderRight: "1px solid", borderColor: "var(--border)" }}
+      sx={{
+        borderRight: "1px solid",
+        borderColor: "var(--border)",
+        backgroundImage:
+          "linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0))",
+      }}
     >
-      <Box p={3} borderBottom="1px solid" borderColor="var(--border)">
-        <Typography
-          variant="h5"
-          fontWeight={800}
-          letterSpacing={1}
-          sx={{
-            background: "linear-gradient(45deg, #3b82f6, #06b6d4)",
-            backgroundClip: "text",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-          }}
-        >
-          Noble Vest
-        </Typography>
+      <Box p={3} sx={{ mb: 2 }}>
+        <Stack direction="row" spacing={1.5} alignItems="center">
+          <Box
+            sx={{
+              width: 36,
+              height: 36,
+              borderRadius: 2,
+              bgcolor: "primary.main",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 4px 12px rgba(99, 102, 241, 0.4)",
+            }}
+          >
+            <Activity size={20} color="#ffffff" strokeWidth={3} />
+          </Box>
+          <Typography
+            variant="h5"
+            fontWeight="900"
+            sx={{
+              color: "#ffffff",
+              letterSpacing: -0.5,
+              textTransform: "uppercase",
+              fontSize: "1.25rem",
+            }}
+          >
+            rolfsq
+          </Typography>
+        </Stack>
       </Box>
 
-      <Box flex={1} overflow="auto" py={2}>
-        <Stack spacing={0.5} px={1}>
+      <Box flex={1} overflow="auto" py={1}>
+        <Stack spacing={0.8} px={2}>
           {navItems.map((item, index) => (
             <SidebarItem
               key={index}
@@ -290,46 +315,67 @@ export default function Sidebar({
         </Stack>
       </Box>
 
-      <Box p={1} borderTop="1px solid" borderColor="var(--border)">
-        <Box
+      <Box p={2} sx={{ mt: "auto" }}>
+        <Paper
+          elevation={0}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 2,
-            px: 2,
-            py: 1.5,
-            mb: 0.5,
+            p: 1.5,
+            bgcolor: "rgba(255,255,255,0.03)",
+            borderRadius: 3,
+            border: "1px solid rgba(255,255,255,0.05)",
           }}
         >
-          <ThemeToggle />
-          <Typography variant="body2" fontWeight={500}>
-            Theme
-          </Typography>
-        </Box>
-        <Link href="/logout" style={{ textDecoration: "none" }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 2,
-              px: 2,
-              py: 1.5,
-              borderRadius: 2,
-              color: "var(--destructive)",
-              cursor: "pointer",
-              transition: "all 0.2s",
-              "&:hover": {
-                bgcolor: "var(--accent)",
-                color: "var(--destructive-foreground)",
-              },
-            }}
-          >
-            <LogOut size={20} />
-            <Typography variant="body2" fontWeight={500}>
-              Sign Out
-            </Typography>
-          </Box>
-        </Link>
+          <Stack spacing={1}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                px: 1.5,
+                py: 1,
+              }}
+            >
+              <Stack direction="row" spacing={1.5} alignItems="center">
+                <ThemeToggle />
+                <Typography
+                  variant="body2"
+                  fontWeight={600}
+                  sx={{ color: "#ffffff", fontSize: "0.8rem" }}
+                >
+                  Dark Mode
+                </Typography>
+              </Stack>
+            </Box>
+
+            <Link href="/logout" style={{ textDecoration: "none" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1.5,
+                  px: 1.5,
+                  py: 1.2,
+                  borderRadius: 2,
+                  color: "#ef4444",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  "&:hover": {
+                    bgcolor: "rgba(239, 68, 68, 0.08)",
+                  },
+                }}
+              >
+                <LogOut size={18} />
+                <Typography
+                  variant="body2"
+                  fontWeight={700}
+                  sx={{ fontSize: "0.85rem" }}
+                >
+                  Sign Out
+                </Typography>
+              </Box>
+            </Link>
+          </Stack>
+        </Paper>
       </Box>
     </Box>
   );
@@ -339,7 +385,7 @@ export default function Sidebar({
       <Drawer
         open={open}
         onClose={onClose}
-        PaperProps={{ sx: { border: "none" } }}
+        PaperProps={{ sx: { border: "none", bgcolor: "transparent" } }}
       >
         {SidebarContent}
       </Drawer>
@@ -350,10 +396,10 @@ export default function Sidebar({
     <Drawer
       variant="permanent"
       sx={{
-        width: 240,
+        width: 260,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: 240,
+          width: 260,
           boxSizing: "border-box",
           border: "none",
         },

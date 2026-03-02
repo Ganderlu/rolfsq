@@ -11,7 +11,7 @@ export default function advisor() {
       <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="relative w-full overflow-hidden rounded-2xl">
           <Image
-            src="/images/adam.jpeg"
+            src="/images/west2.jpeg"
             alt="Trading community event"
             width={900}
             height={900}
@@ -26,7 +26,7 @@ export default function advisor() {
           </span>
 
           <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight mb-6">
-            ADAM KHOO <br className="hidden md:block" /> FINANCIAL ADVISER
+            THOMAS KRALOW <br className="hidden md:block" /> FINANCIAL ADVISER
           </h2>
 
           <button className="bg-primary hover:bg-primary/90 transition-colors text-primary-foreground font-semibold px-8 py-4 rounded-lg shadow-md">

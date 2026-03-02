@@ -2,330 +2,131 @@
 
 import {
   Box,
-  Grid,
-  Card,
   Typography,
-  Button,
-  TextField,
-  MenuItem,
-  Chip,
+  Grid,
+  Paper,
   Stack,
+  useTheme,
+  useMediaQuery,
+  Button,
+  Divider,
 } from "@mui/material";
-import SecurityIcon from "@mui/icons-material/Security";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import GatewayCard from "../../../components/deposit/GatewayCard";
+import DepositLogs from "../../../components/deposit/DepositLogs";
+import { 
+  Wallet, 
+  ArrowUpToLine, 
+  History, 
+  Zap, 
+  ShieldCheck, 
+  Info 
+} from "lucide-react";
 
-const quickAmounts = [100, 500, 1000, 5000];
-const paymentMethods = [
-  {
-    coin: "USDT",
-    network: "TRC20",
-    address: "TXyP9Yh2K8QJ4exampleUSDTAddress",
-  },
-  {
-    coin: "Bitcoin",
-    network: "BTC",
-    address: "bc1qexamplebitcoinaddress",
-  },
-  {
-    coin: "Ethereum",
-    network: "ERC20",
-    address: "0xExampleEthereumWallet",
-  },
-  {
-    coin: "Solana",
-    network: "SOL",
-    address: "ExampleSolanaWalletAddress",
-  },
-  {
-    coin: "XRP",
-    network: "XRP",
-    address: "rExampleXRPWallet",
-  },
+const gateways = [
+  { name: "Bitcoin", icon: "BTC", network: "BTC" },
+  { name: "Ethereum", icon: "ETH", network: "ERC20" },
+  { name: "BNB Smart Chain", icon: "BNB", network: "BEP20" },
+  { name: "TRON", icon: "TRX", network: "TRC20" },
+  { name: "USDT", icon: "USDT", network: "TRC20" },
+  { name: "Solana", icon: "SOL", network: "SOL" },
 ];
 
-export default function DepositPage() {
-  const router = useRouter();
+export default function DepositInstantPage() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [selectedMethod, setSelectedMethod] = useState(paymentMethods[0]);
-  const [amount, setAmount] = useState("");
   return (
     <Box
-      minHeight="100vh"
-      px={{ xs: 2, md: 6 }}
-      py={6}
       sx={{
-        bgcolor: "transparent",
-        color: "var(--foreground)",
+        p: { xs: 2, md: 4 },
+        bgcolor: "var(--background)",
+        minHeight: "100vh",
       }}
     >
-      {/* Header */}
-      <Box textAlign="center" mb={5}>
-        <Typography fontSize={28} fontWeight={700}>
-          Fund Your Account
-        </Typography>
-        <Typography sx={{ color: "var(--muted-foreground)", mt: 1 }}>
-          Securely fund your trading account using your preferred payment method.
-        </Typography>
-      </Box>
-
-      {/* Quick Amounts */}
-      <Box textAlign="center" mb={6}>
-        <Typography
-          fontSize={13}
-          sx={{ color: "var(--muted-foreground)" }}
-          mb={1}
-        >
-          Quick amounts:
-        </Typography>
-        <Stack
-          direction="row"
-          justifyContent="center"
-          spacing={1}
-          flexWrap="wrap"
-        >
-          {quickAmounts.map((amt) => (
-            <Button
-              key={amt}
-              variant="outlined"
-              onClick={() => setAmount(String(amt))}
-              sx={{
-                color: "var(--muted-foreground)",
-                borderColor: "var(--border)",
-                "&:hover": { borderColor: "var(--primary)" },
-              }}
-            >
-              ${amt.toLocaleString()}
-            </Button>
-          ))}
-        </Stack>
-      </Box>
-
-      {/* Main Content */}
-      <Grid container spacing={3} justifyContent="center">
-        {/* Deposit Form */}
-        <Grid size={{ xs: 12, md: 6 }}>
-          <Card
-            sx={{
-              bgcolor: "var(--card)",
-              color: "var(--card-foreground)",
-              borderRadius: 3,
-              border: "1px solid",
-              borderColor: "var(--border)",
-              p: 3,
-            }}
-          >
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              mb={2}
-            >
-              <Typography fontWeight={600}>Make a Deposit</Typography>
-              <Chip
-                icon={<SecurityIcon />}
-                label="Secure"
-                size="small"
-                sx={{
-                  bgcolor: "rgba(34,197,94,0.12)",
-                  color: "#22c55e",
-                }}
-              />
-            </Box>
-
-            <Typography fontSize={13} mb={1}>
-              Payment Method *
-            </Typography>
-            <TextField
-              select
-              fullWidth
-              value={selectedMethod.coin}
-              onChange={(e) => {
-                const method = paymentMethods.find(
-                  (m) => m.coin === e.target.value,
-                );
-                setSelectedMethod(method!);
-              }}
-              sx={{
-                mb: 3,
-                bgcolor: "var(--background)",
-                borderRadius: 1,
-              }}
-            >
-              {paymentMethods.map((method) => (
-                <MenuItem key={method.coin} value={method.coin}>
-                  {method.coin} ({method.network})
-                </MenuItem>
-              ))}
-            </TextField>
-
-            <Typography fontSize={13} mb={1}>
-              Amount to Deposit *
-            </Typography>
-            <TextField
-              fullWidth
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="$ 0.00"
-              sx={{
-                bgcolor: "var(--background)",
-                borderRadius: 1,
-              }}
-            />
-            <Typography
-              fontSize={12}
-              sx={{ color: "var(--muted-foreground)" }}
-              mt={1}
-            >
-              Enter the amount you wish to deposit.
-            </Typography>
-
-            <Button
-              onClick={() => {
-                if (!amount) {
-                  alert("Enter deposit amount");
-                  return;
-                }
-
-                const query = new URLSearchParams({
-                  coin: selectedMethod.coin,
-                  network: selectedMethod.network,
-                  address: selectedMethod.address,
-                  amount,
-                }).toString();
-
-                router.push(`/dashboard/deposit/send-payment?${query}`);
-              }}
-              fullWidth
-              size="large"
-              sx={{
-                mt: 3,
-                bgcolor: "var(--primary)",
-                color: "var(--primary-foreground)",
-                fontWeight: 600,
-                "&:hover": { bgcolor: "var(--primary)" },
-              }}
-            >
-              Proceed with Deposit
-            </Button>
-          </Card>
-        </Grid>
-
-        {/* Right Side */}
-        <Grid size={{ xs: 12, md: 4 }}>
-          {/* Payment Methods */}
-          <Card
-            sx={{
-              bgcolor: "var(--card)",
-              color: "var(--card-foreground)",
-              borderRadius: 3,
-              border: "1px solid",
-              borderColor: "var(--border)",
-              p: 3,
-              mb: 3,
-            }}
-          >
-            <Typography fontWeight={600} mb={2}>
-              Payment Methods
-            </Typography>
-
-            <Stack spacing={1}>
-              {paymentMethods.map((method) => (
-                <Box
-                  key={method.coin}
-                  display="flex"
-                  alignItems="center"
-                  gap={1}
-                  p={1.5}
-                  borderRadius={2}
-                  sx={{
-                    bgcolor: "var(--background)",
-                  }}
-                >
-                  <CreditCardIcon fontSize="small" />
-                  <Typography fontSize={14}>{method.coin}</Typography>
-                </Box>
-              ))}
-            </Stack>
-          </Card>
-
-          {/* How To Deposit */}
-          <Card
-            sx={{
-              bgcolor: "var(--card)",
-              color: "var(--card-foreground)",
-              borderRadius: 3,
-              border: "1px solid",
-              borderColor: "var(--border)",
-              p: 3,
-            }}
-          >
-            <Typography fontWeight={600} mb={2}>
-              How to Deposit
-            </Typography>
-
-            <Stack spacing={2}>
-              <Typography fontSize={13}>
-                1️⃣ Choose your payment method
+      {/* Header Section */}
+      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+        <Box>
+          <Typography variant="h4" fontWeight="700" sx={{ color: "#ffffff", mb: 0.5, display: "flex", alignItems: "center", gap: 1.5 }}>
+            <Zap size={28} color="primary.main" /> Instant Deposit
+          </Typography>
+          <Typography variant="body2" sx={{ color: "var(--muted-foreground)" }}>
+            Select a payment gateway to fund your account instantly via cryptocurrency.
+          </Typography>
+        </Box>
+        
+        {!isMobile && (
+          <Stack direction="row" spacing={2}>
+            <Box sx={{ 
+              p: 1.5, 
+              px: 3, 
+              borderRadius: 3, 
+              bgcolor: "rgba(34, 197, 94, 0.05)", 
+              border: "1px solid rgba(34, 197, 94, 0.1)",
+              display: "flex",
+              alignItems: "center",
+              gap: 1.5
+            }}>
+              <ShieldCheck size={18} color="#22c55e" />
+              <Typography variant="caption" fontWeight="700" sx={{ color: "#22c55e" }}>
+                SECURE PAYMENTS
               </Typography>
-              <Typography fontSize={13}>2️⃣ Enter deposit amount</Typography>
-              <Typography fontSize={13}>3️⃣ Complete secure payment</Typography>
-            </Stack>
-          </Card>
-        </Grid>
+            </Box>
+          </Stack>
+        )}
+      </Stack>
+
+      {/* Info Card */}
+      <Paper
+        elevation={0}
+        sx={{
+          p: 2,
+          mb: 4,
+          bgcolor: "rgba(99, 102, 241, 0.05)",
+          border: "1px solid rgba(99, 102, 241, 0.1)",
+          borderRadius: 3,
+          display: "flex",
+          alignItems: "center",
+          gap: 2
+        }}
+      >
+        <Info size={20} color="var(--primary)" />
+        <Typography variant="body2" sx={{ color: "var(--muted-foreground)" }}>
+          Deposits are typically processed within 5-15 minutes after network confirmation.
+        </Typography>
+      </Paper>
+
+      {/* GATEWAY GRID */}
+      <Typography variant="h6" fontWeight="700" sx={{ color: "#ffffff", mb: 3 }}>
+        Select Gateway
+      </Typography>
+      <Grid container spacing={3} sx={{ mb: 6 }}>
+        {gateways.map((gw) => (
+          <Grid item xs={12} sm={6} lg={4} key={gw.name}>
+            <GatewayCard title={gw.name} network={gw.network} />
+          </Grid>
+        ))}
       </Grid>
+
+      {/* DEPOSIT LOGS */}
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h5" fontWeight="700" sx={{ color: "#ffffff", mb: 3, display: "flex", alignItems: "center", gap: 1.5 }}>
+          <History size={24} color="primary.main" /> Deposit History
+        </Typography>
+        <Paper
+          elevation={0}
+          sx={{
+            p: 0,
+            bgcolor: "var(--card)",
+            color: "var(--card-foreground)",
+            borderRadius: 4,
+            border: "1px solid",
+            borderColor: "var(--border)",
+            overflow: "hidden"
+          }}
+        >
+          <DepositLogs />
+        </Paper>
+      </Box>
     </Box>
   );
 }
-
-// "use client";
-
-// import { Box, Typography, Grid, Paper } from "@mui/material";
-// import GatewayCard from "../../../components/deposit/GatewayCard";
-// import DepositLogs from "../../../components/deposit/DepositLogs";
-
-// const gateways = [
-//   "Flutterwave",
-//   "Pay Stack",
-//   "Bitcoin",
-//   "ETH",
-//   "USDT (ETH)",
-//   "USDT (TRC 20)",
-//   "BNB",
-//   "SOLANA",
-//   "TRON",
-// ];
-
-// export default function DepositInstantPage() {
-//   return (
-//     <Box sx={{ p: { xs: 2, md: 4 }, color: "#fff" }}>
-//       {/* PAGE TITLE */}
-//       <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
-//         Payment Gateway
-//       </Typography>
-
-//       {/* GATEWAY GRID */}
-//       <Grid container spacing={2}>
-//         {gateways.map((name) => (
-//           <Grid item xs={12} sm={6} lg={4} key={name}>
-//             <GatewayCard title={name} />
-//           </Grid>
-//         ))}
-//       </Grid>
-
-//       {/* DEPOSIT LOGS */}
-//       <Paper
-//         sx={{
-//           mt: 4,
-//           p: { xs: 2, md: 3 },
-//           background: "linear-gradient(180deg,#0f0f0f,#050505)",
-//           borderRadius: 2,
-//           border: "1px solid #1c1c1c",
-//         }}
-//       >
-//         <DepositLogs />
-//       </Paper>
-//     </Box>
-//   );
-// }

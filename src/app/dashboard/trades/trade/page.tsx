@@ -7,8 +7,36 @@ import PlaceOrder from "@/app/components/PlaceOrder";
 import ActiveTrades from "@/app/components/ActiveTrades";
 import { toggleUserMode } from "@/app/actions/user";
 import { useAuth } from "@/context/AuthContext";
+import { 
+  Box, 
+  Typography, 
+  Grid, 
+  Paper, 
+  Button, 
+  Stack, 
+  useTheme, 
+  useMediaQuery,
+  Chip,
+  IconButton,
+  Tooltip,
+  Divider,
+} from "@mui/material";
+import { 
+  TrendingUp, 
+  TrendingDown, 
+  Wallet, 
+  History as HistoryIcon, 
+  Activity, 
+  RefreshCw,
+  Zap,
+  LayoutDashboard,
+  ShieldCheck
+} from "lucide-react";
 
 export default function TradeNowPage() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("xl"));
   const { currentUser } = useAuth();
   const stats = useUserStats();
   const balance = stats.mode === "demo" ? stats.balanceDemo : stats.balanceLive;
@@ -20,66 +48,154 @@ export default function TradeNowPage() {
   };
 
   return (
-    <div className="space-y-4 text-foreground">
-      {/* HEADER & STATS */}
-      <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-         <h1 className="text-2xl font-bold">Trade Now</h1>
-         <div className="flex items-center gap-4">
-             <div className="text-right">
-                 <p className="text-xs text-muted-foreground">Current Mode</p>
-                 <p className={`font-bold ${stats.mode === "live" ? "text-green-500" : "text-orange-500"}`}>
-                     {stats.mode === "live" ? "LIVE ACCOUNT" : "DEMO ACCOUNT"}
-                 </p>
-             </div>
-             <button 
-                onClick={handleModeToggle}
-                className="px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-semibold text-sm transition-colors"
-             >
-                Switch to {stats.mode === "demo" ? "Live" : "Demo"}
-             </button>
-         </div>
-      </div>
+    <Box sx={{ p: { xs: 1.5, md: 3 }, bgcolor: "var(--background)", minHeight: "100vh" }}>
+      {/* HEADER SECTION */}
+      <Stack 
+        direction={isMobile ? "column" : "row"} 
+        spacing={2} 
+        justifyContent="space-between" 
+        alignItems={isMobile ? "stretch" : "center"} 
+        sx={{ mb: 3 }}
+      >
+        <Box>
+          <Typography variant="h4" fontWeight="800" sx={{ color: "#ffffff", mb: 0.5, display: "flex", alignItems: "center", gap: 1.5 }}>
+            <Activity size={28} color="primary.main" /> Trade Now
+          </Typography>
+          <Typography variant="body2" sx={{ color: "var(--muted-foreground)" }}>
+            Execute trades on global markets with instant execution and professional charting.
+          </Typography>
+        </Box>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Stat title="Balance" value={`$${balance.toFixed(2)}`} />
-        <Stat title="Active Trades" value={stats.activeTrades} />
-        <Stat title="Total Trades" value={stats.totalTrades} />
-        <Stat title="Net P&L" value={`$${stats.netPnL.toFixed(2)}`} green={stats.netPnL >= 0} />
-      </div>
+        <Paper
+          elevation={0}
+          sx={{
+            p: 1,
+            px: 2,
+            bgcolor: "var(--card)",
+            border: "1px solid",
+            borderColor: "var(--border)",
+            borderRadius: 3,
+            display: "flex",
+            alignItems: "center",
+            gap: 2
+          }}
+        >
+          <Box sx={{ textAlign: isMobile ? "left" : "right" }}>
+            <Typography variant="caption" sx={{ color: "var(--muted-foreground)", display: "block" }}>Account Mode</Typography>
+            <Typography variant="body2" fontWeight="800" sx={{ color: stats.mode === "live" ? "#22c55e" : "#eab308" }}>
+              {stats.mode === "live" ? "LIVE ACCOUNT" : "DEMO ACCOUNT"}
+            </Typography>
+          </Box>
+          <Button 
+            variant="contained"
+            size="small"
+            onClick={handleModeToggle}
+            startIcon={<RefreshCw size={14} />}
+            sx={{ 
+              borderRadius: 2, 
+              bgcolor: stats.mode === "live" ? "rgba(34, 197, 94, 0.1)" : "rgba(234, 179, 8, 0.1)",
+              color: stats.mode === "live" ? "#22c55e" : "#eab308",
+              fontWeight: "700",
+              fontSize: "0.75rem",
+              "&:hover": { bgcolor: stats.mode === "live" ? "rgba(34, 197, 94, 0.2)" : "rgba(234, 179, 8, 0.2)" },
+              boxShadow: "none"
+            }}
+          >
+            Switch
+          </Button>
+        </Paper>
+      </Stack>
 
-      {/* MAIN GRID */}
-      <div className="grid grid-cols-1 xl:grid-cols-[280px_1fr_320px] gap-4">
+      {/* STATS GRID */}
+      <Grid container spacing={2} sx={{ mb: 3 }}>
+        <Grid item xs={6} md={3}>
+          <StatCard title="Available Balance" value={`$${balance.toLocaleString()}`} icon={<Wallet size={18} />} color="#6366f1" />
+        </Grid>
+        <Grid item xs={6} md={3}>
+          <StatCard title="Active Trades" value={stats.activeTrades} icon={<Zap size={18} />} color="#22c55e" />
+        </Grid>
+        <Grid item xs={6} md={3}>
+          <StatCard title="Total Volume" value={stats.totalTrades} icon={<TrendingUp size={18} />} color="#3b82f6" />
+        </Grid>
+        <Grid item xs={6} md={3}>
+          <StatCard title="Net P&L" value={`$${stats.netPnL.toFixed(2)}`} icon={<Activity size={18} />} color={stats.netPnL >= 0 ? "#22c55e" : "#ef4444"} isProfit />
+        </Grid>
+      </Grid>
+
+      {/* MAIN TRADING INTERFACE */}
+      <Grid container spacing={2}>
         
-        {/* LEFT: ASSETS */}
-        <div className="h-[600px] xl:h-[calc(100vh-200px)] min-h-[500px]">
-            <SelectAsset />
-        </div>
+        {/* LEFT: ASSETS SELECTOR (HIDDEN ON MOBILE, USES DRAWER OR TABS INSTEAD?) */}
+        {!isTablet && (
+          <Grid item xs={12} xl={2.5}>
+            <Paper elevation={0} sx={{ height: "calc(100vh - 280px)", minHeight: 600, bgcolor: "var(--card)", border: "1px solid", borderColor: "var(--border)", borderRadius: 4, overflow: "hidden" }}>
+              <SelectAsset />
+            </Paper>
+          </Grid>
+        )}
 
         {/* MIDDLE: CHART */}
-        <div className="h-[600px] xl:h-[calc(100vh-200px)] min-h-[500px] bg-card border border-border rounded-2xl overflow-hidden p-2">
+        <Grid item xs={12} xl={isTablet ? 8 : 6.5}>
+          <Paper 
+            elevation={0} 
+            sx={{ 
+              height: isMobile ? "400px" : "calc(100vh - 280px)", 
+              minHeight: isMobile ? 400 : 600, 
+              bgcolor: "var(--card)", 
+              border: "1px solid", 
+              borderColor: "var(--border)", 
+              borderRadius: 4, 
+              overflow: "hidden",
+              p: 1
+            }}
+          >
             <TradingViewChart />
-        </div>
+          </Paper>
+        </Grid>
 
-        {/* RIGHT: ORDER & TRADES */}
-        <div className="space-y-4 h-[600px] xl:h-[calc(100vh-200px)] overflow-y-auto pr-1">
-            <div className="bg-card border border-border rounded-2xl p-4">
-                <PlaceOrder />
-            </div>
-            <ActiveTrades />
-        </div>
+        {/* RIGHT: ORDER FORM & ACTIVE TRADES */}
+        <Grid item xs={12} xl={isTablet ? 4 : 3}>
+          <Stack spacing={2} sx={{ height: isTablet ? "auto" : "calc(100vh - 280px)", minHeight: isTablet ? "auto" : 600 }}>
+            <Paper elevation={0} sx={{ p: 0, bgcolor: "var(--card)", border: "1px solid", borderColor: "var(--border)", borderRadius: 4, overflow: "hidden" }}>
+              <PlaceOrder />
+            </Paper>
+            <Box sx={{ flex: 1, overflowY: "auto" }}>
+              <ActiveTrades />
+            </Box>
+          </Stack>
+        </Grid>
 
-      </div>
-    </div>
+      </Grid>
+    </Box>
   );
 }
 
-function Stat({ title, value, green }: { title: string; value: string | number; green?: boolean }) {
+function StatCard({ title, value, icon, color, isProfit }: { title: string; value: string | number; icon: React.ReactNode; color: string; isProfit?: boolean }) {
   return (
-    <div className="bg-card border border-border rounded-2xl p-4">
-      <p className="text-sm text-muted-foreground">{title}</p>
-      <p className={`text-2xl font-bold ${green ? "text-emerald-500" : "text-foreground"}`}>
+    <Paper
+      elevation={0}
+      sx={{
+        p: 2,
+        bgcolor: "var(--card)",
+        border: "1px solid",
+        borderColor: "var(--border)",
+        borderRadius: 4,
+        display: "flex",
+        flexDirection: "column",
+        gap: 1,
+      }}
+    >
+      <Stack direction="row" spacing={1} alignItems="center">
+        <Box sx={{ p: 0.8, borderRadius: 2, bgcolor: `${color}15`, color: color, display: "flex" }}>
+          {icon}
+        </Box>
+        <Typography variant="caption" sx={{ color: "var(--muted-foreground)", fontWeight: "600" }}>
+          {title}
+        </Typography>
+      </Stack>
+      <Typography variant="h6" fontWeight="800" sx={{ color: isProfit ? (parseFloat(String(value).replace("$", "")) >= 0 ? "#22c55e" : "#ef4444") : "#ffffff" }}>
         {value}
-      </p>
-    </div>
+      </Typography>
+    </Paper>
   );
 }

@@ -45,7 +45,7 @@ export default function SecurityPage() {
 //             </div>
 //           </div>
 //           <h1 className="text-xl font-semibold text-white">
-//             Join Noble Vest
+//             Join rolfsq
 //           </h1>
 //           <p className="text-sm text-white/60">
 //             Start your professional trading journey
@@ -146,7 +146,7 @@ export default function SecurityPage() {
 //           <label className="flex items-start gap-2 text-xs text-white/80">
 //             <input type="checkbox" name="terms" className="mt-1" />
 //             <span>
-//               I agree to Noble Vest’s{" "}
+//               I agree to Rolfsq ’s{" "}
 //               <span className="text-indigo-400">Terms and Conditions</span> and
 //               acknowledge that I have read and understood the{" "}
 //               <span className="text-indigo-400">Privacy Policy</span>.

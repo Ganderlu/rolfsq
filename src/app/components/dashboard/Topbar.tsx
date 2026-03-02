@@ -50,7 +50,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
       </Stack>
 
       <Stack direction="row" spacing={3} alignItems="center">
-        <Stack direction="row" spacing={1}>
+        {/* <Stack direction="row" spacing={1}>
           <IconButton
             size="small"
             sx={{
@@ -61,7 +61,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
             <Search size={20} />
           </IconButton>
           <NotificationBell />
-        </Stack>
+        </Stack> */}
 
         <Box
           sx={{

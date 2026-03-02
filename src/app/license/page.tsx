@@ -80,7 +80,7 @@ export default function LicensePage() {
                   variant="body1"
                   sx={{ color: "text.secondary", mb: 2 }}
                 >
-                  Noble Vest Invest is a fully registered financial services
+                  Rolfsq Invest is a fully registered financial services
                   provider, operating in compliance with international financial
                   laws.
                 </Typography>

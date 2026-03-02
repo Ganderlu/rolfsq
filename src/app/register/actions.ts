@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { adminAuth, adminDb } from "../firebase/firebaseAdmin";
+import { FieldValue } from "firebase-admin/firestore";
 
 /* =========================
    STEP 1 — PERSONAL INFO
@@ -13,6 +14,7 @@ export async function saveStep1(formData: FormData) {
       fullName: formData.get("fullName"),
       email: formData.get("email"),
       phone: formData.get("phone"),
+      referredBy: formData.get("referredBy") || null,
       step: 1,
       createdAt: new Date(),
     };
@@ -108,6 +110,7 @@ export async function completeRegistration(formData: FormData) {
     email: string;
     phone: string;
     country: string;
+    referredBy: string | null;
   };
 
   try {
@@ -130,6 +133,7 @@ export async function completeRegistration(formData: FormData) {
         email: data.email,
         phone: data.phone || "",
         country: data.country,
+        referredBy: data.referredBy || null,
         mode: "demo",
         balanceDemo: 10000,
         balanceLive: 0,
@@ -138,8 +142,32 @@ export async function completeRegistration(formData: FormData) {
         activeTrades: 0,
         totalPnL: 0,
         role: "user",
+        status: "active",
         createdAt: new Date(),
       });
+
+    // 💰 IF REFERRED, ADD REWARD (EXAMPLE: $5)
+    if (data.referredBy) {
+      const rewardAmount = 5.0; // Standard signup reward
+
+      // Update Referrer Balance
+      await adminDb
+        .collection("users")
+        .doc(data.referredBy)
+        .update({
+          usdtBalance: FieldValue.increment(rewardAmount),
+        });
+
+      // Log Reward Transaction
+      await adminDb.collection("referralRewards").add({
+        userId: data.referredBy,
+        referredUserId: user.uid,
+        referredUserEmail: data.email,
+        amount: rewardAmount,
+        type: "signup",
+        timestamp: new Date(),
+      });
+    }
 
     // 🧹 CLEAN TEMP REGISTRATION DATA
     await ref.delete();

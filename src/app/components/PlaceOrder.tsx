@@ -6,6 +6,30 @@ import { ASSETS } from "../constants/assets";
 import { placeTrade } from "../dashboard/trades/actions";
 import { useAuth } from "@/context/AuthContext";
 
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  InputAdornment,
+  Stack,
+  Chip,
+  MenuItem,
+  CircularProgress,
+  Divider,
+  Paper,
+  Grid,
+} from "@mui/material";
+import {
+  TrendingUp,
+  TrendingDown,
+  DollarSign,
+  Clock,
+  Zap,
+  ShieldCheck,
+  ChevronRight,
+} from "lucide-react";
+
 export default function PlaceOrder() {
   const { symbol } = useMarketStore();
   const { currentUser } = useAuth();
@@ -16,114 +40,275 @@ export default function PlaceOrder() {
 
   // Parse symbol to get asset name (e.g. "BTC")
   const assetName = symbol.replace("BINANCE:", "").replace("USDT", "");
-  const assetInfo = ASSETS.find(a => a.symbol === assetName);
+  const assetInfo = ASSETS.find((a) => a.symbol === assetName);
   const payoutStr = assetInfo?.payout || "85%";
   const payout = parseFloat(payoutStr) / 100;
 
   const handleTrade = async () => {
     if (loading) return;
     if (!currentUser) {
-        alert("Please log in to trade");
-        return;
+      alert("Please log in to trade");
+      return;
     }
     setLoading(true);
 
     try {
-        // Fetch price
-        const tickerSymbol = `${assetName}USDT`;
-        const res = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${tickerSymbol}`);
-        const data = await res.json();
-        const price = parseFloat(data.price);
+      const tickerSymbol = `${assetName}USDT`;
+      const res = await fetch(
+        `https://api.binance.com/api/v3/ticker/price?symbol=${tickerSymbol}`,
+      );
+      const data = await res.json();
+      const price = parseFloat(data.price);
 
-        if (!price) throw new Error("Failed to fetch price");
+      if (!price) throw new Error("Failed to fetch price");
 
-        await placeTrade({
-            uid: currentUser.uid,
-            asset: assetName,
-            direction,
-            amount,
-            duration,
-            payout,
-            price
-        });
-
-        alert("Trade placed successfully!");
+      await placeTrade({
+        uid: currentUser.uid,
+        asset: assetName,
+        direction,
+        amount,
+        duration,
+        payout,
+        price,
+      });
     } catch (err: any) {
-        alert(err.message || "Failed to place trade");
+      alert(err.message || "Failed to place trade");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="bg-card border border-border rounded-2xl p-5 space-y-6">
-      <div className="flex justify-between items-center">
-        <h3 className="text-foreground font-semibold">Place Order</h3>
-        <span className="text-xs font-mono bg-muted px-2 py-1 rounded">
-            {assetName}/USDT <span className="text-primary">{payoutStr}</span>
-        </span>
-      </div>
+    <Box sx={{ p: 2.5, bgcolor: "var(--card)", borderRadius: 4 }}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ mb: 3 }}
+      >
+        <Typography
+          variant="subtitle1"
+          fontWeight="700"
+          sx={{ color: "#ffffff" }}
+        >
+          Place Order
+        </Typography>
+        <Chip
+          label={`${assetName}/USDT ${payoutStr}`}
+          size="small"
+          sx={{
+            bgcolor: "rgba(99, 102, 241, 0.1)",
+            color: "primary.main",
+            fontWeight: "700",
+            fontSize: "0.7rem",
+            fontFamily: "monospace",
+          }}
+        />
+      </Stack>
 
-      {/* Direction */}
-      <div>
-        <p className="text-sm text-muted-foreground mb-2">Direction</p>
-        <div className="grid grid-cols-2 gap-3">
-          <button 
-            onClick={() => setDirection("call")}
-            className={`py-3 rounded-lg font-semibold transition-colors ${direction === "call" ? "bg-emerald-600 text-white" : "border border-emerald-600 text-emerald-500 hover:bg-emerald-600/10"}`}
+      <Stack spacing={3}>
+        {/* Direction */}
+        <Box>
+          <Typography
+            variant="caption"
+            sx={{
+              color: "var(--muted-foreground)",
+              fontWeight: "600",
+              mb: 1,
+              display: "block",
+            }}
           >
-            CALL
-            <span className="block text-xs font-normal opacity-80">Price will rise</span>
-          </button>
-          <button 
-            onClick={() => setDirection("put")}
-            className={`py-3 rounded-lg transition-all ${direction === "put" ? "bg-red-600 text-white" : "border border-red-600 text-red-500 hover:bg-red-600/10"}`}
-          >
-            PUT
-            <span className="block text-xs opacity-80">Price will fall</span>
-          </button>
-        </div>
-      </div>
+            SELECT DIRECTION
+          </Typography>
+          <Grid container spacing={1.5}>
+            <Grid item xs={6}>
+              <Button
+                fullWidth
+                onClick={() => setDirection("call")}
+                variant={direction === "call" ? "contained" : "outlined"}
+                sx={{
+                  py: 1.5,
+                  borderRadius: 3,
+                  bgcolor: direction === "call" ? "#22c55e" : "transparent",
+                  borderColor: "#22c55e",
+                  color: direction === "call" ? "#ffffff" : "#22c55e",
+                  "&:hover": {
+                    bgcolor:
+                      direction === "call"
+                        ? "#16a34a"
+                        : "rgba(34, 197, 94, 0.05)",
+                    borderColor: "#22c55e",
+                  },
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0.5,
+                  transition: "all 0.2s",
+                }}
+              >
+                <TrendingUp size={18} />
+                <Typography variant="caption" fontWeight="800">
+                  CALL
+                </Typography>
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                fullWidth
+                onClick={() => setDirection("put")}
+                variant={direction === "put" ? "contained" : "outlined"}
+                sx={{
+                  py: 1.5,
+                  borderRadius: 3,
+                  bgcolor: direction === "put" ? "#ef4444" : "transparent",
+                  borderColor: "#ef4444",
+                  color: direction === "put" ? "#ffffff" : "#ef4444",
+                  "&:hover": {
+                    bgcolor:
+                      direction === "put"
+                        ? "#dc2626"
+                        : "rgba(239, 68, 68, 0.05)",
+                    borderColor: "#ef4444",
+                  },
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0.5,
+                  transition: "all 0.2s",
+                }}
+              >
+                <TrendingDown size={18} />
+                <Typography variant="caption" fontWeight="800">
+                  PUT
+                </Typography>
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
 
-      {/* Amount */}
-      <div>
-        <p className="text-sm text-muted-foreground mb-2">Investment Amount</p>
-        <div className="flex items-center bg-background border border-input rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-primary">
-          <span className="px-3 text-muted-foreground">$</span>
-          <input
+        {/* Amount */}
+        <Box>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ mb: 1 }}
+          >
+            <Typography
+              variant="caption"
+              sx={{ color: "var(--muted-foreground)", fontWeight: "600" }}
+            >
+              INVESTMENT AMOUNT
+            </Typography>
+            <Typography
+              variant="caption"
+              sx={{ color: "#22c55e", fontWeight: "700" }}
+            >
+              Profit: +${(amount * payout).toFixed(2)}
+            </Typography>
+          </Stack>
+          <TextField
+            fullWidth
+            size="small"
             type="number"
             value={amount}
             onChange={(e) => setAmount(Number(e.target.value))}
-            className="w-full bg-transparent px-2 py-2 text-foreground outline-none"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <DollarSign size={16} color="var(--muted-foreground)" />
+                </InputAdornment>
+              ),
+              sx: {
+                bgcolor: "rgba(255,255,255,0.03)",
+                borderRadius: 2.5,
+                "& fieldset": { borderColor: "var(--border)" },
+                "& input": { color: "#ffffff", fontWeight: "700" },
+              },
+            }}
           />
-        </div>
-        <div className="flex justify-between text-xs text-muted-foreground mt-1">
-          <span>Min: 10</span>
-          <span>Profit: ${(amount * payout).toFixed(2)}</span>
-        </div>
-      </div>
+        </Box>
 
-      {/* Duration */}
-      <div>
-        <p className="text-sm text-muted-foreground mb-2">Duration</p>
-        <select 
+        {/* Duration */}
+        <Box>
+          <Typography
+            variant="caption"
+            sx={{
+              color: "var(--muted-foreground)",
+              fontWeight: "600",
+              mb: 1,
+              display: "block",
+            }}
+          >
+            EXPIRY DURATION
+          </Typography>
+          <TextField
+            select
+            fullWidth
+            size="small"
             value={duration}
             onChange={(e) => setDuration(Number(e.target.value))}
-            className="w-full bg-background border border-input rounded-lg px-3 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-        >
-          <option value={60}>1 Minute</option>
-          <option value={300}>5 Minutes</option>
-          <option value={900}>15 Minutes</option>
-        </select>
-      </div>
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Clock size={16} color="var(--muted-foreground)" />
+                </InputAdornment>
+              ),
+              sx: {
+                bgcolor: "rgba(255,255,255,0.03)",
+                borderRadius: 2.5,
+                "& fieldset": { borderColor: "var(--border)" },
+                "& .MuiSelect-select": { color: "#ffffff", fontWeight: "600" },
+              },
+            }}
+          >
+            <MenuItem value={60}>1 Minute</MenuItem>
+            <MenuItem value={300}>5 Minutes</MenuItem>
+            <MenuItem value={900}>15 Minutes</MenuItem>
+            <MenuItem value={1800}>30 Minutes</MenuItem>
+            <MenuItem value={3600}>1 Hour</MenuItem>
+          </TextField>
+        </Box>
 
-      <button 
-        onClick={handleTrade}
-        disabled={loading}
-        className="w-full bg-primary hover:bg-primary/90 transition py-3 rounded-lg font-semibold text-primary-foreground shadow-lg shadow-primary/20 disabled:opacity-50"
-      >
-        {loading ? "Placing..." : "Place Trade"}
-      </button>
-    </div>
+        <Button
+          fullWidth
+          variant="contained"
+          onClick={handleTrade}
+          disabled={loading}
+          startIcon={
+            loading ? (
+              <CircularProgress size={18} color="inherit" />
+            ) : (
+              <Zap size={18} />
+            )
+          }
+          sx={{
+            py: 1.5,
+            borderRadius: 3,
+            bgcolor: "primary.main",
+            fontWeight: "800",
+            fontSize: "0.95rem",
+            boxShadow: "0 4px 14px 0 rgba(99, 102, 241, 0.39)",
+            "&:hover": { bgcolor: "primary.dark" },
+            textTransform: "none",
+          }}
+        >
+          {loading ? "EXECUTING..." : "PLACE TRADE"}
+        </Button>
+
+        <Stack
+          direction="row"
+          spacing={1}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <ShieldCheck size={12} color="var(--muted-foreground)" />
+          <Typography
+            variant="caption"
+            sx={{ color: "var(--muted-foreground)" }}
+          >
+            Secure instant execution
+          </Typography>
+        </Stack>
+      </Stack>
+    </Box>
   );
 }
