@@ -149,3 +149,51 @@ export async function rejectPinRecharge(rechargeId: string) {
 
   return { success: true };
 }
+
+export async function settleInvestment(investmentId: string) {
+  if (!adminDb) throw new Error("Admin DB not initialized");
+
+  const adb = adminDb!;
+
+  await adb.runTransaction(async (tx) => {
+    const invRef = adb.doc(`investments/${investmentId}`);
+    const invSnap = await tx.get(invRef);
+    if (!invSnap.exists) throw new Error("Investment not found");
+
+    const inv = invSnap.data() as any;
+    if (inv.status === "completed")
+      throw new Error("Investment already settled");
+
+    const userId = inv.userId;
+    const amount = Number(inv.amount || 0);
+    const profit = Number(inv.profit || 0);
+    if (!userId) throw new Error("Investment has no userId");
+    if (!Number.isFinite(amount) || amount <= 0)
+      throw new Error("Invalid investment amount");
+
+    const userRef = adb.doc(`users/${userId}`);
+    const userSnap = await tx.get(userRef);
+    if (!userSnap.exists) throw new Error("User not found");
+
+    tx.update(userRef, {
+      usdtBalance: FieldValue.increment(amount + profit),
+    });
+
+    tx.update(invRef, {
+      status: "completed",
+      completedAt: new Date(),
+    });
+
+    const notifRef = adb.collection("notifications").doc();
+    tx.set(notifRef, {
+      userId,
+      type: "investment-completed",
+      title: "Investment Settled",
+      message: `Your investment was settled. Amount: $${amount.toFixed(2)}, Profit: $${profit.toFixed(2)}.`,
+      read: false,
+      createdAt: new Date(),
+    });
+  });
+
+  return { success: true };
+}
