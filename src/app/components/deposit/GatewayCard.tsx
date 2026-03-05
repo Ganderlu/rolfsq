@@ -77,7 +77,13 @@ export default function GatewayCard({ title, network }: { title: string; network
       <Button
         fullWidth
         variant="contained"
-        onClick={() => router.push(`/dashboard/deposit/instant?gateway=${title.toLowerCase()}`)}
+        onClick={() =>
+          router.push(
+            `/dashboard/deposit/instant/deposit-now?gateway=${encodeURIComponent(
+              title.toLowerCase(),
+            )}${network ? `&network=${encodeURIComponent(network)}` : ""}`,
+          )
+        }
         endIcon={<ArrowUpRight size={18} />}
         sx={{
           borderRadius: 2.5,

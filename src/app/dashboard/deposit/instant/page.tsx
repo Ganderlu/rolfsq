@@ -8,19 +8,10 @@ import {
   Stack,
   useTheme,
   useMediaQuery,
-  Button,
-  Divider,
 } from "@mui/material";
 import GatewayCard from "../../../components/deposit/GatewayCard";
 import DepositLogs from "../../../components/deposit/DepositLogs";
-import { 
-  Wallet, 
-  ArrowUpToLine, 
-  History, 
-  Zap, 
-  ShieldCheck, 
-  Info 
-} from "lucide-react";
+import { History, Zap, ShieldCheck, Info } from "lucide-react";
 
 const gateways = [
   { name: "Bitcoin", icon: "BTC", network: "BTC" },
@@ -30,6 +21,24 @@ const gateways = [
   { name: "USDT", icon: "USDT", network: "TRC20" },
   { name: "Solana", icon: "SOL", network: "SOL" },
 ];
+
+const WALLET_MAP: Record<string, { network: string; address: string }[]> = {
+  bitcoin: [{ network: "BTC", address: "1Nx5hR6WdKULtpB7PZN64Kbzu8HP3MhYtV" }],
+  ethereum: [
+    { network: "ERC20", address: "0xf311ac9df89e6c5663a49438971c8e7403af6642" },
+  ],
+  "bnb smart chain": [
+    { network: "BEP20", address: "0xf311ac9df89e6c5663a49438971c8e7403af6642" },
+  ],
+  tron: [{ network: "TRC20", address: "TEFHSDaGkvgycMZqL28NiFekygVEuKNLqW" }],
+  usdt: [
+    { network: "TRC20", address: "TEFHSDaGkvgycMZqL28NiFekygVEuKNLqW" },
+    { network: "ERC20", address: "0xf311ac9df89e6c5663a49438971c8e7403af6642" },
+  ],
+  solana: [
+    { network: "SOL", address: "GXYQcxvitv5pUgvoapX5W3zKhE5W6gZqUNnQLYYnu5dH" },
+  ],
+};
 
 export default function DepositInstantPage() {
   const theme = useTheme();
@@ -44,30 +53,52 @@ export default function DepositInstantPage() {
       }}
     >
       {/* Header Section */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ mb: 4 }}
+      >
         <Box>
-          <Typography variant="h4" fontWeight="700" sx={{ color: "#ffffff", mb: 0.5, display: "flex", alignItems: "center", gap: 1.5 }}>
+          <Typography
+            variant="h4"
+            fontWeight="700"
+            sx={{
+              color: "#ffffff",
+              mb: 0.5,
+              display: "flex",
+              alignItems: "center",
+              gap: 1.5,
+            }}
+          >
             <Zap size={28} color="primary.main" /> Instant Deposit
           </Typography>
           <Typography variant="body2" sx={{ color: "var(--muted-foreground)" }}>
-            Select a payment gateway to fund your account instantly via cryptocurrency.
+            Select a payment gateway to fund your account instantly via
+            cryptocurrency.
           </Typography>
         </Box>
-        
+
         {!isMobile && (
           <Stack direction="row" spacing={2}>
-            <Box sx={{ 
-              p: 1.5, 
-              px: 3, 
-              borderRadius: 3, 
-              bgcolor: "rgba(34, 197, 94, 0.05)", 
-              border: "1px solid rgba(34, 197, 94, 0.1)",
-              display: "flex",
-              alignItems: "center",
-              gap: 1.5
-            }}>
+            <Box
+              sx={{
+                p: 1.5,
+                px: 3,
+                borderRadius: 3,
+                bgcolor: "rgba(34, 197, 94, 0.05)",
+                border: "1px solid rgba(34, 197, 94, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                gap: 1.5,
+              }}
+            >
               <ShieldCheck size={18} color="#22c55e" />
-              <Typography variant="caption" fontWeight="700" sx={{ color: "#22c55e" }}>
+              <Typography
+                variant="caption"
+                fontWeight="700"
+                sx={{ color: "#22c55e" }}
+              >
                 SECURE PAYMENTS
               </Typography>
             </Box>
@@ -86,17 +117,22 @@ export default function DepositInstantPage() {
           borderRadius: 3,
           display: "flex",
           alignItems: "center",
-          gap: 2
+          gap: 2,
         }}
       >
         <Info size={20} color="var(--primary)" />
         <Typography variant="body2" sx={{ color: "var(--muted-foreground)" }}>
-          Deposits are typically processed within 5-15 minutes after network confirmation.
+          Deposits are typically processed within 5-15 minutes after network
+          confirmation.
         </Typography>
       </Paper>
 
       {/* GATEWAY GRID */}
-      <Typography variant="h6" fontWeight="700" sx={{ color: "#ffffff", mb: 3 }}>
+      <Typography
+        variant="h6"
+        fontWeight="700"
+        sx={{ color: "#ffffff", mb: 3 }}
+      >
         Select Gateway
       </Typography>
       <Grid container spacing={3} sx={{ mb: 6 }}>
@@ -109,7 +145,17 @@ export default function DepositInstantPage() {
 
       {/* DEPOSIT LOGS */}
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h5" fontWeight="700" sx={{ color: "#ffffff", mb: 3, display: "flex", alignItems: "center", gap: 1.5 }}>
+        <Typography
+          variant="h5"
+          fontWeight="700"
+          sx={{
+            color: "#ffffff",
+            mb: 3,
+            display: "flex",
+            alignItems: "center",
+            gap: 1.5,
+          }}
+        >
           <History size={24} color="primary.main" /> Deposit History
         </Typography>
         <Paper
@@ -121,7 +167,7 @@ export default function DepositInstantPage() {
             borderRadius: 4,
             border: "1px solid",
             borderColor: "var(--border)",
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
           <DepositLogs />
