@@ -7,18 +7,42 @@ export const dynamic = "force-dynamic";
 export default async function ManageUsersPage() {
   if (!adminDb) {
     return (
-      <div className="p-8 text-center">
+      <div className="p-8 text-center max-w-2xl mx-auto">
         <h1 className="text-2xl font-bold text-red-500 mb-4">
-          Configuration Error
+          Firebase Admin Configuration Error
         </h1>
-        <p className="text-gray-600">
-          Firebase Admin SDK is not initialized. This usually means the{" "}
-          <code className="bg-gray-100 p-1 rounded">
-            FIREBASE_SERVICE_ACCOUNT
-          </code>{" "}
-          environment variable is missing or invalid in your production
+        <p className="text-gray-600 mb-6">
+          The Firebase Admin SDK could not be initialized in your production
           environment.
         </p>
+
+        <div className="bg-white border border-gray-200 rounded-lg p-6 text-left shadow-sm">
+          <p className="font-semibold mb-3">To fix this in Vercel:</p>
+          <ol className="list-decimal list-inside space-y-4 text-sm text-gray-700">
+            <li>
+              Go to your Vercel Dashboard → Project Settings → Environment
+              Variables.
+            </li>
+            <li>
+              Add these 3 individual variables (recommended for Vercel):
+              <ul className="list-disc list-inside ml-6 mt-2 space-y-1 font-mono text-xs text-blue-600">
+                <li>FIREBASE_PROJECT_ID</li>
+                <li>FIREBASE_CLIENT_EMAIL</li>
+                <li>FIREBASE_PRIVATE_KEY</li>
+              </ul>
+            </li>
+            <li>
+              <strong>OR</strong> add the single JSON variable:
+              <ul className="list-disc list-inside ml-6 mt-2 font-mono text-xs text-blue-600">
+                <li>FIREBASE_SERVICE_ACCOUNT</li>
+              </ul>
+            </li>
+            <li className="text-gray-500 italic">
+              After adding variables, you must <strong>redeploy</strong> your
+              project for changes to take effect.
+            </li>
+          </ol>
+        </div>
       </div>
     );
   }
