@@ -6,32 +6,63 @@ export const dynamic = "force-dynamic";
 
 export default async function ManageUsersPage() {
   if (!adminDb) {
-    throw new Error(
-      "Firebase Admin not initialized. Check .env.local and restart the server.",
+    return (
+      <div className="p-8 text-center">
+        <h1 className="text-2xl font-bold text-red-500 mb-4">
+          Configuration Error
+        </h1>
+        <p className="text-gray-600">
+          Firebase Admin SDK is not initialized. This usually means the{" "}
+          <code className="bg-gray-100 p-1 rounded">
+            FIREBASE_SERVICE_ACCOUNT
+          </code>{" "}
+          environment variable is missing or invalid in your production
+          environment.
+        </p>
+      </div>
     );
   }
 
-  const snapshot = await adminDb
-    .collection("users")
-    .orderBy("createdAt", "desc")
-    .limit(10)
-    .get();
+  try {
+    const snapshot = await adminDb
+      .collection("users")
+      .orderBy("createdAt", "desc")
+      .limit(10)
+      .get();
 
-  const users = snapshot.docs.map((doc: QueryDocumentSnapshot) => {
-    const data = doc.data();
-    return {
-      id: doc.id,
-      fullName: data.fullName,
-      email: data.email,
-      verified: data.verified,
-      kyc: data.kycStatus,
-      status: data.status,
-      joined: data.createdAt?.toDate().toDateString(),
-      walletBalance: data.walletBalance ?? 0,
-    };
-  });
+    const users = snapshot.docs.map((doc: QueryDocumentSnapshot) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        fullName: data.fullName,
+        email: data.email,
+        verified: data.verified,
+        kyc: data.kycStatus,
+        status: data.status,
+        joined: data.createdAt?.toDate
+          ? data.createdAt.toDate().toDateString()
+          : "N/A",
+        walletBalance: data.walletBalance ?? 0,
+      };
+    });
 
-  return <UsersClient initialUsers={users} />;
+    return <UsersClient initialUsers={users} />;
+  } catch (error: any) {
+    console.error("Error fetching users:", error);
+    return (
+      <div className="p-8 text-center">
+        <h1 className="text-2xl font-bold text-red-500 mb-4">Database Error</h1>
+        <p className="text-gray-600 mb-4">
+          An error occurred while fetching the user list.
+        </p>
+        <div className="bg-red-50 p-4 rounded text-left inline-block max-w-2xl overflow-auto">
+          <code className="text-red-700 text-sm">
+            {error.message || "Unknown error"}
+          </code>
+        </div>
+      </div>
+    );
+  }
 }
 
 // import { Card, CardContent } from "@/components/ui/card";
